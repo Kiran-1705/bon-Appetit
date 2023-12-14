@@ -47,7 +47,7 @@ class _ScreenProfileState extends State<ScreenProfile> {
   //   await Hive.openBox<RecipeModel>('recipe_db'); // Open the 'recipe_db' box
   //   recipeBox = Hive.box<RecipeModel>('recipe_db');
   // }
-
+//haibitch
   Future<void> getUserDetails() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     String? email = prefs.getString('loggedInUserEmail');
