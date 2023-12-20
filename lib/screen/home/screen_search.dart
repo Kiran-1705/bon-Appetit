@@ -76,29 +76,38 @@ class _ScreenSearchState extends State<ScreenSearch> {
     );
   }
 
-  Widget _buildImageWithText(
-      {required String imagePath, required String text}) {
-    return Expanded(
-      child: GestureDetector(
-        onTap: () {},
-        child: Container(
-          decoration: BoxDecoration(borderRadius: BorderRadius.circular(8)),
-          height: 200,
-          width: 150,
-          child: Column(
-            children: [
-              AspectRatio(
+  Widget _buildImageWithText({
+    required String imagePath,
+    required String text,
+  }) {
+    return GestureDetector(
+      onTap: () {
+        // Handle onTap action
+      },
+      child: Container(
+        decoration: BoxDecoration(borderRadius: BorderRadius.circular(8)),
+        height: 150,
+        width: 150,
+        child: Column(
+          children: [
+            Expanded(
+              child: AspectRatio(
                 aspectRatio: 1,
                 child: Image.asset(
                   imagePath,
-                  fit: BoxFit.cover,
+                  fit: BoxFit.fill,
                 ),
               ),
-              Text(
+            ),
+            Padding(
+              padding: const EdgeInsets.only(top: 8.0),
+              child: Text(
                 text,
+                textAlign: TextAlign.center,
+                style: const TextStyle(fontSize: 16),
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );

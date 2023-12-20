@@ -44,6 +44,9 @@ class _ScreenAddRecipesState extends State<ScreenAddRecipes> {
           'Add Recipe',
           style: TextStyle(fontWeight: FontWeight.bold),
         ),
+        actions: [
+          IconButton(onPressed: () {}, icon: const Icon(Icons.info, size: 30))
+        ],
       ),
       body: SingleChildScrollView(
         child: Padding(
@@ -92,15 +95,20 @@ class _ScreenAddRecipesState extends State<ScreenAddRecipes> {
                 ),
                 const SizedBox(height: 10),
                 Container(
-                  height: 310,
-                  color: Colors.black,
+                  height: 290,
+                  decoration: const BoxDecoration(
+                      color: Colors.black,
+                      borderRadius: BorderRadius.all(Radius.circular(8))),
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Column(
                       children: [
                         Container(
-                          height: 240,
-                          color: Colors.grey,
+                          height: 220,
+                          decoration: const BoxDecoration(
+                              color: Colors.white,
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(5))),
                           child: GridView.builder(
                             gridDelegate:
                                 const SliverGridDelegateWithFixedCrossAxisCount(
@@ -198,7 +206,7 @@ class _ScreenAddRecipesState extends State<ScreenAddRecipes> {
                 const SizedBox(height: 10),
                 TextFormField(
                   decoration: InputDecoration(
-                    labelText: 'Add Tips (Optional)',
+                    labelText: 'Add Discription',
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(12),
                     ),

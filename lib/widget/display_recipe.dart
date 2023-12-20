@@ -1,22 +1,28 @@
-import 'package:bon_appetit/database/model/accept_model.dart';
+import 'package:bon_appetit/database/model/recipe_model.dart';
 import 'package:flutter/material.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
-class ScreenOut extends StatefulWidget {
-  final AcceptModel recipe;
+class ScreenRecipeOut extends StatefulWidget {
+  final RecipeModel recipe;
 
-  const ScreenOut({Key? key, required this.recipe}) : super(key: key);
+  const ScreenRecipeOut({Key? key, required this.recipe}) : super(key: key);
 
   @override
-  State<ScreenOut> createState() => _ScreenOutState();
+  State<ScreenRecipeOut> createState() => _ScreenRecipeOutState();
 }
 
-class _ScreenOutState extends State<ScreenOut> {
+class _ScreenRecipeOutState extends State<ScreenRecipeOut> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(widget.recipe.title),
+        title: Text(
+          widget.recipe.title,
+          style: const TextStyle(
+            fontWeight: FontWeight.bold,
+            fontSize: 23,
+          ),
+        ),
         centerTitle: true,
       ),
       body: SingleChildScrollView(

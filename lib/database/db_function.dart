@@ -21,7 +21,7 @@ ValueNotifier<List<RejectModel>> rejectListNotifier =
 Future<void> getAllUser() async {
   final userDB = await Hive.openBox<UserModel>('user_db');
   userListNotifier.value = userDB.values.toList();
-  userListNotifier.notifyListeners();
+  // userListNotifier.notifyListeners();
 }
 
 void addUser(UserModel value) async {
@@ -53,7 +53,7 @@ Future<bool> checkUserExists(UserModel user) async {
 Future<void> getAllRecipe() async {
   final recipeDB = await Hive.openBox<RecipeModel>('recipe_db');
   recipeListNotifier.value = recipeDB.values.toList();
-  recipeListNotifier.notifyListeners();
+  // recipeListNotifier.notifyListeners();
 }
 
 void addRecipe(RecipeModel value) async {
@@ -82,15 +82,22 @@ RecipeModel convertToRecipeModel(AcceptModel acceptModel) {
   );
 }
 
-Future<List<RecipeModel>> getAllAccept() async {
+// Future<List<RecipeModel>> getAllAccept() async {
+//   final acceptDB = await Hive.openBox<AcceptModel>('accept_db');
+//   List<AcceptModel> acceptModels = acceptDB.values.toList();
+//   List<RecipeModel> acceptedRecipes = acceptModels.map((acceptModel) {
+//     return convertToRecipeModel(acceptModel);
+//   }).toList();
+//   acceptListNotifier.value = acceptModels;
+//   acceptListNotifier.notifyListeners();
+//   return acceptedRecipes;
+// }
+Future<List<AcceptModel>> getAllAccept() async {
   final acceptDB = await Hive.openBox<AcceptModel>('accept_db');
   List<AcceptModel> acceptModels = acceptDB.values.toList();
-  List<RecipeModel> acceptedRecipes = acceptModels.map((acceptModel) {
-    return convertToRecipeModel(acceptModel);
-  }).toList();
   acceptListNotifier.value = acceptModels;
-  acceptListNotifier.notifyListeners();
-  return acceptedRecipes;
+  // acceptListNotifier.notifyListeners();
+  return acceptModels;
 }
 
 void addAccept(AcceptModel value) async {

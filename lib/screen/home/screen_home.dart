@@ -1,7 +1,6 @@
 import 'package:bon_appetit/screen/home/screen_favorites.dart';
 import 'package:bon_appetit/screen/home/screen_profile.dart';
 import 'package:bon_appetit/screen/home/screen_recipes.dart';
-import 'package:bon_appetit/screen/home/screen_search.dart';
 import 'package:bon_appetit/widget/aloochat.dart';
 import 'package:bon_appetit/widget/bottom_bar.dart';
 import 'package:bon_appetit/widget/cb.dart';
@@ -31,7 +30,7 @@ class _ScreenHomeState extends State<ScreenHome> {
     const ScreenHome(),
     const ScreenRecipes(),
     const ScreenFavorites(),
-    ScreenProfile(),
+    const ScreenProfile(),
   ];
   @override
   Widget build(BuildContext context) {
@@ -52,30 +51,29 @@ class _ScreenHomeState extends State<ScreenHome> {
         child: SingleChildScrollView(
           child: Column(
             children: [
-              Padding(
-                padding: const EdgeInsets.only(left: 18, right: 18, top: 10),
+              const Padding(
+                padding: EdgeInsets.only(left: 18, right: 18, top: 10),
                 child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    const Text(
+                    Text(
                       'bon Appetit',
                       style:
                           TextStyle(fontSize: 27, fontWeight: FontWeight.bold),
                     ),
-                    IconButton(
-                      onPressed: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => const ScreenSearch(),
-                          ),
-                        );
-                      },
-                      icon: const Icon(
-                        Icons.search,
-                        size: 33,
-                      ),
-                    )
+                    // IconButton(
+                    //   onPressed: () {
+                    //     Navigator.push(
+                    //       context,
+                    //       MaterialPageRoute(
+                    //         builder: (context) => const ScreenSearch(),
+                    //       ),
+                    //     );
+                    //   },
+                    //   icon: const Icon(
+                    //     Icons.search,
+                    //     size: 33,
+                    //   ),
+                    // )
                   ],
                 ),
               ),

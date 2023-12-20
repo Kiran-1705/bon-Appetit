@@ -8,7 +8,7 @@ import 'package:bon_appetit/screen/home/screen_recipes.dart';
 import 'package:bon_appetit/screen/home/screen_settings.dart';
 import 'package:bon_appetit/widget/add_recipe.dart';
 import 'package:bon_appetit/widget/bottom_bar.dart';
-import 'package:bon_appetit/widget/display.dart';
+import 'package:bon_appetit/widget/display_recipe.dart';
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:image_picker/image_picker.dart';
@@ -47,7 +47,7 @@ class _ScreenProfileState extends State<ScreenProfile> {
   //   await Hive.openBox<RecipeModel>('recipe_db'); // Open the 'recipe_db' box
   //   recipeBox = Hive.box<RecipeModel>('recipe_db');
   // }
-//haibitch
+
   Future<void> getUserDetails() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     String? email = prefs.getString('loggedInUserEmail');
@@ -95,7 +95,7 @@ class _ScreenProfileState extends State<ScreenProfile> {
           child: Column(
             children: [
               Padding(
-                padding: const EdgeInsets.only(left: 20, right: 15),
+                padding: const EdgeInsets.only(left: 10, right: 15),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -148,21 +148,9 @@ class _ScreenProfileState extends State<ScreenProfile> {
                             loggedInUserName,
                             style: const TextStyle(
                                 fontWeight: FontWeight.bold,
-                                fontSize: 17,
+                                fontSize: 20,
                                 color: Colors.white),
                           ),
-                          const SizedBox(
-                            width: 10,
-                          ),
-                          IconButton(
-                            onPressed: () {
-                              // _showEditProfileDialog(context);
-                            },
-                            icon: const Icon(
-                              Icons.edit,
-                              color: Colors.white,
-                            ),
-                          )
                         ],
                       ),
                       const SizedBox(height: 5),
@@ -257,7 +245,7 @@ class _ScreenProfileState extends State<ScreenProfile> {
                                         context,
                                         MaterialPageRoute(
                                           builder: (context) =>
-                                              ScreenOut(recipe: recipe),
+                                              ScreenRecipeOut(recipe: recipe),
                                         ),
                                       );
                                     },

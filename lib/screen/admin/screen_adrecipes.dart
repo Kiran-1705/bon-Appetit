@@ -25,9 +25,9 @@ class _ScreenAdminRecipesState extends State<ScreenAdminRecipes> {
   }
 
   Future<void> fetchAcceptedRecipes() async {
-    List<RecipeModel> fetchedRecipes = await getAllAccept();
+    List<AcceptModel> fetchedRecipes = await getAllAccept();
     setState(() {
-      acceptedRecipes = fetchedRecipes;
+      acceptedRecipes = fetchedRecipes.cast<RecipeModel>();
     });
   }
 
@@ -99,13 +99,11 @@ class _ScreenAdminRecipesState extends State<ScreenAdminRecipes> {
   Widget _buildTabScreens(int index) {
     switch (index) {
       case 0:
-        return ScreenPendingRecipes();
+        return const ScreenPendingRecipes();
       case 1:
-        return ScreenRejectedRecipes();
+        return const ScreenRejectedRecipes();
       case 2:
-        List<AcceptModel> acceptedModels =
-            convertListToAcceptModel(acceptedRecipes);
-        return AcceptedRecipes(acceptedRecipes: acceptedModels);
+        return const AcceptedRecipes();
       default:
         return Container();
     }
