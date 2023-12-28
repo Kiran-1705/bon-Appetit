@@ -44,11 +44,13 @@ class _ScreenSearchState extends State<ScreenSearch> {
                       imagePath: "lib/assets/search1.png",
                       text: 'BREAKFAST',
                     ),
-                    const SizedBox(width: 20),
-                    const SizedBox(width: 5),
                     _buildImageWithText(
                       imagePath: "lib/assets/search2.jpg",
                       text: 'LUNCH',
+                    ),
+                    _buildImageWithText(
+                      imagePath: "lib/assets/search3.png",
+                      text: 'DINNER',
                     ),
                   ],
                 ),
@@ -57,14 +59,16 @@ class _ScreenSearchState extends State<ScreenSearch> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     _buildImageWithText(
-                      imagePath: "lib/assets/search3.png",
-                      text: 'DINNER',
+                      imagePath: "lib/assets/cocktails.jpg",
+                      text: 'COCKTAILS',
                     ),
-                    const SizedBox(width: 20),
-                    const SizedBox(width: 5),
                     _buildImageWithText(
                       imagePath: "lib/assets/search4.png",
                       text: 'SNACK',
+                    ),
+                    _buildImageWithText(
+                      imagePath: "lib/assets/diserts.jpg",
+                      text: 'DISERTS',
                     ),
                   ],
                 )
@@ -86,8 +90,8 @@ class _ScreenSearchState extends State<ScreenSearch> {
       },
       child: Container(
         decoration: BoxDecoration(borderRadius: BorderRadius.circular(8)),
-        height: 150,
-        width: 150,
+        height: 120,
+        width: 100,
         child: Column(
           children: [
             Expanded(

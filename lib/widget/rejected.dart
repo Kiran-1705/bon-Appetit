@@ -47,7 +47,11 @@ class _ScreenRejectedRecipesState extends State<ScreenRejectedRecipes> {
             return const Center(
               child: Text(
                 'No rejected recipes available.',
-                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+                style: TextStyle(
+                  fontSize: 23,
+                  fontWeight: FontWeight.w700,
+                  fontFamily: 'RalewayVariableFont',
+                ),
               ),
             );
           }
@@ -60,8 +64,21 @@ class _ScreenRejectedRecipesState extends State<ScreenRejectedRecipes> {
                 leading: CircleAvatar(
                   child: Text((index + 1).toString()),
                 ),
-                title: Text(recipe.title),
-                subtitle: Text(recipe.category),
+                title: Text(
+                  recipe.title,
+                  style: const TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 17,
+                    fontFamily: 'Kanit',
+                  ),
+                ),
+                subtitle: Text(
+                  recipe.category,
+                  style: const TextStyle(
+                    fontSize: 15,
+                    fontFamily: 'Kanit',
+                  ),
+                ),
                 trailing: PopupMenuButton<String>(
                   onSelected: (String value) {
                     if (value == 'Delete') {
@@ -72,13 +89,21 @@ class _ScreenRejectedRecipesState extends State<ScreenRejectedRecipes> {
                     return <PopupMenuEntry<String>>[
                       const PopupMenuItem<String>(
                         value: 'Delete',
-                        child: Text('Delete'),
+                        child: Text(
+                          'Delete',
+                          style: TextStyle(fontFamily: 'Kanit', fontSize: 15),
+                        ),
                       ),
                     ];
                   },
                 ),
                 onTap: () {
-                  // Handle onTap action for rejected recipe
+                  // Navigator.push(
+                  //   context,
+                  //   MaterialPageRoute(
+                  //     builder: (context) => ScreenPendingOut(recipe: recipe),
+                  //   ),
+                  // );
                 },
               );
             },

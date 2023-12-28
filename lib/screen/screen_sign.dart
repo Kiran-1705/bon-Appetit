@@ -12,11 +12,8 @@ class ScreenSign extends StatefulWidget {
 
 class _ScreenSignState extends State<ScreenSign> {
   int selectedTabIndex = 0;
-
   bool showSignUpContainer = false;
-
   bool showSignInContainer = true;
-
   @override
   Widget build(BuildContext context) {
     return Material(
@@ -28,7 +25,7 @@ class _ScreenSignState extends State<ScreenSign> {
                 Stack(
                   children: [
                     SizedBox(
-                      height: 250,
+                      height: 280,
                       child: Center(
                         child: Image.asset(
                           'lib/assets/title.png',

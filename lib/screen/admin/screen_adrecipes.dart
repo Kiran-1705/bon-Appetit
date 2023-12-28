@@ -54,7 +54,11 @@ class _ScreenAdminRecipesState extends State<ScreenAdminRecipes> {
       appBar: AppBar(
         title: const Text(
           'R E C I P E S',
-          style: TextStyle(fontWeight: FontWeight.bold),
+          style: TextStyle(
+            fontSize: 23,
+            fontWeight: FontWeight.w700,
+            fontFamily: 'RalewayVariableFont',
+          ),
         ),
         centerTitle: true,
       ),

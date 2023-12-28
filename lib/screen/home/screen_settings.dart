@@ -11,7 +11,7 @@ class ScreenSettings extends StatelessWidget {
       appBar: AppBar(
         title: const Text(
           'S e t t i n g s',
-          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 23),
+          style: TextStyle(fontSize: 25, fontFamily: 'Righteous'),
         ),
         centerTitle: true,
         actions: [
@@ -19,7 +19,10 @@ class ScreenSettings extends StatelessWidget {
               onPressed: () {
                 _showLogoutConfirmationDialog(context);
               },
-              icon: const Icon(Icons.logout))
+              icon: const Icon(
+                Icons.logout,
+                size: 30,
+              ))
         ],
       ),
       body: Column(
@@ -31,17 +34,24 @@ class ScreenSettings extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 TextButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    _showAccountSettingDialog(context);
+                  },
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       const Text(
-                        'Choose Language',
-                        style: TextStyle(fontSize: 18, color: Colors.black),
+                        'Account Settings',
+                        style: TextStyle(
+                            fontSize: 21,
+                            fontFamily: 'Kanit',
+                            color: Colors.black),
                       ),
                       IconButton(
-                          onPressed: () {},
-                          icon: const Icon(Icons.menu, color: Colors.black))
+                        onPressed: () {},
+                        icon: const Icon(Icons.arrow_forward,
+                            color: Colors.black),
+                      )
                     ],
                   ),
                 ),
@@ -51,8 +61,32 @@ class ScreenSettings extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       const Text(
+                        'Share the App',
+                        style: TextStyle(
+                            fontSize: 21,
+                            fontFamily: 'Kanit',
+                            color: Colors.black),
+                      ),
+                      IconButton(
+                        onPressed: () {},
+                        icon: const Icon(Icons.share, color: Colors.black),
+                      )
+                    ],
+                  ),
+                ),
+                TextButton(
+                  onPressed: () {
+                    _showFeedbackDialog(context);
+                  },
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      const Text(
                         'Send Feedback',
-                        style: TextStyle(fontSize: 18, color: Colors.black),
+                        style: TextStyle(
+                            fontSize: 21,
+                            fontFamily: 'Kanit',
+                            color: Colors.black),
                       ),
                       IconButton(
                           onPressed: () {},
@@ -66,29 +100,16 @@ class ScreenSettings extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       const Text(
-                        'Notification Settings',
-                        style: TextStyle(fontSize: 18, color: Colors.black),
+                        'Follow us on LinkedIn',
+                        style: TextStyle(
+                            fontSize: 21,
+                            fontFamily: 'Kanit',
+                            color: Colors.black),
                       ),
                       IconButton(
-                          onPressed: () {},
-                          icon: const Icon(Icons.arrow_forward,
-                              color: Colors.black))
-                    ],
-                  ),
-                ),
-                TextButton(
-                  onPressed: () {},
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      const Text(
-                        'Account Settings',
-                        style: TextStyle(fontSize: 18, color: Colors.black),
-                      ),
-                      IconButton(
-                          onPressed: () {},
-                          icon: const Icon(Icons.arrow_forward,
-                              color: Colors.black))
+                        onPressed: () {},
+                        icon: const Icon(Icons.link, color: Colors.black),
+                      )
                     ],
                   ),
                 ),
@@ -99,7 +120,10 @@ class ScreenSettings extends StatelessWidget {
                     children: [
                       const Text(
                         'About',
-                        style: TextStyle(fontSize: 18, color: Colors.black),
+                        style: TextStyle(
+                            fontSize: 21,
+                            fontFamily: 'Kanit',
+                            color: Colors.black),
                       ),
                       IconButton(
                         onPressed: () {},
@@ -112,6 +136,33 @@ class ScreenSettings extends StatelessWidget {
             ),
           ),
         ],
+      ),
+      bottomNavigationBar: BottomAppBar(
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            TextButton(
+              onPressed: () {},
+              child: const Text(
+                'Privacy Policy',
+                style: TextStyle(
+                    fontSize: 21, fontFamily: 'Kanit', color: Colors.black),
+              ),
+            ),
+            const Text(
+              '|',
+              style: TextStyle(fontSize: 35, fontWeight: FontWeight.bold),
+            ),
+            TextButton(
+              onPressed: () {},
+              child: const Text(
+                'Terms of Use',
+                style: TextStyle(
+                    fontSize: 21, fontFamily: 'Kanit', color: Colors.black),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -137,6 +188,208 @@ class ScreenSettings extends StatelessWidget {
               child: const Text('Logout'),
             ),
           ],
+        );
+      },
+    );
+  }
+
+  void _showFeedbackDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              const Text(
+                'Send Feedback',
+                style: TextStyle(
+                    fontSize: 23,
+                    fontFamily: 'RalewayVariableFont',
+                    fontWeight: FontWeight.w700),
+              ),
+              IconButton(
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                  icon: const Icon(Icons.close))
+            ],
+          ),
+          content: const Text(
+            'Let us know what you think about bon Appetit! We read all the feedback we receive and we would love to hear from you.',
+            style: TextStyle(
+                fontSize: 17,
+                fontFamily: 'RalewayVariableFont',
+                fontWeight: FontWeight.w700),
+          ),
+          actions: <Widget>[
+            Column(
+              children: [
+                TextFormField(
+                  maxLines: 6,
+                  decoration: InputDecoration(
+                    labelText: 'Feedback',
+                    labelStyle: const TextStyle(
+                        fontFamily: 'RalewayVariableFont',
+                        fontWeight: FontWeight.w700),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                  ),
+                ),
+                const SizedBox(height: 10),
+                TextFormField(
+                  decoration: InputDecoration(
+                    labelText: 'Email(Optional)',
+                    labelStyle: const TextStyle(
+                        fontFamily: 'RalewayVariableFont',
+                        fontWeight: FontWeight.w700),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                  ),
+                ),
+                const SizedBox(height: 10),
+                SizedBox(
+                  width: double.infinity,
+                  child: ElevatedButton(
+                    onPressed: () {},
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.black,
+                      foregroundColor: Colors.white,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                    ),
+                    child: const Padding(
+                      padding: EdgeInsets.all(16.0),
+                      child: Text(
+                        'Send feedback',
+                        style: TextStyle(
+                            fontSize: 23,
+                            fontFamily: 'RalewayVariableFont',
+                            fontWeight: FontWeight.w700),
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            )
+          ],
+        );
+      },
+    );
+  }
+
+  void _showAccountSettingDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          content: SizedBox(
+            width: MediaQuery.of(context).size.width * 0.8,
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    const Text(
+                      'Update Profile',
+                      style: TextStyle(
+                          fontSize: 23,
+                          fontFamily: 'RalewayVariableFont',
+                          fontWeight: FontWeight.w700),
+                    ),
+                    IconButton(
+                      onPressed: () {
+                        Navigator.of(context).pop();
+                      },
+                      icon: const Icon(Icons.close),
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 10),
+                InkWell(
+                  onTap: () {},
+                  child: const CircleAvatar(
+                    backgroundColor: Colors.black,
+                    minRadius: 65,
+                    child: Icon(
+                      Icons.add_a_photo,
+                      color: Colors.white,
+                    ),
+                  ),
+                ),
+                const SizedBox(height: 10),
+                TextFormField(
+                  decoration: InputDecoration(
+                    prefixIcon: const Icon(Icons.person),
+                    labelText: 'Name',
+                    labelStyle: const TextStyle(
+                        fontFamily: 'RalewayVariableFont',
+                        fontWeight: FontWeight.w700),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                  ),
+                ),
+                const SizedBox(height: 16),
+                TextFormField(
+                  decoration: InputDecoration(
+                    prefixIcon: const Icon(Icons.email_outlined),
+                    labelText: 'Email',
+                    labelStyle: const TextStyle(
+                        fontFamily: 'RalewayVariableFont',
+                        fontWeight: FontWeight.w700),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                  ),
+                ),
+                const SizedBox(height: 16),
+                TextFormField(
+                  decoration: InputDecoration(
+                    prefixIcon: const Icon(Icons.phone),
+                    labelText: 'Phone',
+                    labelStyle: const TextStyle(
+                        fontFamily: 'RalewayVariableFont',
+                        fontWeight: FontWeight.w700),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                  ),
+                ),
+                const SizedBox(height: 16),
+                SizedBox(
+                  width: double.infinity,
+                  child: ElevatedButton(
+                    onPressed: () {
+                      // Handle Update button press
+                    },
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.black,
+                      foregroundColor: Colors.white,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                    ),
+                    child: const Padding(
+                      padding: EdgeInsets.all(16.0),
+                      child: Text(
+                        'Update',
+                        style: TextStyle(
+                            fontSize: 23,
+                            fontFamily: 'RalewayVariableFont',
+                            fontWeight: FontWeight.w700),
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
         );
       },
     );

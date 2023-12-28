@@ -44,7 +44,6 @@ class _SignInFormState extends State<SignInForm> {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 550,
       child: Form(
         key: _formKey,
         child: Column(
@@ -60,8 +59,14 @@ class _SignInFormState extends State<SignInForm> {
               validator: (_) => emailErrorText,
               decoration: InputDecoration(
                 errorText: emailErrorText,
+                errorStyle: const TextStyle(
+                    fontFamily: 'RalewayVariableFont',
+                    fontWeight: FontWeight.w700),
                 prefixIcon: const Icon(Icons.email_outlined),
                 labelText: 'Email',
+                labelStyle: const TextStyle(
+                    fontFamily: 'RalewayVariableFont',
+                    fontWeight: FontWeight.w700),
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(12),
                 ),
@@ -79,6 +84,9 @@ class _SignInFormState extends State<SignInForm> {
               validator: (_) => passwordErrorText,
               decoration: InputDecoration(
                 errorText: passwordErrorText,
+                errorStyle: const TextStyle(
+                    fontFamily: 'RalewayVariableFont',
+                    fontWeight: FontWeight.w700),
                 prefixIcon: const Icon(Icons.lock),
                 suffixIcon: IconButton(
                   icon: Icon(
@@ -91,6 +99,9 @@ class _SignInFormState extends State<SignInForm> {
                   },
                 ),
                 labelText: 'Password',
+                labelStyle: const TextStyle(
+                    fontFamily: 'RalewayVariableFont',
+                    fontWeight: FontWeight.w700),
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(12),
                 ),
@@ -112,7 +123,10 @@ class _SignInFormState extends State<SignInForm> {
                   padding: EdgeInsets.all(16.0),
                   child: Text(
                     'Login',
-                    style: TextStyle(fontSize: 20),
+                    style: TextStyle(
+                        fontSize: 23,
+                        fontFamily: 'RalewayVariableFont',
+                        fontWeight: FontWeight.w700),
                   ),
                 ),
               ),
@@ -122,7 +136,10 @@ class _SignInFormState extends State<SignInForm> {
               onPressed: () {},
               child: const Text(
                 'Forgot Password?',
-                style: TextStyle(fontSize: 17),
+                style: TextStyle(
+                    fontSize: 19,
+                    fontFamily: 'RalewayVariableFont',
+                    fontWeight: FontWeight.w700),
               ),
             ),
             TextButton(

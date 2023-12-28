@@ -56,24 +56,12 @@ class _ScreenHomeState extends State<ScreenHome> {
                 child: Row(
                   children: [
                     Text(
-                      'bon Appetit',
-                      style:
-                          TextStyle(fontSize: 27, fontWeight: FontWeight.bold),
+                      'bon Appetit.',
+                      style: TextStyle(
+                          fontSize: 33,
+                          fontWeight: FontWeight.bold,
+                          fontFamily: 'Righteous'),
                     ),
-                    // IconButton(
-                    //   onPressed: () {
-                    //     Navigator.push(
-                    //       context,
-                    //       MaterialPageRoute(
-                    //         builder: (context) => const ScreenSearch(),
-                    //       ),
-                    //     );
-                    //   },
-                    //   icon: const Icon(
-                    //     Icons.search,
-                    //     size: 33,
-                    //   ),
-                    // )
                   ],
                 ),
               ),
@@ -81,10 +69,9 @@ class _ScreenHomeState extends State<ScreenHome> {
               Padding(
                 padding: const EdgeInsets.only(left: 25, right: 25),
                 child: Container(
-                  height: 350,
                   width: 350,
                   decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(12),
+                    borderRadius: BorderRadius.circular(8),
                     color: Colors.black,
                   ),
                   child: Padding(
@@ -95,21 +82,36 @@ class _ScreenHomeState extends State<ScreenHome> {
                         const Text(
                           'Recipe',
                           style: TextStyle(
-                              fontSize: 25,
+                              fontSize: 29,
                               fontWeight: FontWeight.bold,
+                              fontFamily: 'Kanit',
                               color: Colors.white),
                         ),
                         const Text(
-                          'Of the day',
-                          style: TextStyle(fontSize: 25, color: Colors.white),
-                        ),
-                        const SizedBox(height: 25),
-                        const Text(
-                          ' Aloo Chaat',
+                          'Of the day.',
                           style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 20,
-                              color: Colors.white),
+                            fontSize: 25,
+                            color: Colors.white,
+                            fontFamily: 'Kanit',
+                          ),
+                        ),
+                        const SizedBox(height: 20),
+                        const Text(
+                          'Aloo Chaat',
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 20,
+                            color: Colors.white,
+                            fontFamily: 'Kanit',
+                          ),
+                        ),
+                        const Text(
+                          'Spiced potatoes tossed with tangy chutneys, crisp onions, and fresh cilantro',
+                          style: TextStyle(
+                            fontSize: 15,
+                            color: Colors.white,
+                            fontFamily: 'Kanit',
+                          ),
                         ),
                         const SizedBox(height: 10),
                         Padding(
@@ -129,10 +131,14 @@ class _ScreenHomeState extends State<ScreenHome> {
                                 items: alooimagePath
                                     .map(
                                       (item) => Center(
-                                        child: Image.asset(
-                                          item,
-                                          fit: BoxFit.fill,
-                                          width: 350,
+                                        child: ClipRRect(
+                                          borderRadius:
+                                              BorderRadius.circular(8),
+                                          child: Image.asset(
+                                            item,
+                                            fit: BoxFit.fill,
+                                            width: 350,
+                                          ),
                                         ),
                                       ),
                                     )
@@ -146,6 +152,7 @@ class _ScreenHomeState extends State<ScreenHome> {
                             ),
                           ),
                         ),
+                        const SizedBox(height: 15)
                       ],
                     ),
                   ),
@@ -155,9 +162,8 @@ class _ScreenHomeState extends State<ScreenHome> {
               Container(
                 height: 90,
                 width: 350,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(12),
-                ),
+                decoration:
+                    BoxDecoration(borderRadius: BorderRadius.circular(12)),
                 child: const Padding(
                   padding: EdgeInsets.only(left: 20, top: 10),
                   child: Column(
@@ -166,11 +172,16 @@ class _ScreenHomeState extends State<ScreenHome> {
                       Text(
                         'For You',
                         style: TextStyle(
-                            fontSize: 25, fontWeight: FontWeight.bold),
+                            fontSize: 29,
+                            fontWeight: FontWeight.bold,
+                            fontFamily: 'Kanit'),
                       ),
                       Text(
-                        'recommended',
-                        style: TextStyle(fontSize: 25),
+                        'recommended.',
+                        style: TextStyle(
+                          fontSize: 25,
+                          fontFamily: 'Kanit',
+                        ),
                       )
                     ],
                   ),
@@ -186,7 +197,7 @@ class _ScreenHomeState extends State<ScreenHome> {
                   );
                 },
                 child: Container(
-                  height: 400,
+                  height: 380,
                   width: 350,
                   decoration: BoxDecoration(
                     color: Colors.black,
@@ -206,10 +217,13 @@ class _ScreenHomeState extends State<ScreenHome> {
                               items: cbimagepath
                                   .map(
                                     (item) => Center(
-                                      child: Image.asset(
-                                        item,
-                                        fit: BoxFit.fill,
-                                        width: 350,
+                                      child: ClipRRect(
+                                        borderRadius: BorderRadius.circular(8),
+                                        child: Image.asset(
+                                          item,
+                                          fit: BoxFit.fill,
+                                          width: 350,
+                                        ),
                                       ),
                                     ),
                                   )
@@ -222,18 +236,24 @@ class _ScreenHomeState extends State<ScreenHome> {
                             ),
                           ),
                         ),
-                        const SizedBox(height: 25),
+                        const SizedBox(height: 20),
                         const Text(
                           'Chicken Briyani',
                           style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 18,
-                              color: Colors.white),
+                            fontWeight: FontWeight.bold,
+                            fontSize: 20,
+                            color: Colors.white,
+                            fontFamily: 'Kanit',
+                          ),
                         ),
                         const SizedBox(height: 5),
                         const Text(
                           'A fragrant symphony of spices and tender chicken, nestled in a bed of perfectly cooked basmati rice, creating a culinary masterpiece.',
-                          style: TextStyle(color: Colors.white),
+                          style: TextStyle(
+                            fontSize: 15,
+                            color: Colors.white,
+                            fontFamily: 'Kanit',
+                          ),
                         ),
                         const SizedBox(height: 10),
                       ],
@@ -266,13 +286,15 @@ class _ScreenHomeState extends State<ScreenHome> {
                     padding: EdgeInsets.all(16.0),
                     child: Text(
                       'Browse More Recipes',
-                      style:
-                          TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                      style: TextStyle(
+                          fontSize: 23,
+                          fontFamily: 'RalewayVariableFont',
+                          fontWeight: FontWeight.w700),
                     ),
                   ),
                 ),
               ),
-              const SizedBox(height: 30),
+              const SizedBox(height: 15),
             ],
           ),
         ),

@@ -1,18 +1,18 @@
-import 'package:bon_appetit/database/model/recipe_model.dart';
+import 'package:bon_appetit/database/model/accept_model.dart';
 import 'package:bon_appetit/widget/tab_button.dart';
 import 'package:flutter/material.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
-class ScreenRecipeOut extends StatefulWidget {
-  final RecipeModel recipe;
+class ScreenOut extends StatefulWidget {
+  final AcceptModel recipe;
 
-  const ScreenRecipeOut({Key? key, required this.recipe}) : super(key: key);
+  const ScreenOut({super.key, required this.recipe});
 
   @override
-  State<ScreenRecipeOut> createState() => _ScreenRecipeOutState();
+  State<ScreenOut> createState() => _ScreenOutState();
 }
 
-class _ScreenRecipeOutState extends State<ScreenRecipeOut> {
+class _ScreenOutState extends State<ScreenOut> {
   int selectedTabIndex = 0;
   @override
   Widget build(BuildContext context) {
@@ -21,9 +21,7 @@ class _ScreenRecipeOutState extends State<ScreenRecipeOut> {
         title: Text(
           widget.recipe.title,
           style: const TextStyle(
-            fontWeight: FontWeight.bold,
-            fontSize: 23,
-          ),
+              fontFamily: 'Kanit', fontWeight: FontWeight.w400, fontSize: 23),
         ),
         centerTitle: true,
       ),
@@ -96,40 +94,69 @@ class _ScreenRecipeOutState extends State<ScreenRecipeOut> {
       ),
     );
   }
+}
 
-  Widget _buildIngredientsList(String ingredients) {
-    final ingredientsList = ingredients.split('\n');
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: Container(
-        decoration: const BoxDecoration(
-            color: Colors.black,
-            borderRadius: BorderRadius.all(Radius.circular(8))),
+Widget _buildIngredientsList(String ingredients) {
+  final ingredientsList = ingredients.split('\n');
+  return Padding(
+    padding: const EdgeInsets.all(8.0),
+    child: Container(
+      decoration: const BoxDecoration(
+          color: Colors.black,
+          borderRadius: BorderRadius.all(Radius.circular(8))),
+      child: Column(
+        children: [
+          const SizedBox(height: 10),
+          ListView.builder(
+            shrinkWrap: true,
+            physics: const NeverScrollableScrollPhysics(),
+            itemCount: ingredientsList.length,
+            itemBuilder: (context, index) {
+              return ListTile(
+                leading: const Icon(
+                  Icons.circle,
+                  color: Colors.white,
+                ),
+                title: Text(
+                  ingredientsList[index],
+                  style: const TextStyle(
+                      fontFamily: 'Kanit', fontSize: 17, color: Colors.white),
+                ),
+              );
+            },
+          ),
+        ],
+      ),
+    ),
+  );
+}
+
+Widget _buildStepByStepProcess(String steps) {
+  final stepByStepList = steps.split('\n');
+  return Padding(
+    padding: const EdgeInsets.all(8.0),
+    child: Container(
+      decoration: const BoxDecoration(
+          color: Colors.black,
+          borderRadius: BorderRadius.all(Radius.circular(8))),
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
         child: Column(
           children: [
-            // const SizedBox(height: 10),
-            // const Text(
-            //   'Ingredients.',
-            //   style: TextStyle(
-            //     fontWeight: FontWeight.bold,
-            //     fontSize: 23,
-            //     color: Colors.white,
-            //   ),
-            // ),
-            const SizedBox(height: 10),
             ListView.builder(
               shrinkWrap: true,
               physics: const NeverScrollableScrollPhysics(),
-              itemCount: ingredientsList.length,
+              itemCount: stepByStepList.length,
               itemBuilder: (context, index) {
                 return ListTile(
-                  leading: const Icon(
-                    Icons.circle,
-                    color: Colors.white,
+                  leading: Text(
+                    '${index + 1}.',
+                    style: const TextStyle(color: Colors.white),
                   ),
                   title: Text(
-                    ingredientsList[index],
-                    style: const TextStyle(color: Colors.white),
+                    stepByStepList[index],
+                    style: const TextStyle(
+                        fontFamily: 'Kanit', fontSize: 17, color: Colors.white),
                   ),
                 );
               },
@@ -137,51 +164,6 @@ class _ScreenRecipeOutState extends State<ScreenRecipeOut> {
           ],
         ),
       ),
-    );
-  }
-
-  Widget _buildStepByStepProcess(String steps) {
-    final stepByStepList = steps.split('\n');
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: Container(
-        decoration: const BoxDecoration(
-            color: Colors.black,
-            borderRadius: BorderRadius.all(Radius.circular(8))),
-        child: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Column(
-            children: [
-              // const Text(
-              //   'Step-by-step process',
-              //   style: TextStyle(
-              //     fontWeight: FontWeight.bold,
-              //     fontSize: 23,
-              //     color: Colors.white,
-              //   ),
-              // ),
-              // const SizedBox(height: 5),
-              ListView.builder(
-                shrinkWrap: true,
-                physics: const NeverScrollableScrollPhysics(),
-                itemCount: stepByStepList.length,
-                itemBuilder: (context, index) {
-                  return ListTile(
-                    leading: Text(
-                      '${index + 1}.',
-                      style: const TextStyle(color: Colors.white),
-                    ),
-                    title: Text(
-                      stepByStepList[index],
-                      style: const TextStyle(color: Colors.white),
-                    ),
-                  );
-                },
-              ),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
+    ),
+  );
 }

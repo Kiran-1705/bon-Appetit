@@ -82,7 +82,33 @@ class _ScreenSignupState extends State<ScreenSignup> {
   }
 
   void _submitForm() {
-    if (_formKey.currentState!.validate()) {
+    setState(() {
+      _usernameError = _usernameController.text.isEmpty
+          ? 'Please enter your username.'
+          : null;
+
+      _emailError = _emailController.text.isEmpty
+          ? 'Please enter your email address.'
+          : null;
+
+      _phoneError = _phoneController.text.isEmpty
+          ? 'Please enter your phone number.'
+          : null;
+
+      _passwordError = _passwordController.text.isEmpty
+          ? 'Please enter your password.'
+          : null;
+
+      if (_passwordController.text != _confirmPasswordController.text) {
+        _passwordError = 'Passwords do not match.';
+      }
+    });
+
+    if (_formKey.currentState!.validate() &&
+        _usernameError == null &&
+        _emailError == null &&
+        _phoneError == null &&
+        _passwordError == null) {
       final UserModel newUser = UserModel(
         name: _usernameController.text,
         email: _emailController.text,
@@ -105,44 +131,35 @@ class _ScreenSignupState extends State<ScreenSignup> {
             children: [
               TextFormField(
                 controller: _usernameController,
-                decoration: InputDecoration(
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(8),
-                  ),
-                  prefixIcon: const Icon(Icons.person),
+                decoration: _getInputDecoration(
                   labelText: 'Username',
                   errorText: _usernameError,
+                  prefixIcon: const Icon(Icons.person),
                 ),
                 onChanged: _validateUsername,
               ),
-              const SizedBox(height: 10),
+              const SizedBox(height: 8),
               TextFormField(
                 controller: _emailController,
-                decoration: InputDecoration(
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(8),
-                  ),
+                decoration: _getInputDecoration(
                   prefixIcon: const Icon(Icons.email),
                   labelText: 'Email',
                   errorText: _emailError,
                 ),
                 onChanged: _validateEmail,
               ),
-              const SizedBox(height: 10),
+              const SizedBox(height: 8),
               TextFormField(
                 controller: _phoneController,
                 keyboardType: TextInputType.phone,
-                decoration: InputDecoration(
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(8),
-                  ),
+                decoration: _getInputDecoration(
                   prefixIcon: const Icon(Icons.phone),
                   labelText: 'Phone',
                   errorText: _phoneError,
                 ),
                 onChanged: _validatePhone,
               ),
-              const SizedBox(height: 10),
+              const SizedBox(height: 8),
               TextFormField(
                 controller: _passwordController,
                 obscureText: _obscurePassword,
@@ -152,6 +169,9 @@ class _ScreenSignupState extends State<ScreenSignup> {
                   ),
                   prefixIcon: const Icon(Icons.lock),
                   labelText: 'Password',
+                  labelStyle: const TextStyle(
+                      fontFamily: 'RalewayVariableFont',
+                      fontWeight: FontWeight.w700),
                   suffixIcon: IconButton(
                     icon: Icon(_obscurePassword
                         ? Icons.visibility
@@ -164,11 +184,17 @@ class _ScreenSignupState extends State<ScreenSignup> {
                   ),
                   hintText:
                       'Password requires 1 special character and any 2 digits',
+                  hintStyle: const TextStyle(
+                      fontFamily: 'RalewayVariableFont',
+                      fontWeight: FontWeight.w700),
                   errorText: _passwordError,
+                  errorStyle: const TextStyle(
+                      fontFamily: 'RalewayVariableFont',
+                      fontWeight: FontWeight.w700),
                 ),
                 onChanged: _validatePassword,
               ),
-              const SizedBox(height: 10),
+              const SizedBox(height: 8),
               TextFormField(
                 controller: _confirmPasswordController,
                 obscureText: _obscurePassword,
@@ -178,6 +204,9 @@ class _ScreenSignupState extends State<ScreenSignup> {
                   ),
                   prefixIcon: const Icon(Icons.lock),
                   labelText: 'Confirm Password',
+                  labelStyle: const TextStyle(
+                      fontFamily: 'RalewayVariableFont',
+                      fontWeight: FontWeight.w700),
                   suffixIcon: IconButton(
                     icon: Icon(_obscurePassword
                         ? Icons.visibility
@@ -189,10 +218,13 @@ class _ScreenSignupState extends State<ScreenSignup> {
                     },
                   ),
                   errorText: _passwordError,
+                  errorStyle: const TextStyle(
+                      fontFamily: 'RalewayVariableFont',
+                      fontWeight: FontWeight.w700),
                 ),
                 onChanged: _confirmPassword,
               ),
-              const SizedBox(height: 10),
+              const SizedBox(height: 8),
               SizedBox(
                 width: double.infinity,
                 child: ElevatedButton(
@@ -208,13 +240,35 @@ class _ScreenSignupState extends State<ScreenSignup> {
                     padding: EdgeInsets.all(16.0),
                     child: Text(
                       'Submit',
-                      style: TextStyle(fontSize: 20),
+                      style: TextStyle(
+                          fontSize: 23,
+                          fontFamily: 'RalewayVariableFont',
+                          fontWeight: FontWeight.w700),
                     ),
                   ),
                 ),
               ),
             ],
           )),
+    );
+  }
+
+  InputDecoration _getInputDecoration({
+    String labelText = '',
+    String? errorText,
+    Widget? prefixIcon,
+  }) {
+    return InputDecoration(
+      border: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(8),
+      ),
+      prefixIcon: prefixIcon,
+      labelText: labelText,
+      errorText: errorText,
+      labelStyle: const TextStyle(
+          fontFamily: 'RalewayVariableFont', fontWeight: FontWeight.w700),
+      errorStyle: const TextStyle(
+          fontFamily: 'RalewayVariableFont', fontWeight: FontWeight.w700),
     );
   }
 }

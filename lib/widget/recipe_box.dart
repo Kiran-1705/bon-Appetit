@@ -1,5 +1,4 @@
 import 'dart:io';
-
 import 'package:bon_appetit/database/model/accept_model.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
@@ -23,23 +22,26 @@ class _RecipeItemState extends State<RecipeItem> {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Container(
-        height: 230,
+        height: 250,
         width: 170,
         decoration: BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.circular(12),
         ),
         child: Column(
+          mainAxisAlignment: MainAxisAlignment.end,
           children: [
-            Container(
-                margin: const EdgeInsets.only(top: 10),
+            SizedBox(
                 height: 110,
-                width: 150,
+                width: 160,
                 child: CarouselSlider(
                   items: widget.acceptModel.imagePath.map((imagePath) {
-                    return Image(
-                      image: FileImage(File(imagePath)),
-                      fit: BoxFit.cover,
+                    return ClipRRect(
+                      borderRadius: BorderRadius.circular(8),
+                      child: Image(
+                        image: FileImage(File(imagePath)),
+                        fit: BoxFit.cover,
+                      ),
                     );
                   }).toList(),
                   options: CarouselOptions(
@@ -48,19 +50,23 @@ class _RecipeItemState extends State<RecipeItem> {
                     enlargeCenterPage: true,
                   ),
                 )),
+            const SizedBox(height: 5),
             Padding(
-              padding: const EdgeInsets.only(top: 3),
+              padding: const EdgeInsets.only(top: 3, left: 8),
               child: Text(
                 widget.acceptModel.title,
-                style:
-                    const TextStyle(fontWeight: FontWeight.bold, fontSize: 17),
+                style: const TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 17,
+                  fontFamily: 'Kanit',
+                ),
               ),
             ),
             Padding(
               padding: const EdgeInsets.only(left: 6),
               child: Text(
                 widget.acceptModel.category,
-                style: const TextStyle(fontWeight: FontWeight.w300),
+                style: const TextStyle(fontFamily: 'Kanit', fontSize: 15),
               ),
             ),
             Row(

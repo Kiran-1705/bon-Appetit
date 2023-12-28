@@ -43,11 +43,6 @@ class _ScreenProfileState extends State<ScreenProfile> {
     getAllRecipe();
   }
 
-  // Future<void> openHiveBoxes() async {
-  //   await Hive.openBox<RecipeModel>('recipe_db'); // Open the 'recipe_db' box
-  //   recipeBox = Hive.box<RecipeModel>('recipe_db');
-  // }
-
   Future<void> getUserDetails() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     String? email = prefs.getString('loggedInUserEmail');
@@ -102,10 +97,9 @@ class _ScreenProfileState extends State<ScreenProfile> {
                     const Text(
                       'P r o f i l e',
                       style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 23,
-                        color: Colors.white,
-                      ),
+                          color: Colors.white,
+                          fontSize: 25,
+                          fontFamily: 'Righteous'),
                     ),
                     IconButton(
                       onPressed: () {
@@ -147,21 +141,27 @@ class _ScreenProfileState extends State<ScreenProfile> {
                           Text(
                             loggedInUserName,
                             style: const TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 20,
-                                color: Colors.white),
+                                color: Colors.white,
+                                fontSize: 23,
+                                fontFamily: 'Righteous'),
                           ),
                         ],
                       ),
                       const SizedBox(height: 5),
                       Text(
                         loggedInUserEmail,
-                        style: const TextStyle(color: Colors.white),
+                        style: const TextStyle(
+                            color: Colors.white,
+                            fontFamily: 'Righteous',
+                            fontSize: 17),
                       ),
                       const SizedBox(height: 5),
                       Text(
                         loggedInUserPhone,
-                        style: const TextStyle(color: Colors.white),
+                        style: const TextStyle(
+                            color: Colors.white,
+                            fontFamily: 'Righteous',
+                            fontSize: 17),
                       ),
                     ],
                   )
@@ -184,12 +184,14 @@ class _ScreenProfileState extends State<ScreenProfile> {
                     padding: EdgeInsets.all(16.0),
                     child: Row(
                       children: [
-                        Icon(Icons.workspace_premium),
+                        Icon(Icons.workspace_premium, size: 30),
                         SizedBox(width: 20),
                         Text(
                           'Join bon Appetit Gold',
                           style: TextStyle(
-                              fontSize: 20, fontWeight: FontWeight.bold),
+                              fontSize: 20,
+                              fontFamily: 'RalewayVariableFont',
+                              fontWeight: FontWeight.w700),
                         ),
                       ],
                     ),
@@ -201,7 +203,7 @@ class _ScreenProfileState extends State<ScreenProfile> {
                 height: 350,
                 width: 350,
                 decoration: BoxDecoration(
-                  color: Colors.grey,
+                  color: Colors.white,
                   borderRadius: BorderRadius.circular(12),
                 ),
                 child: Column(
@@ -209,14 +211,14 @@ class _ScreenProfileState extends State<ScreenProfile> {
                     const Padding(
                       padding: EdgeInsets.all(8.0),
                       child: Text(
-                        'My Recipes',
+                        'My Recipes.',
                         style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 20,
+                          fontSize: 25,
+                          fontFamily: 'Kanit',
                         ),
                       ),
                     ),
-                    const SizedBox(height: 10),
+                    const SizedBox(height: 5),
                     Expanded(
                       child: ValueListenableBuilder<List<RecipeModel>>(
                         valueListenable: recipeListNotifier,
@@ -225,8 +227,8 @@ class _ScreenProfileState extends State<ScreenProfile> {
                                 child: Text(
                                   'No recipes available',
                                   style: TextStyle(
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.bold,
+                                    fontSize: 25,
+                                    fontFamily: 'Kanit',
                                   ),
                                 ),
                               )
@@ -235,11 +237,63 @@ class _ScreenProfileState extends State<ScreenProfile> {
                                 itemBuilder: (BuildContext context, int index) {
                                   final recipe = recipes[index];
                                   return ListTile(
-                                    leading: CircleAvatar(
-                                      child: Text((index + 1).toString()),
+                                    leading: Stack(
+                                      children: [
+                                        CircleAvatar(
+                                          child: Text((index + 1).toString()),
+                                        ),
+                                        FutureBuilder<int>(
+                                          future:
+                                              checkRecipeStatus(recipe.title),
+                                          builder: (context, snapshot) {
+                                            Color dotColor = Colors.grey;
+                                            if (snapshot.connectionState ==
+                                                ConnectionState.done) {
+                                              if (snapshot.hasData) {
+                                                switch (snapshot.data) {
+                                                  case 1:
+                                                    dotColor = Colors.green;
+                                                    break;
+                                                  case 0:
+                                                    dotColor = Colors.red;
+                                                    break;
+                                                  case -1:
+                                                    dotColor = Colors.grey;
+                                                    break;
+                                                  default:
+                                                    dotColor = Colors.grey;
+                                                }
+                                              }
+                                            }
+                                            return Positioned(
+                                              bottom: 0,
+                                              right: 0,
+                                              child: Container(
+                                                width: 15,
+                                                height: 15,
+                                                decoration: BoxDecoration(
+                                                  shape: BoxShape.circle,
+                                                  color: dotColor,
+                                                ),
+                                              ),
+                                            );
+                                          },
+                                        ),
+                                      ],
                                     ),
-                                    title: Text(recipe.title),
-                                    subtitle: Text(recipe.category),
+                                    title: Text(
+                                      recipe.title,
+                                      style: const TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 17,
+                                        fontFamily: 'Kanit',
+                                      ),
+                                    ),
+                                    subtitle: Text(
+                                      recipe.category,
+                                      style: const TextStyle(
+                                          fontFamily: 'Kanit', fontSize: 15),
+                                    ),
                                     onTap: () {
                                       Navigator.push(
                                         context,
@@ -259,17 +313,32 @@ class _ScreenProfileState extends State<ScreenProfile> {
                                             context: context,
                                             builder: (BuildContext context) {
                                               return AlertDialog(
-                                                title:
-                                                    const Text('Confirmation'),
+                                                title: const Text(
+                                                  'Confirmation',
+                                                  style: TextStyle(
+                                                      fontFamily: 'Kanit',
+                                                      fontSize: 20),
+                                                ),
                                                 content: const Text(
-                                                    'Are you sure you want to delete this recipe?'),
+                                                  'Are you sure you want to delete this recipe?',
+                                                  style: TextStyle(
+                                                      fontFamily: 'Kanit',
+                                                      fontSize: 18),
+                                                ),
                                                 actions: <Widget>[
                                                   TextButton(
                                                     onPressed: () {
                                                       Navigator.of(context)
                                                           .pop();
                                                     },
-                                                    child: const Text('No'),
+                                                    child: const Text(
+                                                      'No',
+                                                      style: TextStyle(
+                                                          fontFamily: 'Kanit',
+                                                          fontWeight:
+                                                              FontWeight.w400,
+                                                          fontSize: 20),
+                                                    ),
                                                   ),
                                                   TextButton(
                                                     onPressed: () {
@@ -277,7 +346,14 @@ class _ScreenProfileState extends State<ScreenProfile> {
                                                       Navigator.of(context)
                                                           .pop();
                                                     },
-                                                    child: const Text('Yes'),
+                                                    child: const Text(
+                                                      'Yes',
+                                                      style: TextStyle(
+                                                          fontFamily: 'Kanit',
+                                                          fontWeight:
+                                                              FontWeight.w400,
+                                                          fontSize: 20),
+                                                    ),
                                                   ),
                                                 ],
                                               );
@@ -290,7 +366,12 @@ class _ScreenProfileState extends State<ScreenProfile> {
                                             .map((String choice) {
                                           return PopupMenuItem<String>(
                                             value: choice.toLowerCase(),
-                                            child: Text(choice),
+                                            child: Text(
+                                              choice,
+                                              style: const TextStyle(
+                                                  fontFamily: 'Kanit',
+                                                  fontSize: 15),
+                                            ),
                                           );
                                         }).toList();
                                       },
@@ -314,7 +395,14 @@ class _ScreenProfileState extends State<ScreenProfile> {
                   );
                 },
                 icon: const Icon(Icons.add),
-                label: const Text('Add Recipes'),
+                label: const Text(
+                  'Add Recipes',
+                  style: TextStyle(
+                      fontSize: 20,
+                      fontFamily: 'RalewayVariableFont',
+                      fontWeight: FontWeight.w700,
+                      color: Colors.black),
+                ),
                 style: ElevatedButton.styleFrom(
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(8),
@@ -332,13 +420,26 @@ class _ScreenProfileState extends State<ScreenProfile> {
   void _pickImage() async {
     final picker = ImagePicker();
     final pickedImage = await picker.pickImage(source: ImageSource.gallery);
-
     if (pickedImage != null) {
-      setState(
-        () {
-          _image = File(pickedImage.path);
-        },
-      );
+      setState(() {
+        _image = File(pickedImage.path);
+        saveImagePathToUserDB(_image?.path);
+      });
+    }
+  }
+
+  void saveImagePathToUserDB(String? imagePath) async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    final String? email = prefs.getString('loggedInUserEmail');
+    if (email != null) {
+      final userDB = Hive.box<UserModel>('user_db');
+      final List<UserModel> userList = userDB.values.toList();
+      final int userIndex = userList.indexWhere((user) => user.email == email);
+      if (userIndex != -1) {
+        UserModel loggedInUser = userList[userIndex];
+        loggedInUser.imagePath = imagePath;
+        userDB.putAt(userIndex, loggedInUser);
+      }
     }
   }
 }

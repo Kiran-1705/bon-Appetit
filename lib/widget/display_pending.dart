@@ -1,22 +1,29 @@
-import 'package:bon_appetit/database/model/accept_model.dart';
+import 'package:bon_appetit/database/model/pending_model.dart';
+import 'package:bon_appetit/widget/tab_button.dart';
 import 'package:flutter/material.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
-class ScreenOut extends StatefulWidget {
-  final AcceptModel recipe;
-
-  const ScreenOut({Key? key, required this.recipe}) : super(key: key);
+class ScreenPendingOut extends StatefulWidget {
+  final PendingModel recipe;
+  const ScreenPendingOut({super.key, required this.recipe});
 
   @override
-  State<ScreenOut> createState() => _ScreenOutState();
+  State<ScreenPendingOut> createState() => _ScreenPendingOutState();
 }
 
-class _ScreenOutState extends State<ScreenOut> {
+class _ScreenPendingOutState extends State<ScreenPendingOut> {
+  int selectedTabIndex = 0;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(widget.recipe.title),
+        title: Text(
+          widget.recipe.title,
+          style: const TextStyle(
+            fontWeight: FontWeight.bold,
+            fontSize: 23,
+          ),
+        ),
         centerTitle: true,
       ),
       body: SingleChildScrollView(
@@ -46,10 +53,33 @@ class _ScreenOutState extends State<ScreenOut> {
                 ),
               ),
             ),
-            const SizedBox(height: 10),
-            _buildIngredientsList(widget.recipe.ingredients),
-            const SizedBox(height: 10),
-            _buildStepByStepProcess(widget.recipe.steps),
+            Row(
+              children: [
+                TabButtons(
+                  selectedTabIndex,
+                  0,
+                  'Ingredients',
+                  (index) {
+                    setState(() {
+                      selectedTabIndex = index;
+                    });
+                  },
+                ),
+                TabButtons(
+                  selectedTabIndex,
+                  1,
+                  'Step by step',
+                  (index) {
+                    setState(() {
+                      selectedTabIndex = index;
+                    });
+                  },
+                ),
+              ],
+            ),
+            selectedTabIndex == 0
+                ? _buildIngredientsList(widget.recipe.ingredients)
+                : _buildStepByStepProcess(widget.recipe.steps),
             const SizedBox(height: 10),
             const Column(
               children: [
@@ -76,15 +106,15 @@ class _ScreenOutState extends State<ScreenOut> {
             borderRadius: BorderRadius.all(Radius.circular(8))),
         child: Column(
           children: [
-            const SizedBox(height: 10),
-            const Text(
-              'Ingredients.',
-              style: TextStyle(
-                fontWeight: FontWeight.bold,
-                fontSize: 23,
-                color: Colors.white,
-              ),
-            ),
+            // const SizedBox(height: 10),
+            // const Text(
+            //   'Ingredients.',
+            //   style: TextStyle(
+            //     fontWeight: FontWeight.bold,
+            //     fontSize: 23,
+            //     color: Colors.white,
+            //   ),
+            // ),
             const SizedBox(height: 10),
             ListView.builder(
               shrinkWrap: true,
@@ -121,15 +151,15 @@ class _ScreenOutState extends State<ScreenOut> {
           padding: const EdgeInsets.all(8.0),
           child: Column(
             children: [
-              const Text(
-                'Step-by-step process',
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 23,
-                  color: Colors.white,
-                ),
-              ),
-              const SizedBox(height: 5),
+              // const Text(
+              //   'Step-by-step process',
+              //   style: TextStyle(
+              //     fontWeight: FontWeight.bold,
+              //     fontSize: 23,
+              //     color: Colors.white,
+              //   ),
+              // ),
+              // const SizedBox(height: 5),
               ListView.builder(
                 shrinkWrap: true,
                 physics: const NeverScrollableScrollPhysics(),

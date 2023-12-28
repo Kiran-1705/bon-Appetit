@@ -19,7 +19,12 @@ class _ScreenAdminHomeState extends State<ScreenAdminHome> {
         backgroundColor: Colors.black,
         title: const Text(
           'A D M I N',
-          style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white),
+          style: TextStyle(
+            fontSize: 23,
+            fontWeight: FontWeight.w700,
+            color: Colors.white,
+            fontFamily: 'RalewayVariableFont',
+          ),
         ),
       ),
       body: Column(
@@ -46,7 +51,11 @@ class _ScreenAdminHomeState extends State<ScreenAdminHome> {
                     SizedBox(width: 30),
                     Text(
                       'U S E R S',
-                      style: TextStyle(fontSize: 20),
+                      style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.w700,
+                        fontFamily: 'RalewayVariableFont',
+                      ),
                     )
                   ],
                 ),
@@ -75,7 +84,11 @@ class _ScreenAdminHomeState extends State<ScreenAdminHome> {
                     SizedBox(width: 30),
                     Text(
                       'R E C I P E S',
-                      style: TextStyle(fontSize: 20),
+                      style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.w700,
+                        fontFamily: 'RalewayVariableFont',
+                      ),
                     )
                   ],
                 ),

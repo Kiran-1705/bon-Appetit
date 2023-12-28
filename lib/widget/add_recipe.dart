@@ -42,7 +42,7 @@ class _ScreenAddRecipesState extends State<ScreenAddRecipes> {
       appBar: AppBar(
         title: const Text(
           'Add Recipe',
-          style: TextStyle(fontWeight: FontWeight.bold),
+          style: TextStyle(fontSize: 25, fontFamily: 'Righteous'),
         ),
         actions: [
           IconButton(onPressed: () {}, icon: const Icon(Icons.info, size: 30))
@@ -59,15 +59,29 @@ class _ScreenAddRecipesState extends State<ScreenAddRecipes> {
                   value: _selectedCategory,
                   decoration: InputDecoration(
                     labelText: 'Choose Category',
+                    labelStyle: const TextStyle(
+                        fontFamily: 'RalewayVariableFont',
+                        fontWeight: FontWeight.w700),
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(12),
                     ),
                   ),
-                  items: ['Breakfast', 'Lunch', 'Snack', 'Dinner']
-                      .map((String category) {
+                  items: [
+                    'Breakfast',
+                    'Lunch',
+                    'Snack',
+                    'Dinner',
+                    'Cocktail',
+                    'Disert'
+                  ].map((String category) {
                     return DropdownMenuItem<String>(
                       value: category,
-                      child: Text(category),
+                      child: Text(
+                        category,
+                        style: const TextStyle(
+                            fontFamily: 'RalewayVariableFont',
+                            fontWeight: FontWeight.w700),
+                      ),
                     );
                   }).toList(),
                   onChanged: (String? newValue) {
@@ -87,10 +101,16 @@ class _ScreenAddRecipesState extends State<ScreenAddRecipes> {
                   },
                   decoration: InputDecoration(
                     labelText: 'Title',
+                    labelStyle: const TextStyle(
+                        fontFamily: 'RalewayVariableFont',
+                        fontWeight: FontWeight.w700),
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(12),
                     ),
                     errorText: _isTitleValid ? null : 'Invalid title format',
+                    errorStyle: const TextStyle(
+                        fontFamily: 'RalewayVariableFont',
+                        fontWeight: FontWeight.w700),
                   ),
                 ),
                 const SizedBox(height: 10),
@@ -127,6 +147,13 @@ class _ScreenAddRecipesState extends State<ScreenAddRecipes> {
                         ),
                         const SizedBox(height: 5),
                         ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: Colors.white,
+                            foregroundColor: Colors.black,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(8),
+                            ),
+                          ),
                           onPressed: () async {
                             final picker = ImagePicker();
                             List<XFile>? images = await picker.pickMultiImage(
@@ -142,22 +169,30 @@ class _ScreenAddRecipesState extends State<ScreenAddRecipes> {
                             if (_selectedImages.length < 3) {
                               ScaffoldMessenger.of(context).showSnackBar(
                                 const SnackBar(
-                                  content:
-                                      Text('Please select at least 3 images'),
+                                  content: Text(
+                                    'Please select at least 3 images',
+                                    style: TextStyle(
+                                        fontFamily: 'RalewayVariableFont',
+                                        fontWeight: FontWeight.w700),
+                                  ),
                                   duration: Duration(seconds: 2),
                                 ),
                               );
                             }
                           },
-                          child: const Text('Choose Image'),
+                          child: const Text(
+                            'Choose Image',
+                            style: TextStyle(
+                                fontSize: 23,
+                                fontFamily: 'RalewayVariableFont',
+                                fontWeight: FontWeight.w700),
+                          ),
                         ),
                       ],
                     ),
                   ),
                 ),
-
                 const SizedBox(height: 10),
-
                 //videoURL
                 const SizedBox(height: 10),
                 TextFormField(
@@ -169,11 +204,17 @@ class _ScreenAddRecipesState extends State<ScreenAddRecipes> {
                   },
                   decoration: InputDecoration(
                     labelText: 'Add VideoURL',
+                    labelStyle: const TextStyle(
+                        fontFamily: 'RalewayVariableFont',
+                        fontWeight: FontWeight.w700),
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(12),
                     ),
                     errorText:
                         _isVideoUrlValid ? null : 'Enter a valid URL format',
+                    errorStyle: const TextStyle(
+                        fontFamily: 'RalewayVariableFont',
+                        fontWeight: FontWeight.w700),
                   ),
                 ),
                 //add ingredients
@@ -183,7 +224,13 @@ class _ScreenAddRecipesState extends State<ScreenAddRecipes> {
                   maxLines: 6,
                   decoration: InputDecoration(
                     labelText: 'Add Ingredients',
+                    labelStyle: const TextStyle(
+                        fontFamily: 'RalewayVariableFont',
+                        fontWeight: FontWeight.w700),
                     hintText: '1. Ingredient 1\n2. Ingredient 2\n...',
+                    hintStyle: const TextStyle(
+                        fontFamily: 'RalewayVariableFont',
+                        fontWeight: FontWeight.w700),
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(12),
                     ),
@@ -196,7 +243,13 @@ class _ScreenAddRecipesState extends State<ScreenAddRecipes> {
                   controller: _stepsController,
                   decoration: InputDecoration(
                     labelText: 'Add Steps',
+                    labelStyle: const TextStyle(
+                        fontFamily: 'RalewayVariableFont',
+                        fontWeight: FontWeight.w700),
                     hintText: '1. Step 1\n2. Step 2\n...',
+                    hintStyle: const TextStyle(
+                        fontFamily: 'RalewayVariableFont',
+                        fontWeight: FontWeight.w700),
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(12),
                     ),
@@ -207,6 +260,9 @@ class _ScreenAddRecipesState extends State<ScreenAddRecipes> {
                 TextFormField(
                   decoration: InputDecoration(
                     labelText: 'Add Discription',
+                    labelStyle: const TextStyle(
+                        fontFamily: 'RalewayVariableFont',
+                        fontWeight: FontWeight.w700),
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(12),
                     ),
@@ -214,6 +270,13 @@ class _ScreenAddRecipesState extends State<ScreenAddRecipes> {
                 ),
                 const SizedBox(height: 10),
                 ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.black,
+                    foregroundColor: Colors.white,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                  ),
                   onPressed: () async {
                     if (_formKey.currentState!.validate()) {
                       if (_selectedImages.length < 3) {
@@ -255,6 +318,10 @@ class _ScreenAddRecipesState extends State<ScreenAddRecipes> {
                       );
                       _formKey.currentState!.reset();
                       _selectedImages.clear();
+                      _titleController.clear();
+                      _videoUrlController.clear();
+                      _ingredientsController.clear();
+                      _stepsController.clear();
                       setState(() {
                         _isTitleValid = true;
                         _selectedCategory = null;
@@ -268,7 +335,13 @@ class _ScreenAddRecipesState extends State<ScreenAddRecipes> {
                       );
                     }
                   },
-                  child: const Text('Submit'),
+                  child: const Text(
+                    'Submit',
+                    style: TextStyle(
+                        fontSize: 23,
+                        fontFamily: 'RalewayVariableFont',
+                        fontWeight: FontWeight.w700),
+                  ),
                 ),
               ],
             ),

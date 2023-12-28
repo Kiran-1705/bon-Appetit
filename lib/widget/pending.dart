@@ -2,6 +2,7 @@ import 'package:bon_appetit/database/db_function.dart';
 import 'package:bon_appetit/database/model/accept_model.dart';
 import 'package:bon_appetit/database/model/pending_model.dart';
 import 'package:bon_appetit/database/model/reject_model.dart';
+import 'package:bon_appetit/widget/display_pending.dart';
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
@@ -74,7 +75,11 @@ class _ScreenPendingRecipesState extends State<ScreenPendingRecipes> {
             return const Center(
               child: Text(
                 'No pending recipes available.',
-                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+                style: TextStyle(
+                  fontSize: 23,
+                  fontWeight: FontWeight.w700,
+                  fontFamily: 'RalewayVariableFont',
+                ),
               ),
             );
           }
@@ -87,8 +92,18 @@ class _ScreenPendingRecipesState extends State<ScreenPendingRecipes> {
                 leading: CircleAvatar(
                   child: Text((index + 1).toString()),
                 ),
-                title: Text(recipe.title),
-                subtitle: Text(recipe.category),
+                title: Text(
+                  recipe.title,
+                  style: const TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 17,
+                    fontFamily: 'Kanit',
+                  ),
+                ),
+                subtitle: Text(
+                  recipe.category,
+                  style: const TextStyle(fontFamily: 'Kanit', fontSize: 15),
+                ),
                 trailing: PopupMenuButton<String>(
                   icon: const Icon(Icons.menu),
                   onSelected: (String value) {
@@ -102,13 +117,22 @@ class _ScreenPendingRecipesState extends State<ScreenPendingRecipes> {
                     return ['Accept', 'Reject'].map((String choice) {
                       return PopupMenuItem<String>(
                         value: choice.toLowerCase(),
-                        child: Text(choice),
+                        child: Text(
+                          choice,
+                          style: const TextStyle(
+                              fontFamily: 'Kanit', fontSize: 15),
+                        ),
                       );
                     }).toList();
                   },
                 ),
                 onTap: () {
-                  // Handle onTap action
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => ScreenPendingOut(recipe: recipe),
+                    ),
+                  );
                 },
               );
             },

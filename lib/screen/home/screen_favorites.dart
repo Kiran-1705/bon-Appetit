@@ -36,47 +36,38 @@ class _ScreenFavoritesState extends State<ScreenFavorites> {
           });
         },
       ),
-      body: SafeArea(
-        child: Column(
-          children: [
-            Padding(
-              padding: const EdgeInsets.only(left: 10, right: 10),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  const Text(
-                    'F a v o r i t e s',
-                    style: TextStyle(fontSize: 23, fontWeight: FontWeight.bold),
-                  ),
-                  IconButton(
-                    onPressed: () {},
-                    icon: const Icon(
-                      Icons.search,
-                      size: 33,
-                    ),
-                  ),
-                ],
-              ),
+      body: const SafeArea(
+        child: Column(children: [
+          Padding(
+            padding: EdgeInsets.only(left: 10, right: 10),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  'F a v o r i t e s',
+                  style: TextStyle(fontSize: 25, fontFamily: 'Righteous'),
+                ),
+              ],
             ),
-            const SizedBox(height: 20),
-            // Recipe Cards
-            const FavoriteCard(
-              title: 'Delicious Recipe 1',
-              subtitle: 'Amazing ingredients and flavors',
-            ),
-            const SizedBox(height: 20),
-            const FavoriteCard(
-              title: 'Tasty Recipe 2',
-              subtitle: 'Unique and flavorful combination',
-            ),
-            const SizedBox(height: 20),
-            const FavoriteCard(
-              title: 'Fantastic Recipe 3',
-              subtitle: 'Exquisite taste and presentation',
-            ),
-            const SizedBox(height: 20),
-          ],
-        ),
+          ),
+          SizedBox(height: 20),
+          // Recipe Cards
+          FavoriteCard(
+            title: 'Delicious Recipe 1',
+            subtitle: 'Amazing ingredients and flavors',
+          ),
+          SizedBox(height: 20),
+          FavoriteCard(
+            title: 'Tasty Recipe 2',
+            subtitle: 'Unique and flavorful combination',
+          ),
+          SizedBox(height: 20),
+          FavoriteCard(
+            title: 'Fantastic Recipe 3',
+            subtitle: 'Exquisite taste and presentation',
+          ),
+          SizedBox(height: 20),
+        ]),
       ),
     );
   }

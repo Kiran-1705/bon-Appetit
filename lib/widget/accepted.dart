@@ -1,4 +1,5 @@
 import 'package:bon_appetit/database/model/accept_model.dart';
+import 'package:bon_appetit/widget/display_accept.dart';
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
@@ -53,8 +54,21 @@ class _AcceptedRecipesState extends State<AcceptedRecipes> {
                 leading: CircleAvatar(
                   child: Text((index + 1).toString()),
                 ),
-                title: Text(acceptModel.title),
-                subtitle: Text(acceptModel.category),
+                title: Text(
+                  acceptModel.title,
+                  style: const TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 17,
+                    fontFamily: 'Kanit',
+                  ),
+                ),
+                subtitle: Text(
+                  acceptModel.category,
+                  style: const TextStyle(
+                    fontSize: 15,
+                    fontFamily: 'Kanit',
+                  ),
+                ),
                 trailing: PopupMenuButton<String>(
                   onSelected: (String value) {
                     if (value == 'Add') {
@@ -65,19 +79,32 @@ class _AcceptedRecipesState extends State<AcceptedRecipes> {
                   },
                   itemBuilder: (BuildContext context) {
                     return <PopupMenuEntry<String>>[
-                      PopupMenuItem<String>(
+                      const PopupMenuItem<String>(
                         value: 'Add',
-                        child: const Text('Add'),
+                        child: Text(
+                          'Add',
+                          style: TextStyle(fontFamily: 'Kanit', fontSize: 15),
+                        ),
                       ),
-                      PopupMenuItem<String>(
+                      const PopupMenuItem<String>(
                         value: 'Delete',
-                        child: const Text('Delete'),
+                        child: Text(
+                          'Delete',
+                          style: TextStyle(fontFamily: 'Kanit', fontSize: 15),
+                        ),
                       ),
                     ];
                   },
                 ),
                 onTap: () {
-                  // Handle the tap on accepted recipe
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => ScreenOut(
+                        recipe: acceptModel,
+                      ),
+                    ),
+                  );
                 },
               );
             },

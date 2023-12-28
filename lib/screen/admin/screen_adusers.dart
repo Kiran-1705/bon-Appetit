@@ -17,7 +17,11 @@ class _ScreenAdminUsersState extends State<ScreenAdminUsers> {
       appBar: AppBar(
         title: const Text(
           'U S E R S',
-          style: TextStyle(fontWeight: FontWeight.bold),
+          style: TextStyle(
+            fontSize: 23,
+            fontWeight: FontWeight.w700,
+            fontFamily: 'RalewayVariableFont',
+          ),
         ),
         centerTitle: true,
         actions: [IconButton(onPressed: () {}, icon: const Icon(Icons.search))],
@@ -38,8 +42,21 @@ class _ScreenAdminUsersState extends State<ScreenAdminUsers> {
                             _showDeleteConfirmationDialog(context, index);
                           },
                           icon: const Icon(Icons.delete)),
-                      title: Text(data.name),
-                      subtitle: Text(data.email),
+                      title: Text(
+                        data.name,
+                        style: const TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 19,
+                          fontFamily: 'Kanit',
+                        ),
+                      ),
+                      subtitle: Text(
+                        data.email,
+                        style: const TextStyle(
+                          fontSize: 15,
+                          fontFamily: 'Kanit',
+                        ),
+                      ),
                     );
                   },
                   separatorBuilder: (context, index) {

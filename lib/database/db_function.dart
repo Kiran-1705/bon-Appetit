@@ -82,16 +82,6 @@ RecipeModel convertToRecipeModel(AcceptModel acceptModel) {
   );
 }
 
-// Future<List<RecipeModel>> getAllAccept() async {
-//   final acceptDB = await Hive.openBox<AcceptModel>('accept_db');
-//   List<AcceptModel> acceptModels = acceptDB.values.toList();
-//   List<RecipeModel> acceptedRecipes = acceptModels.map((acceptModel) {
-//     return convertToRecipeModel(acceptModel);
-//   }).toList();
-//   acceptListNotifier.value = acceptModels;
-//   acceptListNotifier.notifyListeners();
-//   return acceptedRecipes;
-// }
 Future<List<AcceptModel>> getAllAccept() async {
   final acceptDB = await Hive.openBox<AcceptModel>('accept_db');
   List<AcceptModel> acceptModels = acceptDB.values.toList();
@@ -131,5 +121,30 @@ void deleteRejected(int index) {
   final rejectedRecipe = rejectedDB.getAt(index);
   if (rejectedRecipe != null) {
     rejectedDB.deleteAt(index);
+  }
+}
+
+Future<int> checkRecipeStatus(String recipeTitle) async {
+  final recipeDB = await Hive.openBox<RecipeModel>('recipe_db');
+  final acceptDB = await Hive.openBox<AcceptModel>('accept_db');
+  final rejectedDB = await Hive.openBox<RejectModel>('rejected_db');
+
+  final List<AcceptModel> acceptedRecipes = acceptDB.values.toList();
+  final List<RejectModel> rejectedRecipes = rejectedDB.values.toList();
+  final List<RecipeModel> allRecipes = recipeDB.values.toList();
+
+  bool isAccepted =
+      acceptedRecipes.any((acceptModel) => acceptModel.title == recipeTitle);
+  bool isRejected =
+      rejectedRecipes.any((rejectModel) => rejectModel.title == recipeTitle);
+  bool isFoundInRecipes =
+      allRecipes.any((recipeModel) => recipeModel.title == recipeTitle);
+
+  if (isAccepted) {
+    return 1;
+  } else if (isRejected) {
+    return 0;
+  } else {
+    return -1;
   }
 }

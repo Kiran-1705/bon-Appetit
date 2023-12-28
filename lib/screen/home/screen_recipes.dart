@@ -1,7 +1,7 @@
 import 'package:bon_appetit/screen/home/screen_favorites.dart';
 import 'package:bon_appetit/screen/home/screen_home.dart';
 import 'package:bon_appetit/screen/home/screen_profile.dart';
-import 'package:bon_appetit/widget/display.dart';
+import 'package:bon_appetit/widget/display_accept.dart';
 import 'package:bon_appetit/widget/recipe_box.dart';
 import 'package:flutter/material.dart';
 import 'package:bon_appetit/database/model/accept_model.dart';
@@ -69,10 +69,9 @@ class _ScreenRecipesState extends State<ScreenRecipes> {
                     const Text(
                       'R e c i p e s',
                       style: TextStyle(
-                        fontSize: 23,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.white,
-                      ),
+                          color: Colors.white,
+                          fontSize: 25,
+                          fontFamily: 'Righteous'),
                     ),
                     IconButton(
                       onPressed: () {
@@ -83,15 +82,12 @@ class _ScreenRecipesState extends State<ScreenRecipes> {
                           ),
                         );
                       },
-                      icon: const Icon(
-                        Icons.search,
-                        size: 33,
-                        color: Colors.white,
-                      ),
+                      icon: const Icon(Icons.search,
+                          size: 33, color: Colors.white),
                     )
                   ],
                 ),
-                const SizedBox(height: 20),
+                const SizedBox(height: 15),
                 _dataLoaded
                     ? _buildRecipeItems()
                     : const CircularProgressIndicator(),
