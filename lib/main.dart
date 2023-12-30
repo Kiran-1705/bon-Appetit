@@ -1,4 +1,5 @@
 import 'package:bon_appetit/database/model/accept_model.dart';
+import 'package:bon_appetit/database/model/favorite_model.dart';
 import 'package:bon_appetit/database/model/pending_model.dart';
 import 'package:bon_appetit/database/model/recipe_model.dart';
 import 'package:bon_appetit/database/model/reject_model.dart';
@@ -15,12 +16,14 @@ void main() async {
       !Hive.isAdapterRegistered(RecipeModelAdapter().typeId) ||
       !Hive.isAdapterRegistered(AcceptModelAdapter().typeId) ||
       !Hive.isAdapterRegistered(PendingModelAdapter().typeId) ||
-      !Hive.isAdapterRegistered(RejectModelAdapter().typeId)) {
+      !Hive.isAdapterRegistered(RejectModelAdapter().typeId) ||
+      !Hive.isAdapterRegistered(FavoriteModelAdapter().typeId)) {
     Hive.registerAdapter(UserModelAdapter());
     Hive.registerAdapter(RecipeModelAdapter());
     Hive.registerAdapter(AcceptModelAdapter());
     Hive.registerAdapter(PendingModelAdapter());
     Hive.registerAdapter(RejectModelAdapter());
+    Hive.registerAdapter(FavoriteModelAdapter());
   }
   runApp(const MyApp());
 }

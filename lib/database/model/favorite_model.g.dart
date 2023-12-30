@@ -1,22 +1,22 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'reject_model.dart';
+part of 'favorite_model.dart';
 
 // **************************************************************************
 // TypeAdapterGenerator
 // **************************************************************************
 
-class RejectModelAdapter extends TypeAdapter<RejectModel> {
+class FavoriteModelAdapter extends TypeAdapter<FavoriteModel> {
   @override
-  final int typeId = 5;
+  final int typeId = 6;
 
   @override
-  RejectModel read(BinaryReader reader) {
+  FavoriteModel read(BinaryReader reader) {
     final numOfFields = reader.readByte();
     final fields = <int, dynamic>{
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
-    return RejectModel(
+    return FavoriteModel(
       category: fields[0] as String,
       title: fields[1] as String,
       imagePath: (fields[2] as List).cast<String>(),
@@ -28,7 +28,7 @@ class RejectModelAdapter extends TypeAdapter<RejectModel> {
   }
 
   @override
-  void write(BinaryWriter writer, RejectModel obj) {
+  void write(BinaryWriter writer, FavoriteModel obj) {
     writer
       ..writeByte(7)
       ..writeByte(0)
@@ -53,7 +53,7 @@ class RejectModelAdapter extends TypeAdapter<RejectModel> {
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      other is RejectModelAdapter &&
+      other is FavoriteModelAdapter &&
           runtimeType == other.runtimeType &&
           typeId == other.typeId;
 }

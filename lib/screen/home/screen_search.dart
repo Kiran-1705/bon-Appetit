@@ -14,7 +14,7 @@ class _ScreenSearchState extends State<ScreenSearch> {
       appBar: AppBar(
         title: const Text(
           'S e a r c h',
-          style: TextStyle(fontWeight: FontWeight.bold),
+          style: TextStyle(fontSize: 25, fontFamily: 'Righteous'),
         ),
         centerTitle: true,
       ),
@@ -28,6 +28,9 @@ class _ScreenSearchState extends State<ScreenSearch> {
                   borderRadius: BorderRadius.circular(8),
                 ),
                 labelText: 'Search by Ingredient/Name',
+                labelStyle: const TextStyle(
+                    fontFamily: 'RalewayVariableFont',
+                    fontWeight: FontWeight.w700),
               ),
             ),
           ),
@@ -60,7 +63,7 @@ class _ScreenSearchState extends State<ScreenSearch> {
                   children: [
                     _buildImageWithText(
                       imagePath: "lib/assets/cocktails.jpg",
-                      text: 'COCKTAILS',
+                      text: 'COCKTAIL',
                     ),
                     _buildImageWithText(
                       imagePath: "lib/assets/search4.png",
@@ -68,7 +71,25 @@ class _ScreenSearchState extends State<ScreenSearch> {
                     ),
                     _buildImageWithText(
                       imagePath: "lib/assets/diserts.jpg",
-                      text: 'DISERTS',
+                      text: 'DESSERT',
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 30),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    _buildImageWithText(
+                      imagePath: "lib/assets/curry.png",
+                      text: 'CURRY',
+                    ),
+                    _buildImageWithText(
+                      imagePath: "lib/assets/salad.png",
+                      text: 'SALAD',
+                    ),
+                    _buildImageWithText(
+                      imagePath: "lib/assets/diserts.jpg",
+                      text: 'DESSERT',
                     ),
                   ],
                 )
@@ -108,7 +129,7 @@ class _ScreenSearchState extends State<ScreenSearch> {
               child: Text(
                 text,
                 textAlign: TextAlign.center,
-                style: const TextStyle(fontSize: 16),
+                style: const TextStyle(fontSize: 16, fontFamily: 'Righteous'),
               ),
             ),
           ],

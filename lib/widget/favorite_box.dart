@@ -1,62 +1,112 @@
+import 'dart:io';
+import 'package:bon_appetit/database/db_function.dart';
+import 'package:bon_appetit/database/model/favorite_model.dart';
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 
-class FavoriteCard extends StatelessWidget {
-  final String title;
-  final String subtitle;
-
+class FavoriteCard extends StatefulWidget {
+  final FavoriteModel favoriteModel;
   const FavoriteCard({
+    required this.favoriteModel,
     Key? key,
-    required this.title,
-    required this.subtitle,
+    required String title,
+    required String subtitle,
+    required imagePath,
   }) : super(key: key);
 
   @override
+  State<FavoriteCard> createState() => _FavoriteCardState();
+}
+
+class _FavoriteCardState extends State<FavoriteCard> {
+  @override
   Widget build(BuildContext context) {
-    return Container(
-      height: 150,
-      width: 370,
-      decoration: BoxDecoration(
-        color: Colors.blue,
-        borderRadius: BorderRadius.circular(12),
-      ),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Container(
-            margin: const EdgeInsets.only(left: 10),
-            height: 120,
-            width: 120,
-            decoration: BoxDecoration(
-              color: Colors.black,
-              borderRadius: BorderRadius.circular(12),
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Container(
+        height: 150,
+        decoration: BoxDecoration(
+          color: Colors.black,
+          borderRadius: BorderRadius.circular(12),
+        ),
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Padding(
+              padding: const EdgeInsets.only(top: 17),
+              child: SizedBox(
+                height: 110,
+                width: 160,
+                child: CarouselSlider(
+                  items: widget.favoriteModel.imagePath.map((imagePath) {
+                    return ClipRRect(
+                      borderRadius: BorderRadius.circular(8),
+                      child: Image(
+                        image: FileImage(File(imagePath)),
+                        fit: BoxFit.cover,
+                      ),
+                    );
+                  }).toList(),
+                  options: CarouselOptions(
+                    autoPlay: true,
+                    aspectRatio: 16 / 9,
+                    enlargeCenterPage: true,
+                  ),
+                ),
+              ),
             ),
-          ),
-          // Title and Subtitle Column
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Container(
-                margin: const EdgeInsets.only(top: 15),
-                height: 120,
-                width: 170,
+            const SizedBox(width: 5),
+            Expanded(
+              child: Padding(
+                padding: const EdgeInsets.only(bottom: 15),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(title),
-                    Text(subtitle),
+                    Container(
+                      margin: const EdgeInsets.only(top: 15),
+                      child: Text(
+                        widget.favoriteModel.title,
+                        style: const TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 17,
+                            fontFamily: 'Kanit',
+                            color: Colors.white),
+                        overflow: TextOverflow.ellipsis,
+                        maxLines: 1,
+                      ),
+                    ),
+                    Expanded(
+                      child: SingleChildScrollView(
+                        child: Text(
+                          widget.favoriteModel.tips,
+                          style: const TextStyle(
+                              fontFamily: 'Kanit',
+                              fontSize: 15,
+                              color: Colors.white),
+                        ),
+                      ),
+                    ),
                   ],
                 ),
-              )
-            ],
-          ),
-          IconButton(
-            onPressed: () {},
-            icon: const Icon(
-              Icons.favorite,
-              color: Colors.red,
+              ),
             ),
-          )
-        ],
+            IconButton(
+              onPressed: () {
+                int index = Hive.box<FavoriteModel>('favorite_db')
+                    .values
+                    .toList()
+                    .indexWhere((element) =>
+                        element.title == widget.favoriteModel.title);
+                deleteFromFavorites(index);
+              },
+              icon: const Icon(
+                Icons.favorite,
+                color: Colors.red,
+              ),
+            )
+          ],
+        ),
       ),
     );
   }

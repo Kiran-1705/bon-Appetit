@@ -16,7 +16,7 @@ class AcceptModel {
   @HiveField(5)
   final String steps;
   @HiveField(6)
-  String? tips;
+  final String tips;
   AcceptModel(
       {required this.category,
       required this.title,
@@ -24,5 +24,5 @@ class AcceptModel {
       required this.url,
       required this.ingredients,
       required this.steps,
-      this.tips});
+      required this.tips});
 }

@@ -1,7 +1,10 @@
 import 'dart:io';
+import 'package:bon_appetit/database/db_function.dart';
 import 'package:bon_appetit/database/model/accept_model.dart';
+import 'package:bon_appetit/database/model/favorite_model.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 
 class RecipeItem extends StatefulWidget {
   final AcceptModel acceptModel;
@@ -12,11 +15,28 @@ class RecipeItem extends StatefulWidget {
     required String subtitle,
     required imagePath,
   }) : super(key: key);
+
   @override
   State<RecipeItem> createState() => _RecipeItemState();
 }
 
 class _RecipeItemState extends State<RecipeItem> {
+  bool isFavorite = false;
+
+  @override
+  void initState() {
+    super.initState();
+    _checkFavoriteStatus();
+  }
+
+  Future<void> _checkFavoriteStatus() async {
+    bool exists =
+        await checkIfRecipeExistsInFavorites(widget.acceptModel.title);
+    setState(() {
+      isFavorite = exists;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -32,24 +52,25 @@ class _RecipeItemState extends State<RecipeItem> {
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
             SizedBox(
-                height: 110,
-                width: 160,
-                child: CarouselSlider(
-                  items: widget.acceptModel.imagePath.map((imagePath) {
-                    return ClipRRect(
-                      borderRadius: BorderRadius.circular(8),
-                      child: Image(
-                        image: FileImage(File(imagePath)),
-                        fit: BoxFit.cover,
-                      ),
-                    );
-                  }).toList(),
-                  options: CarouselOptions(
-                    autoPlay: true,
-                    aspectRatio: 16 / 9,
-                    enlargeCenterPage: true,
-                  ),
-                )),
+              height: 110,
+              width: 160,
+              child: CarouselSlider(
+                items: widget.acceptModel.imagePath.map((imagePath) {
+                  return ClipRRect(
+                    borderRadius: BorderRadius.circular(8),
+                    child: Image(
+                      image: FileImage(File(imagePath)),
+                      fit: BoxFit.cover,
+                    ),
+                  );
+                }).toList(),
+                options: CarouselOptions(
+                  autoPlay: true,
+                  aspectRatio: 16 / 9,
+                  enlargeCenterPage: true,
+                ),
+              ),
+            ),
             const SizedBox(height: 5),
             Padding(
               padding: const EdgeInsets.only(top: 3, left: 8),
@@ -79,10 +100,43 @@ class _RecipeItemState extends State<RecipeItem> {
                   ),
                 ),
                 IconButton(
-                  onPressed: () {},
-                  icon: const Icon(
+                  onPressed: () async {
+                    setState(() {
+                      if (isFavorite) {
+                        deleteFromFavorites(widget.acceptModel.title);
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(
+                            content: Text(
+                              'Recipe removed from favorites',
+                              style:
+                                  TextStyle(fontFamily: 'Kanit', fontSize: 15),
+                            ),
+                            backgroundColor: Colors.red,
+                            duration: Duration(seconds: 2),
+                          ),
+                        );
+                        isFavorite = false;
+                      } else {
+                        addAcceptedRecipeToFavorites(widget.acceptModel);
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(
+                            content: Text(
+                              'Recipe added to favorites',
+                              style:
+                                  TextStyle(fontFamily: 'Kanit', fontSize: 15),
+                            ),
+                            backgroundColor: Colors.green,
+                            duration: Duration(seconds: 2),
+                          ),
+                        );
+                        isFavorite = true;
+                      }
+                    });
+                  },
+                  icon: Icon(
                     Icons.favorite,
                     size: 36,
+                    color: isFavorite ? Colors.red : Colors.grey,
                   ),
                 ),
                 IconButton(
@@ -99,4 +153,19 @@ class _RecipeItemState extends State<RecipeItem> {
       ),
     );
   }
+}
+
+void deleteFromFavorites(String title) async {
+  final favoriteBox = await Hive.openBox<FavoriteModel>('favorite_db');
+  int index = favoriteBox.values
+      .toList()
+      .indexWhere((element) => element.title == title);
+  if (index != -1) {
+    await favoriteBox.deleteAt(index);
+  }
+}
+
+Future<bool> checkIfRecipeExistsInFavorites(String title) async {
+  final favoriteBox = await Hive.openBox<FavoriteModel>('favorite_db');
+  return favoriteBox.values.any((recipe) => recipe.title == title);
 }

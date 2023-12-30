@@ -1,4 +1,5 @@
 import 'package:bon_appetit/database/model/accept_model.dart';
+import 'package:bon_appetit/database/model/favorite_model.dart';
 import 'package:bon_appetit/database/model/pending_model.dart';
 import 'package:bon_appetit/database/model/recipe_model.dart';
 import 'package:bon_appetit/database/model/reject_model.dart';
@@ -79,6 +80,7 @@ RecipeModel convertToRecipeModel(AcceptModel acceptModel) {
     ingredients: acceptModel.ingredients,
     imagePath: acceptModel.imagePath,
     steps: acceptModel.steps,
+    tips: acceptModel.tips,
   );
 }
 
@@ -147,4 +149,31 @@ Future<int> checkRecipeStatus(String recipeTitle) async {
   } else {
     return -1;
   }
+}
+
+Future<void> addAcceptedRecipeToFavorites(AcceptModel acceptedRecipe) async {
+  final favoriteBox = await Hive.openBox<FavoriteModel>('favorite_db');
+  final favoriteRecipe = FavoriteModel(
+    category: acceptedRecipe.category,
+    title: acceptedRecipe.title,
+    imagePath: acceptedRecipe.imagePath,
+    url: acceptedRecipe.url,
+    ingredients: acceptedRecipe.ingredients,
+    steps: acceptedRecipe.steps,
+    tips: acceptedRecipe.tips,
+  );
+  await favoriteBox.add(favoriteRecipe);
+}
+
+void deleteFromFavorites(int index) async {
+  final favoriteBox = await Hive.openBox<FavoriteModel>('favorite_db');
+  if (index >= 0 && index < favoriteBox.length) {
+    await favoriteBox.deleteAt(index);
+  }
+}
+
+Future<bool> checkIfRecipeExistsInFavorites(String title) async {
+  final acceptDB = await Hive.openBox<AcceptModel>('accept_db');
+  final existingRecipes = acceptDB.values.toList();
+  return existingRecipes.any((recipe) => recipe.title == title);
 }

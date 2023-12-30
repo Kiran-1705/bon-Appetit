@@ -1,8 +1,8 @@
 import 'package:hive_flutter/hive_flutter.dart';
-part 'pending_model.g.dart';
+part 'favorite_model.g.dart';
 
-@HiveType(typeId: 4)
-class PendingModel {
+@HiveType(typeId: 6)
+class FavoriteModel {
   @HiveField(0)
   final String category;
   @HiveField(1)
@@ -17,12 +17,13 @@ class PendingModel {
   final String steps;
   @HiveField(6)
   final String tips;
-  PendingModel(
-      {required this.category,
-      required this.title,
-      required this.imagePath,
-      required this.url,
-      required this.ingredients,
-      required this.steps,
-      required this.tips});
+  FavoriteModel({
+    required this.category,
+    required this.title,
+    required this.imagePath,
+    required this.url,
+    required this.ingredients,
+    required this.steps,
+    required this.tips,
+  });
 }

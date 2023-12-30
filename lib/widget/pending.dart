@@ -35,6 +35,7 @@ class _ScreenPendingRecipesState extends State<ScreenPendingRecipes> {
       url: recipe.url,
       ingredients: recipe.ingredients,
       steps: recipe.steps,
+      tips: recipe.tips,
     ));
 
     final pendingDB = await Hive.openBox<PendingModel>('pending_db');
@@ -54,6 +55,7 @@ class _ScreenPendingRecipesState extends State<ScreenPendingRecipes> {
       url: recipe.url,
       ingredients: recipe.ingredients,
       steps: recipe.steps,
+      tips: recipe.tips,
     ));
     final pendingDB = await Hive.openBox<PendingModel>('pending_db');
     final index =

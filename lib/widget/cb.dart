@@ -87,15 +87,6 @@ class _ScreenCBState extends State<ScreenCB> {
       ),
     );
   }
-  // _buildIngredientsList(),
-  // const SizedBox(height: 10),
-  // _buildStepByStepProcess(),
-  // const SizedBox(height: 10),
-  // const Text(
-  //   'Enjoy your meal',
-  //   style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-  // ),
-  // const SizedBox(height: 10),
 }
 
 Widget _buildIngredientsList() {
@@ -111,12 +102,6 @@ Widget _buildIngredientsList() {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          // const Text(
-          //   'Ingredients.',
-          //   style: TextStyle(
-          //       fontWeight: FontWeight.bold, fontSize: 18, color: Colors.white),
-          // ),
-          // const SizedBox(height: 10),
           Expanded(
             child: ListView.builder(
               itemCount: _ingredientsList.length,
@@ -153,12 +138,6 @@ Widget _buildStepByStepProcess() {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          // const Text(
-          //   'Step-by-step process',
-          //   style: TextStyle(
-          //       fontWeight: FontWeight.bold, fontSize: 18, color: Colors.white),
-          // ),
-          // const SizedBox(height: 5),
           Expanded(
             child: ListView.builder(
               itemCount: _stepByStepList.length,

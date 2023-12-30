@@ -22,6 +22,7 @@ class _ScreenAddRecipesState extends State<ScreenAddRecipes> {
   final TextEditingController _ingredientsController = TextEditingController();
   final TextEditingController _stepsController = TextEditingController();
   final TextEditingController _titleController = TextEditingController();
+  final TextEditingController _tipsController = TextEditingController();
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   @override
@@ -72,7 +73,11 @@ class _ScreenAddRecipesState extends State<ScreenAddRecipes> {
                     'Snack',
                     'Dinner',
                     'Cocktail',
-                    'Disert'
+                    'Dessert ',
+                    'Curry',
+                    'Soup',
+                    'Salad',
+                    'Cake'
                   ].map((String category) {
                     return DropdownMenuItem<String>(
                       value: category,
@@ -258,6 +263,7 @@ class _ScreenAddRecipesState extends State<ScreenAddRecipes> {
                 //add tips
                 const SizedBox(height: 10),
                 TextFormField(
+                  controller: _tipsController,
                   decoration: InputDecoration(
                     labelText: 'Add Discription',
                     labelStyle: const TextStyle(
@@ -297,6 +303,7 @@ class _ScreenAddRecipesState extends State<ScreenAddRecipes> {
                         steps: _stepsController.text,
                         imagePath:
                             _selectedImages.map((image) => image.path).toList(),
+                        tips: _tipsController.text,
                       );
                       addRecipe(recipe);
                       PendingModel pendingrecipe = PendingModel(
@@ -307,12 +314,17 @@ class _ScreenAddRecipesState extends State<ScreenAddRecipes> {
                         steps: _stepsController.text,
                         imagePath:
                             _selectedImages.map((image) => image.path).toList(),
+                        tips: _tipsController.text,
                       );
                       addPending(pendingrecipe);
 
                       ScaffoldMessenger.of(context).showSnackBar(
                         const SnackBar(
-                          content: Text('Data submitted successfully!'),
+                          content: Text(
+                            'Recipe submitted successfully',
+                            style: TextStyle(fontFamily: 'Kanit', fontSize: 15),
+                          ),
+                          backgroundColor: Colors.green,
                           duration: Duration(seconds: 2),
                         ),
                       );
@@ -329,7 +341,11 @@ class _ScreenAddRecipesState extends State<ScreenAddRecipes> {
                     } else {
                       ScaffoldMessenger.of(context).showSnackBar(
                         const SnackBar(
-                          content: Text('Please fill in all fields correctly.'),
+                          content: Text(
+                            'Please fill in all fields correctly.',
+                            style: TextStyle(fontFamily: 'Kanit', fontSize: 15),
+                          ),
+                          backgroundColor: Colors.red,
                           duration: Duration(seconds: 2),
                         ),
                       );

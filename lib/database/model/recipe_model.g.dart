@@ -23,7 +23,7 @@ class RecipeModelAdapter extends TypeAdapter<RecipeModel> {
       url: fields[3] as String,
       ingredients: fields[4] as String,
       steps: fields[5] as String,
-      tips: fields[6] as String?,
+      tips: fields[6] as String,
     );
   }
 
