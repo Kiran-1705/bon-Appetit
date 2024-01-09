@@ -50,6 +50,14 @@ Future<bool> checkUserExists(UserModel user) async {
   return exists;
 }
 
+void updateUserDetails(int index, UserModel updatedUser) async {
+  final userDB = await Hive.openBox<UserModel>('user_db');
+  if (index >= 0 && index < userDB.length) {
+    await userDB.putAt(index, updatedUser);
+    await getAllUser();
+  }
+}
+
 //recipe
 Future<void> getAllRecipe() async {
   final recipeDB = await Hive.openBox<RecipeModel>('recipe_db');

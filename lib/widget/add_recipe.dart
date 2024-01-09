@@ -5,6 +5,7 @@ import 'package:bon_appetit/database/model/recipe_model.dart';
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class ScreenAddRecipes extends StatefulWidget {
   const ScreenAddRecipes({Key? key}) : super(key: key);
@@ -18,6 +19,7 @@ class _ScreenAddRecipesState extends State<ScreenAddRecipes> {
   bool _isTitleValid = true;
   List<XFile> _selectedImages = <XFile>[];
   bool _isVideoUrlValid = true;
+  String? loggedInUserEmail;
   final TextEditingController _videoUrlController = TextEditingController();
   final TextEditingController _ingredientsController = TextEditingController();
   final TextEditingController _stepsController = TextEditingController();
@@ -30,11 +32,18 @@ class _ScreenAddRecipesState extends State<ScreenAddRecipes> {
     super.initState();
     openRecipeBox();
     getAllRecipe();
+    getUserEmail();
   }
 
   Future<Box<RecipeModel>> openRecipeBox() async {
     final recipeDB = await Hive.openBox<RecipeModel>('recipe_db');
     return recipeDB;
+  }
+
+  Future<void> getUserEmail() async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    loggedInUserEmail = prefs.getString('loggedInUserEmail');
+    setState(() {});
   }
 
   @override
@@ -275,6 +284,13 @@ class _ScreenAddRecipesState extends State<ScreenAddRecipes> {
                   ),
                 ),
                 const SizedBox(height: 10),
+                Text(
+                  'Uploaded By $loggedInUserEmail',
+                  style: const TextStyle(
+                      fontFamily: 'RalewayVariableFont',
+                      fontWeight: FontWeight.w700),
+                ),
+                const SizedBox(height: 5),
                 ElevatedButton(
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.black,
@@ -304,6 +320,7 @@ class _ScreenAddRecipesState extends State<ScreenAddRecipes> {
                         imagePath:
                             _selectedImages.map((image) => image.path).toList(),
                         tips: _tipsController.text,
+                        // uploadedBy: loggedInUserEmail ?? '',
                       );
                       addRecipe(recipe);
                       PendingModel pendingrecipe = PendingModel(

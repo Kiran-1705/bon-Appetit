@@ -90,7 +90,16 @@ class _ScreenRecipesState extends State<ScreenRecipes> {
                 const SizedBox(height: 15),
                 _dataLoaded
                     ? _buildRecipeItems()
-                    : const CircularProgressIndicator(),
+                    : const Center(
+                        child: Text(
+                          'No recipes available.',
+                          style: TextStyle(
+                            fontSize: 23,
+                            fontWeight: FontWeight.w700,
+                            fontFamily: 'RalewayVariableFont',
+                          ),
+                        ),
+                      ),
               ],
             ),
           ),
@@ -100,32 +109,37 @@ class _ScreenRecipesState extends State<ScreenRecipes> {
   }
 
   Widget _buildRecipeItems() {
-    return Column(
-      children: acceptedRecipes.map((recipe) {
-        return Column(
-          children: [
-            GestureDetector(
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => ScreenOut(
-                      recipe: recipe,
-                    ),
-                  ),
-                );
-              },
-              child: RecipeItem(
-                acceptModel: recipe,
-                title: recipe.title,
-                subtitle: recipe.category,
-                imagePath: recipe.imagePath,
+    return GridView.builder(
+      shrinkWrap: true,
+      physics: const NeverScrollableScrollPhysics(),
+      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+        crossAxisCount: 2,
+        crossAxisSpacing: 10.0,
+        mainAxisSpacing: 10.0,
+        childAspectRatio: 0.7,
+      ),
+      itemCount: acceptedRecipes.length,
+      itemBuilder: (BuildContext context, int index) {
+        final AcceptModel recipe = acceptedRecipes[index];
+        return GestureDetector(
+          onTap: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => ScreenOut(
+                  recipe: recipe,
+                ),
               ),
-            ),
-            const SizedBox(height: 20),
-          ],
+            );
+          },
+          child: RecipeItem(
+            acceptModel: recipe,
+            title: recipe.title,
+            subtitle: recipe.category,
+            imagePath: recipe.imagePath,
+          ),
         );
-      }).toList(),
+      },
     );
   }
 }

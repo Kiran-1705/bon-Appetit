@@ -14,6 +14,19 @@ class ScreenRecipeOut extends StatefulWidget {
 
 class _ScreenRecipeOutState extends State<ScreenRecipeOut> {
   int selectedTabIndex = 0;
+  // String? loggedInUserEmail;
+  // @override
+  // void initState() {
+  //   super.initState();
+  //   getUserEmail();
+  // }
+
+  // Future<void> getUserEmail() async {
+  //   final SharedPreferences prefs = await SharedPreferences.getInstance();
+  //   loggedInUserEmail = prefs.getString('loggedInUserEmail');
+  //   setState(() {});
+  // }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -21,9 +34,7 @@ class _ScreenRecipeOutState extends State<ScreenRecipeOut> {
         title: Text(
           widget.recipe.title,
           style: const TextStyle(
-            fontWeight: FontWeight.bold,
-            fontSize: 23,
-          ),
+              fontFamily: 'Kanit', fontWeight: FontWeight.w400, fontSize: 23),
         ),
         centerTitle: true,
       ),
@@ -84,6 +95,12 @@ class _ScreenRecipeOutState extends State<ScreenRecipeOut> {
             const SizedBox(height: 10),
             const Column(
               children: [
+                // Text(
+                //   'Uploaded By ${widget.recipe.uploadedBy}',
+                //   style: TextStyle(
+                //       fontFamily: 'RalewayVariableFont',
+                //       fontWeight: FontWeight.w700),
+                // ),
                 Text(
                   'E n j o y  y o u r  m e a l.',
                   style: TextStyle(fontSize: 23, fontWeight: FontWeight.bold),
@@ -107,15 +124,6 @@ class _ScreenRecipeOutState extends State<ScreenRecipeOut> {
             borderRadius: BorderRadius.all(Radius.circular(8))),
         child: Column(
           children: [
-            // const SizedBox(height: 10),
-            // const Text(
-            //   'Ingredients.',
-            //   style: TextStyle(
-            //     fontWeight: FontWeight.bold,
-            //     fontSize: 23,
-            //     color: Colors.white,
-            //   ),
-            // ),
             const SizedBox(height: 10),
             ListView.builder(
               shrinkWrap: true,
@@ -129,7 +137,8 @@ class _ScreenRecipeOutState extends State<ScreenRecipeOut> {
                   ),
                   title: Text(
                     ingredientsList[index],
-                    style: const TextStyle(color: Colors.white),
+                    style: const TextStyle(
+                        fontFamily: 'Kanit', fontSize: 17, color: Colors.white),
                   ),
                 );
               },
@@ -152,15 +161,6 @@ class _ScreenRecipeOutState extends State<ScreenRecipeOut> {
           padding: const EdgeInsets.all(8.0),
           child: Column(
             children: [
-              // const Text(
-              //   'Step-by-step process',
-              //   style: TextStyle(
-              //     fontWeight: FontWeight.bold,
-              //     fontSize: 23,
-              //     color: Colors.white,
-              //   ),
-              // ),
-              // const SizedBox(height: 5),
               ListView.builder(
                 shrinkWrap: true,
                 physics: const NeverScrollableScrollPhysics(),
@@ -173,7 +173,10 @@ class _ScreenRecipeOutState extends State<ScreenRecipeOut> {
                     ),
                     title: Text(
                       stepByStepList[index],
-                      style: const TextStyle(color: Colors.white),
+                      style: const TextStyle(
+                          fontFamily: 'Kanit',
+                          fontSize: 17,
+                          color: Colors.white),
                     ),
                   );
                 },

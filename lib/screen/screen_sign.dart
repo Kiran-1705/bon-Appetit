@@ -16,69 +16,67 @@ class _ScreenSignState extends State<ScreenSign> {
   bool showSignInContainer = true;
   @override
   Widget build(BuildContext context) {
-    return Material(
-      child: Scaffold(
-        body: SafeArea(
-          child: SingleChildScrollView(
-            child: Column(
-              children: [
-                Stack(
-                  children: [
-                    SizedBox(
-                      height: 280,
-                      child: Center(
-                        child: Image.asset(
-                          'lib/assets/title.png',
-                          fit: BoxFit.fill,
-                        ),
+    return Scaffold(
+      body: SafeArea(
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              Stack(
+                children: [
+                  SizedBox(
+                    height: 280,
+                    child: Center(
+                      child: Image.asset(
+                        'lib/assets/title.png',
+                        fit: BoxFit.fill,
                       ),
                     ),
-                    Positioned(
-                      top: 200,
-                      left: 0,
-                      right: 0,
-                      bottom: 0,
-                      child: SizedBox(
-                        height: 100,
-                        width: 300,
-                        child: Row(
-                          children: [
-                            TabButtons(selectedTabIndex, 1, 'Signup', (index) {
-                              setState(() {
-                                selectedTabIndex = index;
-                                showSignUpContainer = true;
-                                showSignInContainer = false;
-                              });
-                            }),
-                            TabButtons(selectedTabIndex, 0, 'Login', (index) {
-                              setState(() {
-                                selectedTabIndex = index;
-                                showSignInContainer = true;
-                                showSignUpContainer = false;
-                              });
-                            }),
-                          ],
-                        ),
+                  ),
+                  Positioned(
+                    top: 200,
+                    left: 0,
+                    right: 0,
+                    bottom: 0,
+                    child: SizedBox(
+                      height: 100,
+                      width: 300,
+                      child: Row(
+                        children: [
+                          TabButtons(selectedTabIndex, 1, 'Signup', (index) {
+                            setState(() {
+                              selectedTabIndex = index;
+                              showSignUpContainer = true;
+                              showSignInContainer = false;
+                            });
+                          }),
+                          TabButtons(selectedTabIndex, 0, 'Login', (index) {
+                            setState(() {
+                              selectedTabIndex = index;
+                              showSignInContainer = true;
+                              showSignUpContainer = false;
+                            });
+                          }),
+                        ],
                       ),
                     ),
-                  ],
-                ),
-                Visibility(
-                  visible: showSignUpContainer,
-                  child: const Padding(
-                    padding: EdgeInsets.all(8.0),
-                    child: ScreenSignup(),
                   ),
+                ],
+              ),
+              Visibility(
+                visible: showSignUpContainer,
+                child: const Padding(
+                  padding: EdgeInsets.all(8.0),
+                  child: ScreenSignup(),
                 ),
-                Visibility(
-                  visible: showSignInContainer,
-                  child: const Padding(
-                    padding: EdgeInsets.all(8.0),
-                    child: SignInForm(),
-                  ),
+              ),
+              Visibility(
+                visible: showSignInContainer,
+                child: const Padding(
+                  padding: EdgeInsets.all(8.0),
+                  child: SignInForm(),
                 ),
-              ],
-            ),
+              ),
+            ],
           ),
         ),
       ),

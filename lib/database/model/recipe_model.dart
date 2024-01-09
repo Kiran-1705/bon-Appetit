@@ -17,12 +17,14 @@ class RecipeModel {
   final String steps;
   @HiveField(6)
   final String tips;
-  RecipeModel(
-      {required this.category,
-      required this.title,
-      required this.imagePath,
-      required this.url,
-      required this.ingredients,
-      required this.steps,
-      required this.tips});
+
+  RecipeModel({
+    required this.category,
+    required this.title,
+    required this.imagePath,
+    required this.url,
+    required this.ingredients,
+    required this.steps,
+    required this.tips,
+  });
 }

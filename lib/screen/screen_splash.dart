@@ -2,14 +2,9 @@ import 'package:bon_appetit/screen/screen_sign.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 
-class ScreenSplash extends StatefulWidget {
+class ScreenSplash extends StatelessWidget {
   const ScreenSplash({super.key});
 
-  @override
-  State<ScreenSplash> createState() => _ScreenSplashState();
-}
-
-class _ScreenSplashState extends State<ScreenSplash> {
   @override
   Widget build(BuildContext context) {
     Future.delayed(const Duration(seconds: 3), () {

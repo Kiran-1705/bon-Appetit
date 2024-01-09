@@ -9,9 +9,9 @@ import 'package:bon_appetit/screen/home/screen_settings.dart';
 import 'package:bon_appetit/widget/add_recipe.dart';
 import 'package:bon_appetit/widget/bottom_bar.dart';
 import 'package:bon_appetit/widget/display_recipe.dart';
+import 'package:bon_appetit/widget/update_recipe.dart';
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class ScreenProfile extends StatefulWidget {
@@ -33,7 +33,7 @@ class _ScreenProfileState extends State<ScreenProfile> {
   String loggedInUserName = '';
   String loggedInUserEmail = '';
   String loggedInUserPhone = '';
-  File? _image;
+  String loggedInUserImagePath = '';
 
   @override
   void initState() {
@@ -65,6 +65,7 @@ class _ScreenProfileState extends State<ScreenProfile> {
         loggedInUserName = loggedInUser.name;
         loggedInUserEmail = loggedInUser.email;
         loggedInUserPhone = loggedInUser.phone;
+        loggedInUserImagePath = loggedInUser.imagePath ?? loggedInUserImagePath;
       });
     }
   }
@@ -123,16 +124,9 @@ class _ScreenProfileState extends State<ScreenProfile> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  InkWell(
-                    onTap: () => _pickImage(),
-                    child: CircleAvatar(
+                  CircleAvatar(
                       minRadius: 55,
-                      backgroundImage:
-                          _image != null ? FileImage(_image!) : null,
-                      child:
-                          _image == null ? const Icon(Icons.add_a_photo) : null,
-                    ),
-                  ),
+                      backgroundImage: FileImage(File(loggedInUserImagePath))),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -307,7 +301,14 @@ class _ScreenProfileState extends State<ScreenProfile> {
                                       icon: const Icon(Icons.more_vert),
                                       onSelected: (String value) {
                                         if (value == 'edit') {
-                                          // Implement edit functionality
+                                          Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                              builder: (context) =>
+                                                  UpdateRecipe(
+                                                      recipe: recipes[index]),
+                                            ),
+                                          );
                                         } else if (value == 'delete') {
                                           showDialog(
                                             context: context,
@@ -323,7 +324,7 @@ class _ScreenProfileState extends State<ScreenProfile> {
                                                   'Are you sure you want to delete this recipe?',
                                                   style: TextStyle(
                                                       fontFamily: 'Kanit',
-                                                      fontSize: 18),
+                                                      fontSize: 17),
                                                 ),
                                                 actions: <Widget>[
                                                   TextButton(
@@ -415,31 +416,5 @@ class _ScreenProfileState extends State<ScreenProfile> {
         ),
       ),
     );
-  }
-
-  void _pickImage() async {
-    final picker = ImagePicker();
-    final pickedImage = await picker.pickImage(source: ImageSource.gallery);
-    if (pickedImage != null) {
-      setState(() {
-        _image = File(pickedImage.path);
-        saveImagePathToUserDB(_image?.path);
-      });
-    }
-  }
-
-  void saveImagePathToUserDB(String? imagePath) async {
-    final SharedPreferences prefs = await SharedPreferences.getInstance();
-    final String? email = prefs.getString('loggedInUserEmail');
-    if (email != null) {
-      final userDB = Hive.box<UserModel>('user_db');
-      final List<UserModel> userList = userDB.values.toList();
-      final int userIndex = userList.indexWhere((user) => user.email == email);
-      if (userIndex != -1) {
-        UserModel loggedInUser = userList[userIndex];
-        loggedInUser.imagePath = imagePath;
-        userDB.putAt(userIndex, loggedInUser);
-      }
-    }
   }
 }

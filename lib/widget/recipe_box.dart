@@ -42,7 +42,7 @@ class _RecipeItemState extends State<RecipeItem> {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Container(
-        height: 250,
+        // height: 250,
         width: 170,
         decoration: BoxDecoration(
           color: Colors.white,
@@ -51,27 +51,30 @@ class _RecipeItemState extends State<RecipeItem> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
-            SizedBox(
-              height: 110,
-              width: 160,
-              child: CarouselSlider(
-                items: widget.acceptModel.imagePath.map((imagePath) {
-                  return ClipRRect(
-                    borderRadius: BorderRadius.circular(8),
-                    child: Image(
-                      image: FileImage(File(imagePath)),
-                      fit: BoxFit.cover,
-                    ),
-                  );
-                }).toList(),
-                options: CarouselOptions(
-                  autoPlay: true,
-                  aspectRatio: 16 / 9,
-                  enlargeCenterPage: true,
+            Padding(
+              padding: const EdgeInsets.only(top: 5),
+              child: SizedBox(
+                height: 110,
+                width: 160,
+                child: CarouselSlider(
+                  items: widget.acceptModel.imagePath.map((imagePath) {
+                    return ClipRRect(
+                      borderRadius: BorderRadius.circular(8),
+                      child: Image(
+                        image: FileImage(File(imagePath)),
+                        fit: BoxFit.cover,
+                      ),
+                    );
+                  }).toList(),
+                  options: CarouselOptions(
+                    autoPlay: true,
+                    aspectRatio: 16 / 9,
+                    enlargeCenterPage: true,
+                  ),
                 ),
               ),
             ),
-            const SizedBox(height: 5),
+            // const SizedBox(height: 5),
             Padding(
               padding: const EdgeInsets.only(top: 3, left: 8),
               child: Text(
