@@ -20,6 +20,7 @@ class _ScreenAddRecipesState extends State<ScreenAddRecipes> {
   List<XFile> _selectedImages = <XFile>[];
   bool _isVideoUrlValid = true;
   String? loggedInUserEmail;
+  bool _isTipsValid = true;
   final TextEditingController _videoUrlController = TextEditingController();
   final TextEditingController _ingredientsController = TextEditingController();
   final TextEditingController _stepsController = TextEditingController();
@@ -107,26 +108,23 @@ class _ScreenAddRecipesState extends State<ScreenAddRecipes> {
                 const SizedBox(height: 10),
                 //title
                 TextFormField(
-                  controller: _titleController,
-                  onChanged: (value) {
-                    setState(() {
-                      _isTitleValid = _validateTitle(value);
-                    });
-                  },
-                  decoration: InputDecoration(
-                    labelText: 'Title',
-                    labelStyle: const TextStyle(
-                        fontFamily: 'RalewayVariableFont',
-                        fontWeight: FontWeight.w700),
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(12),
-                    ),
-                    errorText: _isTitleValid ? null : 'Invalid title format',
-                    errorStyle: const TextStyle(
-                        fontFamily: 'RalewayVariableFont',
-                        fontWeight: FontWeight.w700),
-                  ),
-                ),
+                    controller: _titleController,
+                    onChanged: (value) {
+                      setState(() {
+                        _isTitleValid = _validateTitle(value);
+                      });
+                    },
+                    decoration: InputDecoration(
+                        labelText: 'Title',
+                        labelStyle: const TextStyle(
+                            fontFamily: 'RalewayVariableFont',
+                            fontWeight: FontWeight.w700),
+                        border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(12)),
+                        errorText: _isTitleValid ? null : 'Invalid title',
+                        errorStyle: const TextStyle(
+                            fontFamily: 'RalewayVariableFont',
+                            fontWeight: FontWeight.w700))),
                 const SizedBox(height: 10),
                 Container(
                   height: 290,
@@ -138,27 +136,33 @@ class _ScreenAddRecipesState extends State<ScreenAddRecipes> {
                     child: Column(
                       children: [
                         Container(
-                          height: 220,
-                          decoration: const BoxDecoration(
+                            height: 220,
+                            decoration: const BoxDecoration(
                               color: Colors.white,
                               borderRadius:
-                                  BorderRadius.all(Radius.circular(5))),
-                          child: GridView.builder(
-                            gridDelegate:
-                                const SliverGridDelegateWithFixedCrossAxisCount(
-                              crossAxisCount: 3,
-                              mainAxisSpacing: 4.0,
-                              crossAxisSpacing: 4.0,
+                                  BorderRadius.all(Radius.circular(5)),
                             ),
-                            itemCount: _selectedImages.length,
-                            itemBuilder: (BuildContext context, int index) {
-                              return Image.file(
-                                File(_selectedImages[index].path),
-                                fit: BoxFit.cover,
-                              );
-                            },
-                          ),
-                        ),
+                            child: _selectedImages.isEmpty
+                                ? const Center(
+                                    child: Text('Select at least 3 images',
+                                        style: TextStyle(
+                                            fontFamily: 'RalewayVariableFont',
+                                            fontWeight: FontWeight.w700,
+                                            fontSize: 16)))
+                                : GridView.builder(
+                                    gridDelegate:
+                                        const SliverGridDelegateWithFixedCrossAxisCount(
+                                      crossAxisCount: 3,
+                                      mainAxisSpacing: 4.0,
+                                      crossAxisSpacing: 4.0,
+                                    ),
+                                    itemCount: _selectedImages.length,
+                                    itemBuilder:
+                                        (BuildContext context, int index) {
+                                      return Image.file(
+                                          File(_selectedImages[index].path),
+                                          fit: BoxFit.cover);
+                                    })),
                         const SizedBox(height: 5),
                         ElevatedButton(
                           style: ElevatedButton.styleFrom(
@@ -217,6 +221,11 @@ class _ScreenAddRecipesState extends State<ScreenAddRecipes> {
                     });
                   },
                   decoration: InputDecoration(
+                    helperText:
+                        'Only *W4e0r4m-1GY* part of URL is required of \nhttps://youtu.be/W4e0r4m-1GY?si=M6x8C4P2o3rVJLa6',
+                    helperStyle: const TextStyle(
+                        fontFamily: 'RalewayVariableFont',
+                        fontWeight: FontWeight.w700),
                     labelText: 'Add VideoURL',
                     labelStyle: const TextStyle(
                         fontFamily: 'RalewayVariableFont',
@@ -273,13 +282,25 @@ class _ScreenAddRecipesState extends State<ScreenAddRecipes> {
                 const SizedBox(height: 10),
                 TextFormField(
                   controller: _tipsController,
+                  onChanged: (value) {
+                    setState(() {
+                      _isTipsValid = _validateTips(value);
+                    });
+                  },
                   decoration: InputDecoration(
-                    labelText: 'Add Discription',
+                    labelText: 'Add Description',
                     labelStyle: const TextStyle(
-                        fontFamily: 'RalewayVariableFont',
-                        fontWeight: FontWeight.w700),
+                      fontFamily: 'RalewayVariableFont',
+                      fontWeight: FontWeight.w700,
+                    ),
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(12),
+                    ),
+                    errorText:
+                        _isTipsValid ? null : 'Invalid description format',
+                    errorStyle: const TextStyle(
+                      fontFamily: 'RalewayVariableFont',
+                      fontWeight: FontWeight.w700,
                     ),
                   ),
                 ),
@@ -301,10 +322,16 @@ class _ScreenAddRecipesState extends State<ScreenAddRecipes> {
                   ),
                   onPressed: () async {
                     if (_formKey.currentState!.validate()) {
-                      if (_selectedImages.length < 3) {
+                      if (_selectedImages.isEmpty ||
+                          _selectedCategory == null ||
+                          _titleController.text.isEmpty ||
+                          _videoUrlController.text.isEmpty ||
+                          _ingredientsController.text.isEmpty ||
+                          _stepsController.text.isEmpty ||
+                          _tipsController.text.isEmpty) {
                         ScaffoldMessenger.of(context).showSnackBar(
                           const SnackBar(
-                            content: Text('Please select at least 3 images'),
+                            content: Text('Please fill in all fields.'),
                             duration: Duration(seconds: 2),
                           ),
                         );
@@ -320,7 +347,6 @@ class _ScreenAddRecipesState extends State<ScreenAddRecipes> {
                         imagePath:
                             _selectedImages.map((image) => image.path).toList(),
                         tips: _tipsController.text,
-                        // uploadedBy: loggedInUserEmail ?? '',
                       );
                       addRecipe(recipe);
                       PendingModel pendingrecipe = PendingModel(
@@ -388,12 +414,18 @@ class _ScreenAddRecipesState extends State<ScreenAddRecipes> {
     return value.trim().length >= 5 &&
         !value.startsWith(' ') &&
         !value.endsWith(' ') &&
-        RegExp(r'^[a-zA-Z0-9\s]+$').hasMatch(value);
+        RegExp(r'^[a-zA-Z0-9\s]+$').hasMatch(value) &&
+        !RegExp(r'[!@#%^&*(),.?":{}|<>]').hasMatch(value);
   }
 
   bool _validateVideoUrl(String value) {
     // return Uri.parse(value).isAbsolute;
     return true;
+  }
+
+  bool _validateTips(String value) {
+    return value.trim().isNotEmpty &&
+        !RegExp(r'[^a-zA-Z0-9\s.,;:]+').hasMatch(value);
   }
 
   bool _validateIngredients(String value) {

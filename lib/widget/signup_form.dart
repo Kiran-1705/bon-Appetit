@@ -3,6 +3,7 @@ import 'package:bon_appetit/database/model/user_model.dart';
 import 'package:bon_appetit/screen/screen_start.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 
 class ScreenSignup extends StatefulWidget {
   const ScreenSignup({super.key});
@@ -81,7 +82,7 @@ class _ScreenSignupState extends State<ScreenSignup> {
     });
   }
 
-  void _submitForm() {
+  void _submitForm() async {
     setState(() {
       _usernameError = _usernameController.text.isEmpty
           ? 'Please enter your username.'
@@ -115,160 +116,155 @@ class _ScreenSignupState extends State<ScreenSignup> {
         phone: _phoneController.text,
         password: _passwordController.text,
       );
-      addUser(newUser);
-      Navigator.of(context).pushReplacement(
-        MaterialPageRoute(builder: (_) => const ScreenStart()),
-      );
+
+      final userDB = await Hive.openBox<UserModel>('user_db');
+      final userList = userDB.values.toList();
+
+      if (userList.any((user) => user.email == newUser.email)) {
+        showDialog(
+            context: context,
+            builder: (BuildContext context) {
+              return AlertDialog(
+                  content: const Text(
+                      'This email is already in use. Please use another email.',
+                      style: TextStyle(fontFamily: 'Kanit', fontSize: 18)),
+                  actions: <Widget>[
+                    TextButton(
+                        onPressed: () {
+                          Navigator.of(context).pop();
+                        },
+                        child: const Text('OK',
+                            style: TextStyle(
+                                fontFamily: 'Kanit',
+                                fontWeight: FontWeight.w400,
+                                fontSize: 20))),
+                  ]);
+            });
+      } else {
+        addUser(newUser);
+        Navigator.of(context).pushReplacement(
+            MaterialPageRoute(builder: (_) => const ScreenStart()));
+      }
     }
   }
 
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
-      child: Form(
-          key: _formKey,
-          child: Column(
-            children: [
+        child: Form(
+            key: _formKey,
+            child: Column(children: [
               TextFormField(
-                controller: _usernameController,
-                decoration: _getInputDecoration(
-                  labelText: 'Username',
-                  errorText: _usernameError,
-                  prefixIcon: const Icon(Icons.person),
-                ),
-                onChanged: _validateUsername,
-              ),
+                  controller: _usernameController,
+                  decoration: _getInputDecoration(
+                      labelText: 'Username',
+                      errorText: _usernameError,
+                      prefixIcon: const Icon(Icons.person)),
+                  onChanged: _validateUsername),
               const SizedBox(height: 8),
               TextFormField(
-                controller: _emailController,
-                decoration: _getInputDecoration(
-                  prefixIcon: const Icon(Icons.email),
-                  labelText: 'Email',
-                  errorText: _emailError,
-                ),
-                onChanged: _validateEmail,
-              ),
+                  controller: _emailController,
+                  decoration: _getInputDecoration(
+                      prefixIcon: const Icon(Icons.email),
+                      labelText: 'Email',
+                      errorText: _emailError),
+                  onChanged: _validateEmail),
               const SizedBox(height: 8),
               TextFormField(
-                controller: _phoneController,
-                keyboardType: TextInputType.phone,
-                decoration: _getInputDecoration(
-                  prefixIcon: const Icon(Icons.phone),
-                  labelText: 'Phone',
-                  errorText: _phoneError,
-                ),
-                onChanged: _validatePhone,
-              ),
+                  controller: _phoneController,
+                  keyboardType: TextInputType.phone,
+                  decoration: _getInputDecoration(
+                      prefixIcon: const Icon(Icons.phone),
+                      labelText: 'Phone',
+                      errorText: _phoneError),
+                  onChanged: _validatePhone),
               const SizedBox(height: 8),
               TextFormField(
-                controller: _passwordController,
-                obscureText: _obscurePassword,
-                decoration: InputDecoration(
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(8),
-                  ),
-                  prefixIcon: const Icon(Icons.lock),
-                  labelText: 'Password',
-                  labelStyle: const TextStyle(
-                      fontFamily: 'RalewayVariableFont',
-                      fontWeight: FontWeight.w700),
-                  suffixIcon: IconButton(
-                    icon: Icon(_obscurePassword
-                        ? Icons.visibility
-                        : Icons.visibility_off),
-                    onPressed: () {
-                      setState(() {
-                        _obscurePassword = !_obscurePassword;
-                      });
-                    },
-                  ),
-                  hintText:
-                      'Password requires 1 special character and any 2 digits',
-                  hintStyle: const TextStyle(
-                      fontFamily: 'RalewayVariableFont',
-                      fontWeight: FontWeight.w700),
-                  errorText: _passwordError,
-                  errorStyle: const TextStyle(
-                      fontFamily: 'RalewayVariableFont',
-                      fontWeight: FontWeight.w700),
-                ),
-                onChanged: _validatePassword,
-              ),
-              const SizedBox(height: 8),
-              TextFormField(
-                controller: _confirmPasswordController,
-                obscureText: _obscurePassword,
-                decoration: InputDecoration(
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(8),
-                  ),
-                  prefixIcon: const Icon(Icons.lock),
-                  labelText: 'Confirm Password',
-                  labelStyle: const TextStyle(
-                      fontFamily: 'RalewayVariableFont',
-                      fontWeight: FontWeight.w700),
-                  suffixIcon: IconButton(
-                    icon: Icon(_obscurePassword
-                        ? Icons.visibility
-                        : Icons.visibility_off),
-                    onPressed: () {
-                      setState(() {
-                        _obscurePassword = !_obscurePassword;
-                      });
-                    },
-                  ),
-                  errorText: _passwordError,
-                  errorStyle: const TextStyle(
-                      fontFamily: 'RalewayVariableFont',
-                      fontWeight: FontWeight.w700),
-                ),
-                onChanged: _confirmPassword,
-              ),
-              const SizedBox(height: 8),
-              SizedBox(
-                width: double.infinity,
-                child: ElevatedButton(
-                  onPressed: () => _submitForm(),
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.black,
-                    foregroundColor: Colors.white,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(8),
-                    ),
-                  ),
-                  child: const Padding(
-                    padding: EdgeInsets.all(16.0),
-                    child: Text(
-                      'Submit',
-                      style: TextStyle(
-                          fontSize: 23,
+                  controller: _passwordController,
+                  obscureText: _obscurePassword,
+                  decoration: InputDecoration(
+                      border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(8)),
+                      prefixIcon: const Icon(Icons.lock),
+                      labelText: 'Password',
+                      labelStyle: const TextStyle(
                           fontFamily: 'RalewayVariableFont',
                           fontWeight: FontWeight.w700),
-                    ),
-                  ),
-                ),
-              ),
-            ],
-          )),
-    );
+                      suffixIcon: IconButton(
+                          icon: Icon(_obscurePassword
+                              ? Icons.visibility
+                              : Icons.visibility_off),
+                          onPressed: () {
+                            setState(() {
+                              _obscurePassword = !_obscurePassword;
+                            });
+                          }),
+                      hintText:
+                          'Password requires 1 special character and any 2 digits',
+                      hintStyle: const TextStyle(
+                          fontFamily: 'RalewayVariableFont',
+                          fontWeight: FontWeight.w700),
+                      errorText: _passwordError,
+                      errorStyle: const TextStyle(
+                          fontFamily: 'RalewayVariableFont',
+                          fontWeight: FontWeight.w700)),
+                  onChanged: _validatePassword),
+              const SizedBox(height: 8),
+              TextFormField(
+                  controller: _confirmPasswordController,
+                  obscureText: _obscurePassword,
+                  decoration: InputDecoration(
+                      border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(8)),
+                      prefixIcon: const Icon(Icons.lock),
+                      labelText: 'Confirm Password',
+                      labelStyle: const TextStyle(
+                          fontFamily: 'RalewayVariableFont',
+                          fontWeight: FontWeight.w700),
+                      suffixIcon: IconButton(
+                          icon: Icon(_obscurePassword
+                              ? Icons.visibility
+                              : Icons.visibility_off),
+                          onPressed: () {
+                            setState(() {
+                              _obscurePassword = !_obscurePassword;
+                            });
+                          }),
+                      errorText: _passwordError,
+                      errorStyle: const TextStyle(
+                          fontFamily: 'RalewayVariableFont',
+                          fontWeight: FontWeight.w700)),
+                  onChanged: _confirmPassword),
+              const SizedBox(height: 8),
+              SizedBox(
+                  width: double.infinity,
+                  child: ElevatedButton(
+                      onPressed: () => _submitForm(),
+                      style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.black,
+                          foregroundColor: Colors.white,
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(8))),
+                      child: const Padding(
+                          padding: EdgeInsets.all(16.0),
+                          child: Text('Submit',
+                              style: TextStyle(
+                                  fontSize: 23,
+                                  fontFamily: 'RalewayVariableFont',
+                                  fontWeight: FontWeight.w700)))))
+            ])));
   }
 
-  InputDecoration _getInputDecoration({
-    String labelText = '',
-    String? errorText,
-    Widget? prefixIcon,
-  }) {
+  InputDecoration _getInputDecoration(
+      {String labelText = '', String? errorText, Widget? prefixIcon}) {
     return InputDecoration(
-      border: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(8),
-      ),
-      prefixIcon: prefixIcon,
-      labelText: labelText,
-      errorText: errorText,
-      labelStyle: const TextStyle(
-          fontFamily: 'RalewayVariableFont', fontWeight: FontWeight.w700),
-      errorStyle: const TextStyle(
-          fontFamily: 'RalewayVariableFont', fontWeight: FontWeight.w700),
-    );
+        border: OutlineInputBorder(borderRadius: BorderRadius.circular(8)),
+        prefixIcon: prefixIcon,
+        labelText: labelText,
+        errorText: errorText,
+        labelStyle: const TextStyle(
+            fontFamily: 'RalewayVariableFont', fontWeight: FontWeight.w700),
+        errorStyle: const TextStyle(
+            fontFamily: 'RalewayVariableFont', fontWeight: FontWeight.w700));
   }
 }

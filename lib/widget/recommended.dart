@@ -1,17 +1,16 @@
-import 'dart:io';
 import 'package:bon_appetit/database/model/accept_model.dart';
 import 'package:bon_appetit/widget/display_accept.dart';
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
-class AcceptedRecipes extends StatefulWidget {
-  const AcceptedRecipes({Key? key}) : super(key: key);
+class RecommendedRecipe extends StatefulWidget {
+  const RecommendedRecipe({super.key});
 
   @override
-  State<AcceptedRecipes> createState() => _AcceptedRecipesState();
+  State<RecommendedRecipe> createState() => _RecommendedRecipeState();
 }
 
-class _AcceptedRecipesState extends State<AcceptedRecipes> {
+class _RecommendedRecipeState extends State<RecommendedRecipe> {
   Box<AcceptModel>? acceptedBox;
 
   @override
@@ -22,11 +21,6 @@ class _AcceptedRecipesState extends State<AcceptedRecipes> {
 
   Future<void> openAcceptedBox() async {
     acceptedBox = await Hive.openBox<AcceptModel>('accept_db');
-    setState(() {});
-  }
-
-  Future<void> deleteAccepted(int index) async {
-    await acceptedBox?.deleteAt(index);
     setState(() {});
   }
 
@@ -52,13 +46,8 @@ class _AcceptedRecipesState extends State<AcceptedRecipes> {
             itemBuilder: (BuildContext context, int index) {
               final acceptModel = acceptedRecipes[index];
               return ListTile(
-                leading: ClipOval(
-                  child: Image(
-                    image: FileImage(File(acceptModel.imagePath[2])),
-                    width: 50,
-                    height: 50,
-                    fit: BoxFit.cover,
-                  ),
+                leading: CircleAvatar(
+                  child: Text((index + 1).toString()),
                 ),
                 title: Text(
                   acceptModel.title,
@@ -75,32 +64,10 @@ class _AcceptedRecipesState extends State<AcceptedRecipes> {
                     fontFamily: 'Kanit',
                   ),
                 ),
-                trailing: PopupMenuButton<String>(
-                  onSelected: (String value) {
-                    if (value == 'Add') {
-                      // Add logic here for 'Add'
-                    } else if (value == 'Delete') {
-                      deleteAccepted(index);
-                    }
-                  },
-                  itemBuilder: (BuildContext context) {
-                    return <PopupMenuEntry<String>>[
-                      const PopupMenuItem<String>(
-                        value: 'Add',
-                        child: Text(
-                          'Add',
-                          style: TextStyle(fontFamily: 'Kanit', fontSize: 15),
-                        ),
-                      ),
-                      const PopupMenuItem<String>(
-                        value: 'Delete',
-                        child: Text(
-                          'Delete',
-                          style: TextStyle(fontFamily: 'Kanit', fontSize: 15),
-                        ),
-                      ),
-                    ];
-                  },
+                trailing: Checkbox(
+                  shape: CircleBorder(),
+                  value: false,
+                  onChanged: null,
                 ),
                 onTap: () {
                   Navigator.push(

@@ -42,66 +42,46 @@ class _ScreenFavoritesState extends State<ScreenFavorites> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      bottomNavigationBar: CurvedNavigationBarWidget(
-        currentIndex: _currentIndex,
-        onTap: (index) {
-          setState(() {
-            _currentIndex = index;
-            Navigator.pushReplacement(
-              context,
-              MaterialPageRoute(builder: (context) => _screens[index]),
-            );
-          });
-        },
-      ),
-      appBar: AppBar(
-        title: const Text(
-          'F a v o r i t e s',
-          style: TextStyle(
-            fontSize: 25,
-            fontFamily: 'Righteous',
-          ),
-        ),
-        actions: [
-          IconButton(
-              onPressed: () {},
-              icon: const Icon(
-                Icons.search,
-                size: 30,
-              ))
-        ],
-      ),
-      body: ValueListenableBuilder<Box<FavoriteModel>>(
-        valueListenable: Hive.box<FavoriteModel>('favorite_db').listenable(),
-        builder: (context, box, _) {
-          final List<FavoriteModel> favoriteRecipes = box.values.toList();
+        bottomNavigationBar: CurvedNavigationBarWidget(
+            currentIndex: _currentIndex,
+            onTap: (index) {
+              setState(() {
+                _currentIndex = index;
+                Navigator.pushReplacement(context,
+                    MaterialPageRoute(builder: (context) => _screens[index]));
+              });
+            }),
+        appBar: AppBar(
+            title: const Text('F a v o r i t e s',
+                style: TextStyle(fontSize: 25, fontFamily: 'Righteous')),
+            actions: [
+              IconButton(
+                  onPressed: () {}, icon: const Icon(Icons.search, size: 30))
+            ]),
+        body: ValueListenableBuilder<Box<FavoriteModel>>(
+            valueListenable:
+                Hive.box<FavoriteModel>('favorite_db').listenable(),
+            builder: (context, box, _) {
+              final List<FavoriteModel> favoriteRecipes = box.values.toList();
 
-          return ListView.builder(
-            itemCount: favoriteRecipes.length,
-            itemBuilder: (BuildContext context, int index) {
-              final FavoriteModel recipe = favoriteRecipes[index];
-              return GestureDetector(
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => ScreenFavoriteOut(
-                        recipe: recipe,
-                      ),
-                    ),
-                  );
-                },
-                child: FavoriteCard(
-                  title: recipe.title,
-                  subtitle: recipe.tips,
-                  imagePath: recipe.imagePath,
-                  favoriteModel: recipe,
-                ),
-              );
-            },
-          );
-        },
-      ),
-    );
+              return ListView.builder(
+                  itemCount: favoriteRecipes.length,
+                  itemBuilder: (BuildContext context, int index) {
+                    final FavoriteModel recipe = favoriteRecipes[index];
+                    return GestureDetector(
+                        onTap: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) =>
+                                      ScreenFavoriteOut(recipe: recipe)));
+                        },
+                        child: FavoriteCard(
+                            title: recipe.title,
+                            subtitle: recipe.tips,
+                            imagePath: recipe.imagePath,
+                            favoriteModel: recipe));
+                  });
+            }));
   }
 }

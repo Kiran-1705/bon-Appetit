@@ -1,9 +1,11 @@
+import 'package:bon_appetit/database/model/accept_model.dart';
 import 'package:bon_appetit/screen/home/screen_favorites.dart';
 import 'package:bon_appetit/screen/home/screen_profile.dart';
 import 'package:bon_appetit/screen/home/screen_recipes.dart';
 import 'package:bon_appetit/widget/aloochat.dart';
 import 'package:bon_appetit/widget/bottom_bar.dart';
 import 'package:bon_appetit/widget/cb.dart';
+import 'package:bon_appetit/widget/recipe_day_box.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 
@@ -32,273 +34,204 @@ class _ScreenHomeState extends State<ScreenHome> {
     const ScreenFavorites(),
     const ScreenProfile(),
   ];
+  List<AcceptModel> selectedRecipes = [];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      bottomNavigationBar: CurvedNavigationBarWidget(
-        currentIndex: _currentIndex,
-        onTap: (index) {
-          setState(() {
-            _currentIndex = index;
-            Navigator.pushReplacement(
-              context,
-              MaterialPageRoute(builder: (context) => _screens[index]),
-            );
-          });
-        },
-      ),
-      body: SafeArea(
-        child: SingleChildScrollView(
-          child: Column(
-            children: [
-              const Padding(
-                padding: EdgeInsets.only(left: 18, right: 18, top: 10),
-                child: Row(
-                  children: [
-                    Text(
-                      'bon Appetit.',
-                      style: TextStyle(
-                          fontSize: 33,
-                          fontWeight: FontWeight.bold,
-                          fontFamily: 'Righteous'),
-                    ),
-                  ],
-                ),
-              ),
-              const SizedBox(height: 25),
-              Padding(
-                padding: const EdgeInsets.only(left: 25, right: 25),
-                child: Container(
+        bottomNavigationBar: CurvedNavigationBarWidget(
+            currentIndex: _currentIndex,
+            onTap: (index) {
+              setState(() {
+                _currentIndex = index;
+                Navigator.pushReplacement(context,
+                    MaterialPageRoute(builder: (context) => _screens[index]));
+              });
+            }),
+        body: SafeArea(
+            child: SingleChildScrollView(
+                child: Column(children: [
+          const Padding(
+              padding: EdgeInsets.only(left: 18, right: 18, top: 10),
+              child: Row(children: [
+                Text('bon Appetit.',
+                    style: TextStyle(
+                        fontSize: 33,
+                        fontWeight: FontWeight.bold,
+                        fontFamily: 'Righteous')),
+              ])),
+          const SizedBox(height: 25),
+          Padding(
+              padding: const EdgeInsets.only(left: 25, right: 25),
+              child: Container(
                   width: 350,
                   decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(8),
-                    color: Colors.black,
-                  ),
+                      borderRadius: BorderRadius.circular(8),
+                      color: Colors.black),
                   child: Padding(
-                    padding: const EdgeInsets.only(left: 20, top: 10),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        const Text(
-                          'Recipe',
-                          style: TextStyle(
-                              fontSize: 29,
-                              fontWeight: FontWeight.bold,
-                              fontFamily: 'Kanit',
-                              color: Colors.white),
-                        ),
-                        const Text(
-                          'Of the day.',
-                          style: TextStyle(
-                            fontSize: 25,
-                            color: Colors.white,
-                            fontFamily: 'Kanit',
-                          ),
-                        ),
-                        const SizedBox(height: 20),
-                        const Text(
-                          'Aloo Chaat',
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 20,
-                            color: Colors.white,
-                            fontFamily: 'Kanit',
-                          ),
-                        ),
-                        const Text(
-                          'Spiced potatoes tossed with tangy chutneys, crisp onions, and fresh cilantro',
-                          style: TextStyle(
-                            fontSize: 15,
-                            color: Colors.white,
-                            fontFamily: 'Kanit',
-                          ),
-                        ),
-                        const SizedBox(height: 10),
-                        Padding(
-                          padding: const EdgeInsets.only(right: 20),
-                          child: GestureDetector(
-                            onTap: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => ScreenAlooChat(),
-                                ),
-                              );
-                            },
-                            child: SizedBox(
-                              height: 190,
-                              child: CarouselSlider(
-                                items: alooimagePath
-                                    .map(
-                                      (item) => Center(
-                                        child: ClipRRect(
-                                          borderRadius:
-                                              BorderRadius.circular(8),
-                                          child: Image.asset(
-                                            item,
-                                            fit: BoxFit.fill,
-                                            width: 350,
-                                          ),
-                                        ),
-                                      ),
-                                    )
-                                    .toList(),
-                                options: CarouselOptions(
-                                  autoPlay: true,
-                                  aspectRatio: 2.0,
-                                  enlargeCenterPage: true,
-                                ),
-                              ),
-                            ),
-                          ),
-                        ),
-                        const SizedBox(height: 15)
-                      ],
-                    ),
-                  ),
-                ),
-              ),
-              const SizedBox(height: 20),
-              Container(
-                height: 90,
-                width: 350,
-                decoration:
-                    BoxDecoration(borderRadius: BorderRadius.circular(12)),
-                child: const Padding(
+                      padding: const EdgeInsets.only(left: 20, top: 10),
+                      child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            const Text('Recipe',
+                                style: TextStyle(
+                                    fontSize: 29,
+                                    fontWeight: FontWeight.bold,
+                                    fontFamily: 'Kanit',
+                                    color: Colors.white)),
+                            const Text('Of the day.',
+                                style: TextStyle(
+                                    fontSize: 25,
+                                    color: Colors.white,
+                                    fontFamily: 'Kanit')),
+                            const SizedBox(height: 20),
+                            const Text('Aloo Chaat',
+                                style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 20,
+                                    color: Colors.white,
+                                    fontFamily: 'Kanit')),
+                            const Text(
+                                'Spiced potatoes tossed with tangy chutneys, crisp onions, and fresh cilantro',
+                                style: TextStyle(
+                                    fontSize: 15,
+                                    color: Colors.white,
+                                    fontFamily: 'Kanit')),
+                            const SizedBox(height: 10),
+                            Padding(
+                                padding: const EdgeInsets.only(right: 20),
+                                child: GestureDetector(
+                                    onTap: () {
+                                      Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) =>
+                                                  ScreenAlooChat()));
+                                    },
+                                    child: SizedBox(
+                                        height: 190,
+                                        child: CarouselSlider(
+                                            items: alooimagePath
+                                                .map((item) => Center(
+                                                    child: ClipRRect(
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(8),
+                                                        child: Image.asset(item,
+                                                            fit: BoxFit.fill,
+                                                            width: 350))))
+                                                .toList(),
+                                            options: CarouselOptions(
+                                                autoPlay: true,
+                                                aspectRatio: 2.0,
+                                                enlargeCenterPage: true))))),
+                            // RecipeOfDay(
+                            //   acceptModel: selectedRecipes.isNotEmpty
+                            //       ? selectedRecipes.first
+                            //       : AcceptModel(),
+                            //   isSelected: selectedRecipes.isNotEmpty
+                            //       ? selectedRecipes.first.isSelected
+                            //       : null,
+                            // ),
+
+                            const SizedBox(height: 15)
+                          ])))),
+          const SizedBox(height: 20),
+          Container(
+              height: 90,
+              width: 350,
+              decoration:
+                  BoxDecoration(borderRadius: BorderRadius.circular(12)),
+              child: const Padding(
                   padding: EdgeInsets.only(left: 20, top: 10),
                   child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        'For You',
-                        style: TextStyle(
-                            fontSize: 29,
-                            fontWeight: FontWeight.bold,
-                            fontFamily: 'Kanit'),
-                      ),
-                      Text(
-                        'recommended.',
-                        style: TextStyle(
-                          fontSize: 25,
-                          fontFamily: 'Kanit',
-                        ),
-                      )
-                    ],
-                  ),
-                ),
-              ),
-              GestureDetector(
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => ScreenCB(),
-                    ),
-                  );
-                },
-                child: Container(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text('For You',
+                            style: TextStyle(
+                                fontSize: 29,
+                                fontWeight: FontWeight.bold,
+                                fontFamily: 'Kanit')),
+                        Text('recommended.',
+                            style: TextStyle(fontSize: 25, fontFamily: 'Kanit'))
+                      ]))),
+          GestureDetector(
+              onTap: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => ScreenCB()));
+              },
+              child: Container(
                   height: 380,
                   width: 350,
                   decoration: BoxDecoration(
-                    color: Colors.black,
-                    borderRadius: BorderRadius.circular(12),
-                  ),
+                      color: Colors.black,
+                      borderRadius: BorderRadius.circular(12)),
                   child: Padding(
-                    padding: const EdgeInsets.only(left: 25),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.only(right: 20, top: 20),
-                          child: SizedBox(
-                            height: 220,
-                            width: 325,
-                            child: CarouselSlider(
-                              items: cbimagepath
-                                  .map(
-                                    (item) => Center(
-                                      child: ClipRRect(
-                                        borderRadius: BorderRadius.circular(8),
-                                        child: Image.asset(
-                                          item,
-                                          fit: BoxFit.fill,
-                                          width: 350,
-                                        ),
-                                      ),
-                                    ),
-                                  )
-                                  .toList(),
-                              options: CarouselOptions(
-                                autoPlay: true,
-                                aspectRatio: 2.0,
-                                enlargeCenterPage: true,
-                              ),
-                            ),
-                          ),
-                        ),
-                        const SizedBox(height: 20),
-                        const Text(
-                          'Chicken Briyani',
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 20,
-                            color: Colors.white,
-                            fontFamily: 'Kanit',
-                          ),
-                        ),
-                        const SizedBox(height: 5),
-                        const Text(
-                          'A fragrant symphony of spices and tender chicken, nestled in a bed of perfectly cooked basmati rice, creating a culinary masterpiece.',
-                          style: TextStyle(
-                            fontSize: 15,
-                            color: Colors.white,
-                            fontFamily: 'Kanit',
-                          ),
-                        ),
-                        const SizedBox(height: 10),
-                      ],
-                    ),
-                  ),
-                ),
-              ),
-              const SizedBox(height: 15),
-              SizedBox(
-                width: 345,
-                child: ElevatedButton(
+                      padding: const EdgeInsets.only(left: 25),
+                      child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Padding(
+                                padding:
+                                    const EdgeInsets.only(right: 20, top: 20),
+                                child: SizedBox(
+                                    height: 220,
+                                    width: 325,
+                                    child: CarouselSlider(
+                                        items: cbimagepath
+                                            .map((item) => Center(
+                                                child: ClipRRect(
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            8),
+                                                    child: Image.asset(item,
+                                                        fit: BoxFit.fill,
+                                                        width: 350))))
+                                            .toList(),
+                                        options: CarouselOptions(
+                                            autoPlay: true,
+                                            aspectRatio: 2.0,
+                                            enlargeCenterPage: true)))),
+                            const SizedBox(height: 20),
+                            const Text('Chicken Briyani',
+                                style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 20,
+                                    color: Colors.white,
+                                    fontFamily: 'Kanit')),
+                            const SizedBox(height: 5),
+                            const Text(
+                                'A fragrant symphony of spices and tender chicken, nestled in a bed of perfectly cooked basmati rice, creating a culinary masterpiece.',
+                                style: TextStyle(
+                                    fontSize: 15,
+                                    color: Colors.white,
+                                    fontFamily: 'Kanit')),
+                            const SizedBox(height: 10),
+                          ])))),
+          const SizedBox(height: 15),
+          SizedBox(
+              width: 345,
+              child: ElevatedButton(
                   onPressed: () {
                     Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => const ScreenRecipes(),
-                      ),
-                    );
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const ScreenRecipes()));
                   },
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.black,
-                    foregroundColor: Colors.white,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(12.0),
-                      side: const BorderSide(color: Colors.black),
-                    ),
-                    minimumSize: const Size(double.infinity, 50),
-                  ),
+                      backgroundColor: Colors.black,
+                      foregroundColor: Colors.white,
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(12.0),
+                          side: const BorderSide(color: Colors.black)),
+                      minimumSize: const Size(double.infinity, 50)),
                   child: const Padding(
-                    padding: EdgeInsets.all(16.0),
-                    child: Text(
-                      'Browse More Recipes',
-                      style: TextStyle(
-                          fontSize: 23,
-                          fontFamily: 'RalewayVariableFont',
-                          fontWeight: FontWeight.w700),
-                    ),
-                  ),
-                ),
-              ),
-              const SizedBox(height: 15),
-            ],
-          ),
-        ),
-      ),
-    );
+                      padding: EdgeInsets.all(16.0),
+                      child: Text('Browse More Recipes',
+                          style: TextStyle(
+                              fontSize: 23,
+                              fontFamily: 'RalewayVariableFont',
+                              fontWeight: FontWeight.w700))))),
+          const SizedBox(height: 15),
+        ]))));
   }
 }
