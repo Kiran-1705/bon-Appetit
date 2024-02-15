@@ -24,13 +24,14 @@ class AcceptModelAdapter extends TypeAdapter<AcceptModel> {
       ingredients: fields[4] as String,
       steps: fields[5] as String,
       tips: fields[6] as String,
+      uploadedBy: fields[7] as String,
     );
   }
 
   @override
   void write(BinaryWriter writer, AcceptModel obj) {
     writer
-      ..writeByte(7)
+      ..writeByte(8)
       ..writeByte(0)
       ..write(obj.category)
       ..writeByte(1)
@@ -44,7 +45,9 @@ class AcceptModelAdapter extends TypeAdapter<AcceptModel> {
       ..writeByte(5)
       ..write(obj.steps)
       ..writeByte(6)
-      ..write(obj.tips);
+      ..write(obj.tips)
+      ..writeByte(7)
+      ..write(obj.uploadedBy);
   }
 
   @override

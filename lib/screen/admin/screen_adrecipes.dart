@@ -40,6 +40,7 @@ class _ScreenAdminRecipesState extends State<ScreenAdminRecipes> {
       imagePath: recipeModel.imagePath,
       steps: recipeModel.steps,
       tips: recipeModel.tips,
+      uploadedBy: recipeModel.uploadedBy,
     );
   }
 

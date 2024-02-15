@@ -5,6 +5,7 @@ import 'package:bon_appetit/database/model/reject_model.dart';
 import 'package:bon_appetit/widget/display_pending.dart';
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class ScreenPendingRecipes extends StatefulWidget {
   const ScreenPendingRecipes({Key? key}) : super(key: key);
@@ -28,6 +29,10 @@ class _ScreenPendingRecipesState extends State<ScreenPendingRecipes> {
   }
 
   Future<void> _handleAccept(PendingModel recipe) async {
+    final acceptDB = await Hive.openBox<AcceptModel>('accept_db');
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    final String? loggedInUserEmail = prefs.getString('loggedInUserEmail');
+
     addAccept(AcceptModel(
       title: recipe.title,
       category: recipe.category,
@@ -36,6 +41,7 @@ class _ScreenPendingRecipesState extends State<ScreenPendingRecipes> {
       ingredients: recipe.ingredients,
       steps: recipe.steps,
       tips: recipe.tips,
+      uploadedBy: loggedInUserEmail ?? '',
     ));
 
     final pendingDB = await Hive.openBox<PendingModel>('pending_db');

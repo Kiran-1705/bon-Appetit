@@ -1,15 +1,29 @@
+import 'package:bon_appetit/widget/tab_button.dart';
 import 'package:flutter/material.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
-class ScreenAlooChat extends StatelessWidget {
+class ScreenAlooChat extends StatefulWidget {
   ScreenAlooChat({Key? key});
+
+  @override
+  State<ScreenAlooChat> createState() => _ScreenAlooChatState();
+}
+
+class _ScreenAlooChatState extends State<ScreenAlooChat> {
   final String videoUrl = 'hh2rzP9pXU4';
+
+  int selectedTabIndex = 0;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Aloo Chat'),
-      ),
+          title: const Text(
+            'Aloo Chat',
+            style: TextStyle(
+                fontFamily: 'Kanit', fontWeight: FontWeight.w400, fontSize: 23),
+          ),
+          centerTitle: true),
       body: SingleChildScrollView(
         child: Column(
           children: [
@@ -18,8 +32,9 @@ class ScreenAlooChat extends StatelessWidget {
               child: Container(
                 height: 250,
                 width: 380,
-                decoration:
-                    BoxDecoration(borderRadius: BorderRadius.circular(8)),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(8),
+                ),
                 child: YoutubePlayer(
                   controller: YoutubePlayerController(
                     initialVideoId: videoUrl,
@@ -34,19 +49,44 @@ class ScreenAlooChat extends StatelessWidget {
                     playedColor: Colors.amber,
                     handleColor: Colors.amberAccent,
                   ),
-                  onReady: () {
-                    // Add callback logic here if needed
-                  },
+                  onReady: () {},
                 ),
               ),
             ),
-            _buildIngredientsList(),
-            const SizedBox(height: 10),
-            _buildStepByStepProcess(),
+            Row(
+              children: [
+                TabButtons(
+                  selectedTabIndex,
+                  0,
+                  'Ingredients',
+                  (index) {
+                    setState(() {
+                      selectedTabIndex = index;
+                    });
+                  },
+                ),
+                TabButtons(
+                  selectedTabIndex,
+                  1,
+                  'Step by step',
+                  (index) {
+                    setState(() {
+                      selectedTabIndex = index;
+                    });
+                  },
+                ),
+              ],
+            ),
+            selectedTabIndex == 0
+                ? _buildIngredientsList()
+                : _buildStepByStepProcess(),
             const SizedBox(height: 10),
             const Text(
               'Enjoy your meal',
-              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+              style: TextStyle(
+                  fontFamily: 'Kanit',
+                  fontWeight: FontWeight.w400,
+                  fontSize: 23),
             ),
             const SizedBox(height: 10),
           ],
@@ -87,7 +127,10 @@ class ScreenAlooChat extends StatelessWidget {
                     ),
                     title: Text(
                       _ingredientsList[index],
-                      style: const TextStyle(color: Colors.white),
+                      style: const TextStyle(
+                          fontFamily: 'Kanit',
+                          fontSize: 17,
+                          color: Colors.white),
                     ),
                   );
                 },
@@ -131,7 +174,10 @@ class ScreenAlooChat extends StatelessWidget {
                     ),
                     title: Text(
                       _stepByStepList[index],
-                      style: const TextStyle(color: Colors.white),
+                      style: const TextStyle(
+                          fontFamily: 'Kanit',
+                          fontSize: 17,
+                          color: Colors.white),
                     ),
                   );
                 },

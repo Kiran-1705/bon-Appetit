@@ -1,3 +1,4 @@
+import 'dart:io';
 import 'package:bon_appetit/database/model/accept_model.dart';
 import 'package:bon_appetit/widget/display_accept.dart';
 import 'package:flutter/material.dart';
@@ -113,8 +114,12 @@ class _ScreenSearchState extends State<ScreenSearch> {
                 itemBuilder: (BuildContext context, int index) {
                   final acceptModel = selectedCategoryRecipes[index];
                   return ListTile(
-                      leading:
-                          CircleAvatar(child: Text((index + 1).toString())),
+                      leading: ClipOval(
+                          child: Image(
+                              image: FileImage(File(acceptModel.imagePath[1])),
+                              width: 50,
+                              height: 50,
+                              fit: BoxFit.cover)),
                       title: Text(acceptModel.title,
                           style: const TextStyle(
                               fontWeight: FontWeight.bold,

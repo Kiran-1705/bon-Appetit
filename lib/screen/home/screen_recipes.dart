@@ -77,7 +77,7 @@ class _ScreenRecipesState extends State<ScreenRecipes> {
                                               const ScreenSearch()));
                                 },
                                 icon: const Icon(Icons.search,
-                                    size: 33, color: Colors.white))
+                                    size: 33, color: Colors.white)),
                           ]),
                       const SizedBox(height: 15),
                       _dataLoaded
@@ -87,7 +87,8 @@ class _ScreenRecipesState extends State<ScreenRecipes> {
                                   style: TextStyle(
                                       fontSize: 23,
                                       fontWeight: FontWeight.w700,
-                                      fontFamily: 'RalewayVariableFont'))),
+                                      fontFamily: 'RalewayVariableFont',
+                                      color: Colors.white))),
                     ])))));
   }
 

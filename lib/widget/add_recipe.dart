@@ -2,6 +2,7 @@ import 'dart:io';
 import 'package:bon_appetit/database/db_function.dart';
 import 'package:bon_appetit/database/model/pending_model.dart';
 import 'package:bon_appetit/database/model/recipe_model.dart';
+import 'package:bon_appetit/widget/add_recipe_info.dart';
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 import 'package:image_picker/image_picker.dart';
@@ -56,7 +57,14 @@ class _ScreenAddRecipesState extends State<ScreenAddRecipes> {
           style: TextStyle(fontSize: 25, fontFamily: 'Righteous'),
         ),
         actions: [
-          IconButton(onPressed: () {}, icon: const Icon(Icons.info, size: 30))
+          IconButton(
+              onPressed: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const AddRecipeInfo()));
+              },
+              icon: const Icon(Icons.info, size: 30))
         ],
       ),
       body: SingleChildScrollView(
@@ -347,6 +355,7 @@ class _ScreenAddRecipesState extends State<ScreenAddRecipes> {
                         imagePath:
                             _selectedImages.map((image) => image.path).toList(),
                         tips: _tipsController.text,
+                        uploadedBy: loggedInUserEmail!,
                       );
                       addRecipe(recipe);
                       PendingModel pendingrecipe = PendingModel(
@@ -377,6 +386,7 @@ class _ScreenAddRecipesState extends State<ScreenAddRecipes> {
                       _videoUrlController.clear();
                       _ingredientsController.clear();
                       _stepsController.clear();
+                      _tipsController.clear();
                       setState(() {
                         _isTitleValid = true;
                         _selectedCategory = null;

@@ -103,7 +103,10 @@ class _ScreenRecipeOutState extends State<ScreenRecipeOut> {
                 // ),
                 Text(
                   'E n j o y  y o u r  m e a l.',
-                  style: TextStyle(fontSize: 23, fontWeight: FontWeight.bold),
+                  style: TextStyle(
+                      fontFamily: 'Kanit',
+                      fontWeight: FontWeight.w400,
+                      fontSize: 23),
                 ),
               ],
             ),

@@ -151,108 +151,110 @@ class _ScreenSignupState extends State<ScreenSignup> {
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
-        child: Form(
-            key: _formKey,
-            child: Column(children: [
-              TextFormField(
-                  controller: _usernameController,
-                  decoration: _getInputDecoration(
-                      labelText: 'Username',
-                      errorText: _usernameError,
-                      prefixIcon: const Icon(Icons.person)),
-                  onChanged: _validateUsername),
-              const SizedBox(height: 8),
-              TextFormField(
-                  controller: _emailController,
-                  decoration: _getInputDecoration(
-                      prefixIcon: const Icon(Icons.email),
-                      labelText: 'Email',
-                      errorText: _emailError),
-                  onChanged: _validateEmail),
-              const SizedBox(height: 8),
-              TextFormField(
-                  controller: _phoneController,
-                  keyboardType: TextInputType.phone,
-                  decoration: _getInputDecoration(
-                      prefixIcon: const Icon(Icons.phone),
-                      labelText: 'Phone',
-                      errorText: _phoneError),
-                  onChanged: _validatePhone),
-              const SizedBox(height: 8),
-              TextFormField(
-                  controller: _passwordController,
-                  obscureText: _obscurePassword,
-                  decoration: InputDecoration(
-                      border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(8)),
-                      prefixIcon: const Icon(Icons.lock),
-                      labelText: 'Password',
-                      labelStyle: const TextStyle(
-                          fontFamily: 'RalewayVariableFont',
-                          fontWeight: FontWeight.w700),
-                      suffixIcon: IconButton(
-                          icon: Icon(_obscurePassword
-                              ? Icons.visibility
-                              : Icons.visibility_off),
-                          onPressed: () {
-                            setState(() {
-                              _obscurePassword = !_obscurePassword;
-                            });
-                          }),
-                      hintText:
-                          'Password requires 1 special character and any 2 digits',
-                      hintStyle: const TextStyle(
-                          fontFamily: 'RalewayVariableFont',
-                          fontWeight: FontWeight.w700),
-                      errorText: _passwordError,
-                      errorStyle: const TextStyle(
-                          fontFamily: 'RalewayVariableFont',
-                          fontWeight: FontWeight.w700)),
-                  onChanged: _validatePassword),
-              const SizedBox(height: 8),
-              TextFormField(
-                  controller: _confirmPasswordController,
-                  obscureText: _obscurePassword,
-                  decoration: InputDecoration(
-                      border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(8)),
-                      prefixIcon: const Icon(Icons.lock),
-                      labelText: 'Confirm Password',
-                      labelStyle: const TextStyle(
-                          fontFamily: 'RalewayVariableFont',
-                          fontWeight: FontWeight.w700),
-                      suffixIcon: IconButton(
-                          icon: Icon(_obscurePassword
-                              ? Icons.visibility
-                              : Icons.visibility_off),
-                          onPressed: () {
-                            setState(() {
-                              _obscurePassword = !_obscurePassword;
-                            });
-                          }),
-                      errorText: _passwordError,
-                      errorStyle: const TextStyle(
-                          fontFamily: 'RalewayVariableFont',
-                          fontWeight: FontWeight.w700)),
-                  onChanged: _confirmPassword),
-              const SizedBox(height: 8),
-              SizedBox(
-                  width: double.infinity,
-                  child: ElevatedButton(
-                      onPressed: () => _submitForm(),
-                      style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.black,
-                          foregroundColor: Colors.white,
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(8))),
-                      child: const Padding(
-                          padding: EdgeInsets.all(16.0),
-                          child: Text('Submit',
-                              style: TextStyle(
-                                  fontSize: 23,
-                                  fontFamily: 'RalewayVariableFont',
-                                  fontWeight: FontWeight.w700)))))
-            ])));
+        child: Material(
+      child: Form(
+          key: _formKey,
+          child: Column(children: [
+            TextFormField(
+                controller: _usernameController,
+                decoration: _getInputDecoration(
+                    labelText: 'Username',
+                    errorText: _usernameError,
+                    prefixIcon: const Icon(Icons.person)),
+                onChanged: _validateUsername),
+            const SizedBox(height: 8),
+            TextFormField(
+                controller: _emailController,
+                decoration: _getInputDecoration(
+                    prefixIcon: const Icon(Icons.email),
+                    labelText: 'Email',
+                    errorText: _emailError),
+                onChanged: _validateEmail),
+            const SizedBox(height: 8),
+            TextFormField(
+                controller: _phoneController,
+                keyboardType: TextInputType.phone,
+                decoration: _getInputDecoration(
+                    prefixIcon: const Icon(Icons.phone),
+                    labelText: 'Phone',
+                    errorText: _phoneError),
+                onChanged: _validatePhone),
+            const SizedBox(height: 8),
+            TextFormField(
+                controller: _passwordController,
+                obscureText: _obscurePassword,
+                decoration: InputDecoration(
+                    border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(8)),
+                    prefixIcon: const Icon(Icons.lock),
+                    labelText: 'Password',
+                    labelStyle: const TextStyle(
+                        fontFamily: 'RalewayVariableFont',
+                        fontWeight: FontWeight.w700),
+                    suffixIcon: IconButton(
+                        icon: Icon(_obscurePassword
+                            ? Icons.visibility
+                            : Icons.visibility_off),
+                        onPressed: () {
+                          setState(() {
+                            _obscurePassword = !_obscurePassword;
+                          });
+                        }),
+                    hintText:
+                        'Password requires 1 special character and any 2 digits',
+                    hintStyle: const TextStyle(
+                        fontFamily: 'RalewayVariableFont',
+                        fontWeight: FontWeight.w700),
+                    errorText: _passwordError,
+                    errorStyle: const TextStyle(
+                        fontFamily: 'RalewayVariableFont',
+                        fontWeight: FontWeight.w700)),
+                onChanged: _validatePassword),
+            const SizedBox(height: 8),
+            TextFormField(
+                controller: _confirmPasswordController,
+                obscureText: _obscurePassword,
+                decoration: InputDecoration(
+                    border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(8)),
+                    prefixIcon: const Icon(Icons.lock),
+                    labelText: 'Confirm Password',
+                    labelStyle: const TextStyle(
+                        fontFamily: 'RalewayVariableFont',
+                        fontWeight: FontWeight.w700),
+                    suffixIcon: IconButton(
+                        icon: Icon(_obscurePassword
+                            ? Icons.visibility
+                            : Icons.visibility_off),
+                        onPressed: () {
+                          setState(() {
+                            _obscurePassword = !_obscurePassword;
+                          });
+                        }),
+                    errorText: _passwordError,
+                    errorStyle: const TextStyle(
+                        fontFamily: 'RalewayVariableFont',
+                        fontWeight: FontWeight.w700)),
+                onChanged: _confirmPassword),
+            const SizedBox(height: 8),
+            SizedBox(
+                width: double.infinity,
+                child: ElevatedButton(
+                    onPressed: () => _submitForm(),
+                    style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.black,
+                        foregroundColor: Colors.white,
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(8))),
+                    child: const Padding(
+                        padding: EdgeInsets.all(16.0),
+                        child: Text('Submit',
+                            style: TextStyle(
+                                fontSize: 23,
+                                fontFamily: 'RalewayVariableFont',
+                                fontWeight: FontWeight.w700)))))
+          ])),
+    ));
   }
 
   InputDecoration _getInputDecoration(

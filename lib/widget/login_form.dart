@@ -42,97 +42,98 @@ class _SignInFormState extends State<SignInForm> {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-        child: Form(
-            key: _formKey,
-            child: Column(children: [
-              TextFormField(
-                  controller: _emailController,
-                  onChanged: (value) {
-                    setState(() {
-                      isEmailValid = EmailValidator.validate(value);
-                      emailErrorText =
-                          isEmailValid ? null : 'Enter a valid email';
-                    });
-                  },
-                  validator: (_) => emailErrorText,
-                  decoration: InputDecoration(
-                      errorText: emailErrorText,
-                      errorStyle: const TextStyle(
-                          fontFamily: 'RalewayVariableFont',
-                          fontWeight: FontWeight.w700),
-                      prefixIcon: const Icon(Icons.email_outlined),
-                      labelText: 'Email',
-                      labelStyle: const TextStyle(
-                          fontFamily: 'RalewayVariableFont',
-                          fontWeight: FontWeight.w700),
-                      border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(12)))),
-              const SizedBox(height: 20),
-              TextFormField(
-                  obscureText: !isPasswordVisible,
-                  controller: _passwordController,
-                  onChanged: (value) {
-                    setState(() {
-                      passwordErrorText =
-                          value.isEmpty ? 'Enter password' : null;
-                    });
-                  },
-                  validator: (_) => passwordErrorText,
-                  decoration: InputDecoration(
-                      errorText: passwordErrorText,
-                      errorStyle: const TextStyle(
-                          fontFamily: 'RalewayVariableFont',
-                          fontWeight: FontWeight.w700),
-                      prefixIcon: const Icon(Icons.lock),
-                      suffixIcon: IconButton(
-                          icon: Icon(isPasswordVisible
-                              ? Icons.visibility
-                              : Icons.visibility_off),
-                          onPressed: () {
-                            setState(() {
-                              isPasswordVisible = !isPasswordVisible;
-                            });
-                          }),
-                      labelText: 'Password',
-                      labelStyle: const TextStyle(
-                          fontFamily: 'RalewayVariableFont',
-                          fontWeight: FontWeight.w700),
-                      border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(12)))),
-              const SizedBox(height: 20),
-              SizedBox(
-                  width: double.infinity,
-                  child: ElevatedButton(
-                      onPressed: _handleLogin,
-                      style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.black,
-                          foregroundColor: Colors.white,
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(8))),
-                      child: const Padding(
-                          padding: EdgeInsets.all(16.0),
-                          child: Text('Login',
-                              style: TextStyle(
-                                  fontSize: 23,
-                                  fontFamily: 'RalewayVariableFont',
-                                  fontWeight: FontWeight.w700))))),
-              const SizedBox(height: 10),
-              TextButton(
-                  onPressed: () {},
-                  child: const Text('Forgot Password?',
-                      style: TextStyle(
-                          fontSize: 19,
-                          fontFamily: 'RalewayVariableFont',
-                          fontWeight: FontWeight.w700))),
-              TextButton(
-                  onPressed: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => const ScreenAdminHome()));
-                  },
-                  child: const Text('Admin'))
-            ])));
+        child: Material(
+      child: Form(
+          key: _formKey,
+          child: Column(children: [
+            TextFormField(
+                controller: _emailController,
+                onChanged: (value) {
+                  setState(() {
+                    isEmailValid = EmailValidator.validate(value);
+                    emailErrorText =
+                        isEmailValid ? null : 'Enter a valid email';
+                  });
+                },
+                validator: (_) => emailErrorText,
+                decoration: InputDecoration(
+                    errorText: emailErrorText,
+                    errorStyle: const TextStyle(
+                        fontFamily: 'RalewayVariableFont',
+                        fontWeight: FontWeight.w700),
+                    prefixIcon: const Icon(Icons.email_outlined),
+                    labelText: 'Email',
+                    labelStyle: const TextStyle(
+                        fontFamily: 'RalewayVariableFont',
+                        fontWeight: FontWeight.w700),
+                    border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(12)))),
+            const SizedBox(height: 20),
+            TextFormField(
+                obscureText: !isPasswordVisible,
+                controller: _passwordController,
+                onChanged: (value) {
+                  setState(() {
+                    passwordErrorText = value.isEmpty ? 'Enter password' : null;
+                  });
+                },
+                validator: (_) => passwordErrorText,
+                decoration: InputDecoration(
+                    errorText: passwordErrorText,
+                    errorStyle: const TextStyle(
+                        fontFamily: 'RalewayVariableFont',
+                        fontWeight: FontWeight.w700),
+                    prefixIcon: const Icon(Icons.lock),
+                    suffixIcon: IconButton(
+                        icon: Icon(isPasswordVisible
+                            ? Icons.visibility
+                            : Icons.visibility_off),
+                        onPressed: () {
+                          setState(() {
+                            isPasswordVisible = !isPasswordVisible;
+                          });
+                        }),
+                    labelText: 'Password',
+                    labelStyle: const TextStyle(
+                        fontFamily: 'RalewayVariableFont',
+                        fontWeight: FontWeight.w700),
+                    border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(12)))),
+            const SizedBox(height: 20),
+            SizedBox(
+                width: double.infinity,
+                child: ElevatedButton(
+                    onPressed: _handleLogin,
+                    style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.black,
+                        foregroundColor: Colors.white,
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(8))),
+                    child: const Padding(
+                        padding: EdgeInsets.all(16.0),
+                        child: Text('Login',
+                            style: TextStyle(
+                                fontSize: 23,
+                                fontFamily: 'RalewayVariableFont',
+                                fontWeight: FontWeight.w700))))),
+            const SizedBox(height: 10),
+            // TextButton(
+            //     onPressed: () {},
+            //     child: const Text('Forgot Password?',
+            //         style: TextStyle(
+            //             fontSize: 19,
+            //             fontFamily: 'RalewayVariableFont',
+            //             fontWeight: FontWeight.w700))),
+            // TextButton(
+            //     onPressed: () {
+            //       Navigator.push(
+            //           context,
+            //           MaterialPageRoute(
+            //               builder: (context) => const ScreenAdminHome()));
+            //     },
+            //     child: const Text('Admin'))
+          ])),
+    ));
   }
 
   void _handleLogin() async {

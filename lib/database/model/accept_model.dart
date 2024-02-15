@@ -17,12 +17,17 @@ class AcceptModel {
   final String steps;
   @HiveField(6)
   final String tips;
-  AcceptModel(
-      {required this.category,
-      required this.title,
-      required this.imagePath,
-      required this.url,
-      required this.ingredients,
-      required this.steps,
-      required this.tips});
+  @HiveField(7)
+  final String uploadedBy;
+
+  AcceptModel({
+    required this.category,
+    required this.title,
+    required this.imagePath,
+    required this.url,
+    required this.ingredients,
+    required this.steps,
+    required this.tips,
+    required this.uploadedBy,
+  });
 }

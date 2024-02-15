@@ -17,8 +17,12 @@ class _ScreenCBState extends State<ScreenCB> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Chicken Briyani'),
-      ),
+          title: const Text(
+            'Chicken Briyani',
+            style: TextStyle(
+                fontFamily: 'Kanit', fontWeight: FontWeight.w400, fontSize: 23),
+          ),
+          centerTitle: true),
       body: SingleChildScrollView(
         child: Column(
           children: [
@@ -43,9 +47,7 @@ class _ScreenCBState extends State<ScreenCB> {
                     playedColor: Colors.amber,
                     handleColor: Colors.amberAccent,
                   ),
-                  onReady: () {
-                    // Add callback logic here if needed
-                  },
+                  onReady: () {},
                 ),
               ),
             ),
@@ -79,7 +81,10 @@ class _ScreenCBState extends State<ScreenCB> {
             const SizedBox(height: 10),
             const Text(
               'Enjoy your meal',
-              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+              style: TextStyle(
+                  fontFamily: 'Kanit',
+                  fontWeight: FontWeight.w400,
+                  fontSize: 23),
             ),
             const SizedBox(height: 10),
           ],
@@ -113,7 +118,8 @@ Widget _buildIngredientsList() {
                   ),
                   title: Text(
                     _ingredientsList[index],
-                    style: const TextStyle(color: Colors.white),
+                    style: const TextStyle(
+                        fontFamily: 'Kanit', fontSize: 17, color: Colors.white),
                   ),
                 );
               },
@@ -149,7 +155,8 @@ Widget _buildStepByStepProcess() {
                   ),
                   title: Text(
                     _stepByStepList[index],
-                    style: const TextStyle(color: Colors.white),
+                    style: const TextStyle(
+                        fontFamily: 'Kanit', fontSize: 17, color: Colors.white),
                   ),
                 );
               },

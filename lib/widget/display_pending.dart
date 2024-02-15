@@ -20,9 +20,7 @@ class _ScreenPendingOutState extends State<ScreenPendingOut> {
         title: Text(
           widget.recipe.title,
           style: const TextStyle(
-            fontWeight: FontWeight.bold,
-            fontSize: 23,
-          ),
+              fontFamily: 'Kanit', fontWeight: FontWeight.w400, fontSize: 23),
         ),
         centerTitle: true,
       ),
@@ -85,7 +83,10 @@ class _ScreenPendingOutState extends State<ScreenPendingOut> {
               children: [
                 Text(
                   'E n j o y  y o u r  m e a l.',
-                  style: TextStyle(fontSize: 23, fontWeight: FontWeight.bold),
+                  style: TextStyle(
+                      fontFamily: 'Kanit',
+                      fontWeight: FontWeight.w400,
+                      fontSize: 23),
                 ),
               ],
             ),
@@ -128,7 +129,8 @@ class _ScreenPendingOutState extends State<ScreenPendingOut> {
                   ),
                   title: Text(
                     ingredientsList[index],
-                    style: const TextStyle(color: Colors.white),
+                    style: const TextStyle(
+                        fontFamily: 'Kanit', fontSize: 17, color: Colors.white),
                   ),
                 );
               },
@@ -151,15 +153,6 @@ class _ScreenPendingOutState extends State<ScreenPendingOut> {
           padding: const EdgeInsets.all(8.0),
           child: Column(
             children: [
-              // const Text(
-              //   'Step-by-step process',
-              //   style: TextStyle(
-              //     fontWeight: FontWeight.bold,
-              //     fontSize: 23,
-              //     color: Colors.white,
-              //   ),
-              // ),
-              // const SizedBox(height: 5),
               ListView.builder(
                 shrinkWrap: true,
                 physics: const NeverScrollableScrollPhysics(),
@@ -172,7 +165,10 @@ class _ScreenPendingOutState extends State<ScreenPendingOut> {
                     ),
                     title: Text(
                       stepByStepList[index],
-                      style: const TextStyle(color: Colors.white),
+                      style: const TextStyle(
+                          fontFamily: 'Kanit',
+                          fontSize: 17,
+                          color: Colors.white),
                     ),
                   );
                 },

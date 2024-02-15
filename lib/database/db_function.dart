@@ -80,7 +80,7 @@ void deleteRecipe(int index) async {
 }
 
 //accept
-RecipeModel convertToRecipeModel(AcceptModel acceptModel) {
+RecipeModel convertToRecipeModel(AcceptModel acceptModel, String uploadedBy) {
   return RecipeModel(
     title: acceptModel.title,
     category: acceptModel.category,
@@ -89,8 +89,11 @@ RecipeModel convertToRecipeModel(AcceptModel acceptModel) {
     imagePath: acceptModel.imagePath,
     steps: acceptModel.steps,
     tips: acceptModel.tips,
+    uploadedBy: uploadedBy,
   );
 }
+
+// RecipeModel recipe = convertToRecipeModel(acceptModel, loggedInUserEmail);
 
 Future<List<AcceptModel>> getAllAccept() async {
   final acceptDB = await Hive.openBox<AcceptModel>('accept_db');

@@ -24,7 +24,6 @@ class _ScreenAdminUsersState extends State<ScreenAdminUsers> {
           ),
         ),
         centerTitle: true,
-        actions: [IconButton(onPressed: () {}, icon: const Icon(Icons.search))],
       ),
       body: Column(
         children: [
@@ -33,15 +32,29 @@ class _ScreenAdminUsersState extends State<ScreenAdminUsers> {
               valueListenable: userListNotifier,
               builder:
                   (BuildContext ctx, List<UserModel> userList, Widget? child) {
+                if (userList.isEmpty) {
+                  return Center(
+                    child: Text(
+                      'No users yet.',
+                      style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.w700,
+                        fontFamily: 'RalewayVariableFont',
+                      ),
+                    ),
+                  );
+                }
+
                 return ListView.separated(
                   itemBuilder: (context, index) {
                     final data = userList[index];
                     return ListTile(
                       trailing: IconButton(
-                          onPressed: () {
-                            _showDeleteConfirmationDialog(context, index);
-                          },
-                          icon: const Icon(Icons.delete)),
+                        onPressed: () {
+                          _showDeleteConfirmationDialog(context, index);
+                        },
+                        icon: const Icon(Icons.delete),
+                      ),
                       title: Text(
                         data.name,
                         style: const TextStyle(
@@ -77,21 +90,45 @@ class _ScreenAdminUsersState extends State<ScreenAdminUsers> {
       context: context,
       builder: (BuildContext dialogContext) {
         return AlertDialog(
-          title: const Text("Confirm Delete"),
-          content: const Text("Are you sure you want to delete this user?"),
+          title: const Text(
+            "Confirm Delete",
+            style: TextStyle(
+              fontSize: 23,
+              fontFamily: 'RalewayVariableFont',
+              fontWeight: FontWeight.w700,
+            ),
+          ),
+          content: const Text(
+            "Are you sure you want to delete this user?",
+            style: TextStyle(
+              fontSize: 17,
+              fontFamily: 'RalewayVariableFont',
+              fontWeight: FontWeight.w700,
+            ),
+          ),
           actions: <Widget>[
             TextButton(
               onPressed: () {
                 Navigator.of(dialogContext).pop();
               },
-              child: const Text("Cancel"),
+              child: const Text("Cancel",
+                  style: TextStyle(
+                    fontFamily: 'Kanit',
+                    fontWeight: FontWeight.w700,
+                    fontSize: 20,
+                  )),
             ),
             TextButton(
               onPressed: () {
                 deleteUser(index);
                 Navigator.of(dialogContext).pop();
               },
-              child: const Text("Delete"),
+              child: const Text("Delete",
+                  style: TextStyle(
+                    fontFamily: 'Kanit',
+                    fontWeight: FontWeight.w700,
+                    fontSize: 20,
+                  )),
             ),
           ],
         );

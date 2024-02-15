@@ -34,9 +34,9 @@ class _FavoriteCardState extends State<FavoriteCard> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Padding(
-              padding: const EdgeInsets.only(top: 17),
+              padding: const EdgeInsets.only(top: 15, bottom: 15),
               child: SizedBox(
-                height: 110,
+                height: 125,
                 width: 160,
                 child: CarouselSlider(
                   items: widget.favoriteModel.imagePath.map((imagePath) {

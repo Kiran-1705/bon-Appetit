@@ -17,6 +17,8 @@ class RecipeModel {
   final String steps;
   @HiveField(6)
   final String tips;
+  @HiveField(7)
+  final String uploadedBy;
 
   RecipeModel({
     required this.category,
@@ -26,5 +28,6 @@ class RecipeModel {
     required this.ingredients,
     required this.steps,
     required this.tips,
+    required this.uploadedBy,
   });
 }

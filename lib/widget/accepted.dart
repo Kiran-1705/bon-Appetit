@@ -42,7 +42,11 @@ class _AcceptedRecipesState extends State<AcceptedRecipes> {
             return const Center(
               child: Text(
                 'No accepted recipes available.',
-                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+                style: TextStyle(
+                  fontSize: 23,
+                  fontWeight: FontWeight.w700,
+                  fontFamily: 'RalewayVariableFont',
+                ),
               ),
             );
           }
@@ -77,21 +81,12 @@ class _AcceptedRecipesState extends State<AcceptedRecipes> {
                 ),
                 trailing: PopupMenuButton<String>(
                   onSelected: (String value) {
-                    if (value == 'Add') {
-                      // Add logic here for 'Add'
-                    } else if (value == 'Delete') {
+                    if (value == 'Delete') {
                       deleteAccepted(index);
                     }
                   },
                   itemBuilder: (BuildContext context) {
                     return <PopupMenuEntry<String>>[
-                      const PopupMenuItem<String>(
-                        value: 'Add',
-                        child: Text(
-                          'Add',
-                          style: TextStyle(fontFamily: 'Kanit', fontSize: 15),
-                        ),
-                      ),
                       const PopupMenuItem<String>(
                         value: 'Delete',
                         child: Text(

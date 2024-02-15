@@ -1,4 +1,3 @@
-import 'package:bon_appetit/screen/admin/screen_addaily.dart';
 import 'package:bon_appetit/screen/admin/screen_adrecipes.dart';
 import 'package:bon_appetit/screen/admin/screen_adusers.dart';
 import 'package:bon_appetit/screen/screen_sign.dart';
@@ -83,31 +82,6 @@ class _ScreenAdminHomeState extends State<ScreenAdminHome> {
                         CircleAvatar(radius: 35, child: Icon(Icons.receipt)),
                         SizedBox(width: 30),
                         Text('R E C I P E S',
-                            style: TextStyle(
-                                fontSize: 20,
-                                fontWeight: FontWeight.w700,
-                                fontFamily: 'RalewayVariableFont'))
-                      ])))),
-          GestureDetector(
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => const ScreenAdminDaily()),
-                );
-              },
-              child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Container(
-                      height: 100,
-                      decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(8)),
-                      child: const Row(children: [
-                        SizedBox(width: 30),
-                        CircleAvatar(radius: 35, child: Icon(Icons.home)),
-                        SizedBox(width: 30),
-                        Text('H O M E\nF E E D',
                             style: TextStyle(
                                 fontSize: 20,
                                 fontWeight: FontWeight.w700,
