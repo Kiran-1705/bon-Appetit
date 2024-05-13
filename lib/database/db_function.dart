@@ -59,10 +59,17 @@ void updateUserDetails(int index, UserModel updatedUser) async {
 }
 
 //recipe
-Future<void> getAllRecipe() async {
+// Future<void> getAllRecipe() async {
+//   final recipeDB = await Hive.openBox<RecipeModel>('recipe_db');
+//   recipeListNotifier.value = recipeDB.values.toList();
+//   recipeListNotifier.notifyListeners();
+// }
+Future<List<RecipeModel>> getAllRecipe() async {
   final recipeDB = await Hive.openBox<RecipeModel>('recipe_db');
-  recipeListNotifier.value = recipeDB.values.toList();
-  // recipeListNotifier.notifyListeners();
+  List<RecipeModel> recipes = recipeDB.values.toList();
+  recipeListNotifier.value = recipes;
+  recipeListNotifier.notifyListeners();
+  return recipes;
 }
 
 void addRecipe(RecipeModel value) async {
@@ -75,6 +82,15 @@ void deleteRecipe(int index) async {
   final recipeDB = await Hive.openBox<RecipeModel>('recipe_db');
   if (index >= 0 && index < recipeDB.length) {
     await recipeDB.deleteAt(index);
+    await getAllRecipe();
+  }
+}
+
+Future<void> updateRecipe(int index, RecipeModel updatedRecipe) async {
+  final Box<RecipeModel> recipeDB =
+      await Hive.openBox<RecipeModel>('recipe_db');
+  if (index >= 0 && index < recipeDB.length) {
+    await recipeDB.putAt(index, updatedRecipe);
     await getAllRecipe();
   }
 }
@@ -113,6 +129,14 @@ void deleteAccepted(int index) async {
   final acceptDB = await Hive.openBox<AcceptModel>('accept_db');
   if (index >= 0 && index < acceptDB.length) {
     await acceptDB.deleteAt(index);
+    await getAllAccept();
+  }
+}
+
+void editAccepted(int index, AcceptModel newValue) async {
+  final acceptDB = await Hive.openBox<AcceptModel>('accept_db');
+  if (index >= 0 && index < acceptDB.length) {
+    await acceptDB.putAt(index, newValue);
     await getAllAccept();
   }
 }
@@ -187,4 +211,10 @@ Future<bool> checkIfRecipeExistsInFavorites(String title) async {
   final acceptDB = await Hive.openBox<AcceptModel>('accept_db');
   final existingRecipes = acceptDB.values.toList();
   return existingRecipes.any((recipe) => recipe.title == title);
+}
+
+Future<List<FavoriteModel>> getAllFavorites() async {
+  final favoriteBox = await Hive.openBox<FavoriteModel>('favorite_db');
+  final favorites = favoriteBox.values.toList();
+  return favorites;
 }

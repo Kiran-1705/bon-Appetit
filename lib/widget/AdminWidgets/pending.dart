@@ -2,7 +2,7 @@ import 'package:bon_appetit/database/db_function.dart';
 import 'package:bon_appetit/database/model/accept_model.dart';
 import 'package:bon_appetit/database/model/pending_model.dart';
 import 'package:bon_appetit/database/model/reject_model.dart';
-import 'package:bon_appetit/widget/display_pending.dart';
+import 'package:bon_appetit/widget/DisplayWidgets/display_pending.dart';
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';

@@ -1,6 +1,6 @@
-import 'package:bon_appetit/widget/login_form.dart';
-import 'package:bon_appetit/widget/signup_form.dart';
-import 'package:bon_appetit/widget/tab_button.dart';
+import 'package:bon_appetit/widget/AuthWidget/login_form.dart';
+import 'package:bon_appetit/widget/AuthWidget/signup_form.dart';
+import 'package:bon_appetit/widget/Components/tab_button.dart';
 import 'package:flutter/material.dart';
 
 class ScreenSign extends StatefulWidget {

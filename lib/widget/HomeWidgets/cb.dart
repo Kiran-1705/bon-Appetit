@@ -1,16 +1,16 @@
-import 'package:bon_appetit/widget/tab_button.dart';
+import 'package:bon_appetit/widget/Components/tab_button.dart';
 import 'package:flutter/material.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
-class ScreenCFriedRice extends StatefulWidget {
-  ScreenCFriedRice({super.key});
+class ScreenCB extends StatefulWidget {
+  ScreenCB({super.key});
 
   @override
-  State<ScreenCFriedRice> createState() => _ScreenCBState();
+  State<ScreenCB> createState() => _ScreenCBState();
 }
 
-class _ScreenCBState extends State<ScreenCFriedRice> {
-  final String videoUrl = 'd02B2WIV-uU';
+class _ScreenCBState extends State<ScreenCB> {
+  final String videoUrl = '95BCU1n268w';
   int selectedTabIndex = 0;
 
   @override
@@ -18,7 +18,7 @@ class _ScreenCBState extends State<ScreenCFriedRice> {
     return Scaffold(
       appBar: AppBar(
           title: const Text(
-            'Classic Margarita',
+            'Chicken Briyani',
             style: TextStyle(
                 fontFamily: 'Kanit', fontWeight: FontWeight.w400, fontSize: 23),
           ),
@@ -170,34 +170,53 @@ Widget _buildStepByStepProcess() {
 
 final List<String> _ingredientsList = [
   'For the Rice:',
-  '2 cups cooked white rice (preferably day-old or cooled)',
-  '1 tablespoon vegetable oil',
-  '2 eggs, beaten',
-  '1/4 teaspoon salt',
-  'For the Vegetables:',
-  '1/2 onion, diced',
-  '1 carrot, diced',
-  '1/2 cup frozen peas',
-  '1/2 bell pepper (any color), diced (optional)',
-  'For the Protein:',
-  '1/2 pound boneless, skinless chicken breast, cooked and diced',
-  'You can also substitute with shrimp, tofu, or other protein of your choice.',
-  'For the Seasoning:',
-  '2 tablespoons soy sauce',
-  '1 tablespoon oyster sauce (optional)',
-  '1/2 teaspoon sesame oil',
-  '1/4 teaspoon black pepper',
-  '1/4 teaspoon garlic powder',
-  'Chopped green onions, for garnish (optional)'
+  '2 cups Basmati Rice',
+  '1 bay leaf',
+  '2 cloves',
+  '3 cardamom pods',
+  '1 cinnamon stick',
+  '1 inch ginger, sliced',
+  '2 cloves garlic, minced',
+  '1 tsp salt',
+  '4 cups water',
+  '1 tbsp sweet tamarind chutney',
+  '1/2 cup ghee or vegetable oil',
+  'For the Chicken:',
+  '1 kg boneless, skinless chicken thighs, cut into bite-sized pieces',
+  '1/2 cup yogurt',
+  '1 tbsp lemon juice',
+  '1 ginger garlic paste',
+  '1 green chili, chopped',
+  '1 tbsp coriander powder',
+  '1 tsp garam masala',
+  '1/2 tsp turmeric powder',
+  '1/2 tsp red chili powder',
+  'Salt to taste',
+  'Oil for cooking',
+  'For the Masala:',
+  '2 onions, thinly sliced',
+  '3 tbsp chopped mint leaves',
+  '2 tbsp chopped coriander leaves',
+  '1/2 cup saffron milk (soak a few saffron strands in warm milk)',
+  '1/4 cup fried onions (birista)',
+  'Salt to taste'
 ];
 
 final List<String> _stepByStepList = [
-  'Prepare the Rice: If using fresh rice, cook it according to package instructions and cool it completely.',
-  'Heat the Oil: In a large wok or skillet, heat oil over medium-high heat.',
-  'Scramble the Eggs: Add the beaten eggs and scramble until cooked through. Set aside.',
-  'Cook the Vegetables: Add the onion and carrot to the pan and cook for 2-3 minutes, until softened. Add the peas and bell pepper (if using) and cook for another minute.',
-  'Cook the Protein: Add the cooked chicken (or other protein) to the pan and stir-fry for 2-3 minutes, until heated through.',
-  'Season and Combine: Add the cooked rice, soy sauce, oyster sauce (if using), sesame oil, black pepper, and garlic powder to the pan. Stir-fry for 2-3 minutes, until everything is heated through and well combined.',
-  'Add the Eggs: Add the scrambled eggs back to the pan and mix gently to incorporate them into the rice.',
-  'Serve: Garnish with chopped green onions (optional) and serve immediately.'
+  'Step 1: Marinate the Chicken:',
+  'In a large bowl, combine yogurt, lemon juice, ginger garlic paste, green chili, coriander powder, garam masala, turmeric powder, red chili powder, and salt.',
+  'Add the chicken pieces and mix well to coat them evenly.',
+  'Cover the bowl and marinate the chicken for at least 30 minutes, or up to 4 hours for deeper flavors.',
+  'Step 2: Cook the Rice:',
+  'Rinse the basmati rice thoroughly under running water until the water runs clear.',
+  'In a large pot, heat ghee or oil over medium heat. Add bay leaf, cloves, cardamom pods, cinnamon stick, ginger, and garlic. Saute for a minute until fragrant.',
+  'Add the rinsed rice and salt. Stir fry for 2 minutes to coat the rice with the oil and spices.',
+  'Add water and bring to a boil. Once boiling, reduce heat to low, cover the pot, and simmer for 15-20 minutes, or until the rice is cooked and fluffy.',
+  'Fluff the rice with a fork and keep it aside.',
+  'Step 3: Cook the Chicken:',
+  'Heat oil in a large pan or wok over medium heat. Add the marinated chicken and cook for 5-7 minutes, stirring occasionally, until the chicken is browned and cooked through',
+  'Add the sliced onions and cook for another 5-7 minutes, until the onions are softened and translucent.',
+  'Add the cooked rice, mint leaves, coriander leaves, saffron milk, fried onions, and salt to taste.',
+  'Mix everything gently to combine without breaking the rice grains.',
+  'Cover the pan and cook on low heat for 5-10 minutes, or until the flavors have infused and the rice is heated through.'
 ];

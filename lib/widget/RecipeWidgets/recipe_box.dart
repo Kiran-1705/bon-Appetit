@@ -41,10 +41,12 @@ class _RecipeItemState extends State<RecipeItem> {
 
   @override
   Widget build(BuildContext context) {
+    final Size screenSize = MediaQuery.of(context).size;
+
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Container(
-        width: 180,
+        width: screenSize.width * 0.4,
         decoration: BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.circular(12),
@@ -55,8 +57,8 @@ class _RecipeItemState extends State<RecipeItem> {
             Padding(
               padding: const EdgeInsets.only(top: 5),
               child: SizedBox(
-                height: 135,
-                width: 160,
+                height: screenSize.height * 0.17,
+                width: screenSize.width * 0.35,
                 child: CarouselSlider(
                   items: widget.acceptModel.imagePath.map((imagePath) {
                     return ClipRRect(
@@ -132,7 +134,7 @@ class _RecipeItemState extends State<RecipeItem> {
                   },
                   icon: Icon(
                     Icons.favorite,
-                    size: 36,
+                    size: 34,
                     color: isFavorite ? Colors.red : Colors.grey,
                   ),
                 ),
@@ -146,7 +148,7 @@ class _RecipeItemState extends State<RecipeItem> {
                   },
                   icon: const Icon(
                     Icons.share,
-                    size: 36,
+                    size: 34,
                   ),
                 )
               ],

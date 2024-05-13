@@ -1,6 +1,6 @@
 import 'dart:io';
 import 'package:bon_appetit/database/model/accept_model.dart';
-import 'package:bon_appetit/widget/display_accept.dart';
+import 'package:bon_appetit/widget/DisplayWidgets/display_accept.dart';
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 

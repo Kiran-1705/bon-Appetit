@@ -1,5 +1,5 @@
 import 'package:bon_appetit/database/model/accept_model.dart';
-import 'package:bon_appetit/widget/tab_button.dart';
+import 'package:bon_appetit/widget/Components/tab_button.dart';
 import 'package:flutter/material.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
@@ -14,6 +14,7 @@ class ScreenOut extends StatefulWidget {
 
 class _ScreenOutState extends State<ScreenOut> {
   int selectedTabIndex = 0;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

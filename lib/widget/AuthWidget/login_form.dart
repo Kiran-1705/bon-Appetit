@@ -117,21 +117,6 @@ class _SignInFormState extends State<SignInForm> {
                                 fontFamily: 'RalewayVariableFont',
                                 fontWeight: FontWeight.w700))))),
             const SizedBox(height: 10),
-            // TextButton(
-            //     onPressed: () {},
-            //     child: const Text('Forgot Password?',
-            //         style: TextStyle(
-            //             fontSize: 19,
-            //             fontFamily: 'RalewayVariableFont',
-            //             fontWeight: FontWeight.w700))),
-            // TextButton(
-            //     onPressed: () {
-            //       Navigator.push(
-            //           context,
-            //           MaterialPageRoute(
-            //               builder: (context) => const ScreenAdminHome()));
-            //     },
-            //     child: const Text('Admin'))
           ])),
     ));
   }

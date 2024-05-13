@@ -1,10 +1,10 @@
 import 'package:bon_appetit/database/db_function.dart';
 import 'package:bon_appetit/database/model/accept_model.dart';
 import 'package:bon_appetit/database/model/recipe_model.dart';
-import 'package:bon_appetit/widget/accepted.dart';
-import 'package:bon_appetit/widget/pending.dart';
-import 'package:bon_appetit/widget/rejected.dart';
-import 'package:bon_appetit/widget/tab_button.dart';
+import 'package:bon_appetit/widget/AdminWidgets/accepted.dart';
+import 'package:bon_appetit/widget/AdminWidgets/pending.dart';
+import 'package:bon_appetit/widget/AdminWidgets/rejected.dart';
+import 'package:bon_appetit/widget/Components/tab_button.dart';
 import 'package:flutter/material.dart';
 
 class ScreenAdminRecipes extends StatefulWidget {

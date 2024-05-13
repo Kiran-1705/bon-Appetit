@@ -1,8 +1,9 @@
 import 'dart:io';
 import 'package:bon_appetit/database/model/user_model.dart';
 import 'package:bon_appetit/screen/screen_sign.dart';
-import 'package:bon_appetit/widget/privacy_policy.dart';
-import 'package:email_validator/email_validator.dart';
+import 'package:bon_appetit/widget/SettingsWidgets/privacy_policy.dart';
+import 'package:bon_appetit/widget/SettingsWidgets/settings_list_item.dart';
+import 'package:bon_appetit/widget/SettingsWidgets/terms_and_conditions.dart';
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 import 'package:image_picker/image_picker.dart';
@@ -19,112 +20,106 @@ class ScreenSettings extends StatefulWidget {
 class _ScreenSettingsState extends State<ScreenSettings> {
   final TextEditingController _updateNameController = TextEditingController();
   final TextEditingController _updatePhoneController = TextEditingController();
-  final TextEditingController _updateEmailController = TextEditingController();
   final GlobalKey<FormState> _updateformkey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-            title: const Text('S e t t i n g s',
-                style: TextStyle(fontSize: 25, fontFamily: 'Righteous')),
-            centerTitle: true,
-            actions: [
-              IconButton(
-                  onPressed: () {
-                    _showLogoutConfirmationDialog(context);
-                  },
-                  icon: const Icon(Icons.logout, size: 30))
-            ]),
-        body: SingleChildScrollView(
-            child:
-                Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-          Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    TextButton(
-                        onPressed: () {
-                          _showAccountSettingDialog(context);
-                        },
-                        child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              const Text('Account Settings',
-                                  style: TextStyle(
-                                      fontSize: 21,
-                                      fontFamily: 'Kanit',
-                                      color: Colors.black)),
-                              IconButton(
-                                  onPressed: () {},
-                                  icon: const Icon(Icons.arrow_forward,
-                                      color: Colors.black))
-                            ])),
-                    TextButton(
-                        onPressed: () {
-                          _showFeedbackDialog(context);
-                        },
-                        child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              const Text('Send Feedback',
-                                  style: TextStyle(
-                                      fontSize: 21,
-                                      fontFamily: 'Kanit',
-                                      color: Colors.black)),
-                              IconButton(
-                                  onPressed: () {},
-                                  icon: const Icon(Icons.feedback,
-                                      color: Colors.black))
-                            ])),
-                    TextButton(
-                        onPressed: () {
-                          _openLinkedInProfile();
-                        },
-                        child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              const Text('Follow us on LinkedIn',
-                                  style: TextStyle(
-                                      fontSize: 21,
-                                      fontFamily: 'Kanit',
-                                      color: Colors.black)),
-                              IconButton(
-                                  onPressed: () {},
-                                  icon: const Icon(Icons.link,
-                                      color: Colors.black))
-                            ])),
-                    TextButton(
-                        onPressed: () {},
-                        child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              const Text('About',
-                                  style: TextStyle(
-                                      fontSize: 21,
-                                      fontFamily: 'Kanit',
-                                      color: Colors.black)),
-                              IconButton(
-                                  onPressed: () {},
-                                  icon: const Icon(Icons.info,
-                                      color: Colors.black))
-                            ])),
-                  ])),
-        ])),
-        bottomNavigationBar: BottomAppBar(
-            child: TextButton(
-                onPressed: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => const PrivacyPolicy()));
-                },
-                child: const Text('Privacy Policy',
-                    style: TextStyle(
-                        fontSize: 21,
-                        fontFamily: 'Kanit',
-                        color: Colors.black)))));
+      appBar: AppBar(
+        title: const Text(
+          'Settings',
+          style: TextStyle(fontSize: 25, fontFamily: 'Righteous'),
+        ),
+        centerTitle: true,
+      ),
+      body: SingleChildScrollView(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            buildListItem('Account Settings', Icons.person, () {
+              _showAccountSettingDialog(context);
+            }),
+            SizedBox(height: 10),
+            buildListItem('Send Feedback', Icons.feedback, () {
+              _showFeedbackDialog(context);
+            }),
+            SizedBox(height: 10),
+            buildListItem('Follow us on LinkedIn', Icons.link, () {
+              _openLinkedInProfile();
+            }),
+            SizedBox(height: 10),
+            buildListItem('Privacy Policy', Icons.privacy_tip, () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => const PrivacyPolicy()),
+              );
+            }),
+            SizedBox(height: 10),
+            buildListItem('Terms and Conditions', Icons.policy, () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const TermsAndConditions(),
+                ),
+              );
+            }),
+            SizedBox(height: 10),
+            buildListItem('About', Icons.info, () {
+              showAboutDialog(
+                context: context,
+                applicationName: "bon Appetit",
+                applicationIcon:
+                    Image.asset('lib/assets/logo.png', width: 40, height: 40),
+              );
+            }),
+          ],
+        ),
+      ),
+      bottomNavigationBar: buildLogoutButton(),
+    );
+  }
+
+  Widget buildLogoutButton() {
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        const Padding(
+          padding: EdgeInsets.symmetric(vertical: 8),
+          child: Text(
+            "Version 1.0.0+1",
+            style: TextStyle(
+                fontSize: 16, fontFamily: 'Kanit', color: Colors.grey),
+          ),
+        ),
+        BottomAppBar(
+          child: SizedBox(
+            width: double.infinity,
+            height: 50,
+            child: ElevatedButton(
+              onPressed: () {
+                _showLogoutConfirmationDialog(context);
+              },
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Colors.black,
+                foregroundColor: Colors.white,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(12.0),
+                  side: const BorderSide(color: Colors.black),
+                ),
+                padding: const EdgeInsets.all(16.0),
+              ),
+              child: const Text(
+                'Logout',
+                style: TextStyle(
+                    fontSize: 18,
+                    fontFamily: 'RalewayVariableFont',
+                    fontWeight: FontWeight.w700),
+              ),
+            ),
+          ),
+        ),
+      ],
+    );
   }
 
   void _showLogoutConfirmationDialog(BuildContext context) {
@@ -218,20 +213,6 @@ class _ScreenSettingsState extends State<ScreenSettings> {
                       ),
                       errorText:
                           feedbackError.isNotEmpty ? feedbackError : null,
-                    ),
-                  ),
-                  const SizedBox(height: 10),
-                  TextFormField(
-                    controller: emailController,
-                    decoration: InputDecoration(
-                      labelText: 'Email (Optional)',
-                      labelStyle: const TextStyle(
-                        fontFamily: 'RalewayVariableFont',
-                        fontWeight: FontWeight.w700,
-                      ),
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(12),
-                      ),
                     ),
                   ),
                   const SizedBox(height: 10),
@@ -389,29 +370,6 @@ class _ScreenSettingsState extends State<ScreenSettings> {
                           ),
                           const SizedBox(height: 16),
                           TextFormField(
-                            controller: _updateEmailController,
-                            decoration: InputDecoration(
-                              prefixIcon: const Icon(Icons.email_outlined),
-                              hintText: loggedInUser.email,
-                              hintStyle: const TextStyle(
-                                fontFamily: 'RalewayVariableFont',
-                                fontWeight: FontWeight.w700,
-                              ),
-                              border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(12),
-                              ),
-                            ),
-                            validator: (value) {
-                              if (value!.trim().isEmpty) {
-                                return 'Please enter a email address.';
-                              } else if (!EmailValidator.validate(value)) {
-                                return 'Please enter a valid email address.';
-                              }
-                              return null;
-                            },
-                          ),
-                          const SizedBox(height: 16),
-                          TextFormField(
                             controller: _updatePhoneController,
                             decoration: InputDecoration(
                               prefixIcon: const Icon(Icons.phone),
@@ -442,7 +400,7 @@ class _ScreenSettingsState extends State<ScreenSettings> {
                                 if (_updateformkey.currentState!.validate()) {
                                   UserModel updatedUser = UserModel(
                                     name: _updateNameController.text,
-                                    email: _updateEmailController.text,
+                                    email: loggedInUser.email,
                                     phone: _updatePhoneController.text,
                                     password: loggedInUser.password,
                                     imagePath: imageFile?.path,
@@ -504,8 +462,9 @@ class _ScreenSettingsState extends State<ScreenSettings> {
   void _signout(BuildContext ctx) async {
     final SharedPreferences sharedpref = await SharedPreferences.getInstance();
     await sharedpref.clear();
-    Navigator.of(ctx).pushReplacement(
-        MaterialPageRoute(builder: (ctx) => const ScreenSign()));
+
+    Navigator.pushReplacement(
+        ctx, MaterialPageRoute(builder: (ctx) => const ScreenSign()));
   }
 
   void _openLinkedInProfile() async {

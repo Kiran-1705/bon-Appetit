@@ -138,7 +138,7 @@ class PrivacyPolicy extends StatelessWidget {
                   style: TextStyle(
                       fontSize: 16, fontFamily: 'Kanit', color: Colors.black)),
               SizedBox(height: 10),
-              Text('This policy is effective as of 2024-02-12',
+              Text('This policy is effective as of 2024-05-06',
                   style: TextStyle(
                       fontSize: 19, fontFamily: 'Kanit', color: Colors.black)),
               SizedBox(height: 10),
